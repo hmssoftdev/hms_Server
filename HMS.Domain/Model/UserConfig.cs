@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HMS.Domain
+namespace HMS.Domain.Model
 {
-   public class UserConfig:BaseEntity
+   public class UserConfig
     {
         public int Id { get; set; }
         public string UserName { get; set; }
