@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HMS.Domain
+namespace HMS.Domain.Model
 {
-   public class DishCategory : BaseEntity
+  public  class DishCategory
     {
         public string Name { get; set; }
 
