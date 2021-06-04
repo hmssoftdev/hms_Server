@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HMS.Domain
 {
-    class ClientBankDetail:BaseEntity
+   public class ClientBankDetail:BaseEntity
     {
         public int Id { get; set; }
         public string Account { get; set; }
