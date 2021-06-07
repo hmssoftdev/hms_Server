@@ -10,5 +10,8 @@ namespace HMS.Domain.Model
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public int City { get; set; }
+        public int State { get; set; }
+        public int PinCode { get; set; }
     }
 }
