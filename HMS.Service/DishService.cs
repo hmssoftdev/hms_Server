@@ -23,7 +23,7 @@ namespace HMS.Service
                                   ,[IsVeg]
                                   ,[IsHalf]
                                   ,[IsFull]
-                                   FROM[dbo].[Dish]";
+                                   FROM[dbo].[Dish]";       
         string insertQuery = "";
         string updateQuery = "";
         string deleteQuery = "";
@@ -44,14 +44,16 @@ namespace HMS.Service
             return dishList;
         }
 
-        public IList<T> GetById<T>(int id)
+        public IList<Dish> GetById<Dish>(int id)
         {
-            throw new NotImplementedException();
+            var dishList = dbHelper.FetchData<Dish>($"{selectQuery} where id ={id}");
+            return dishList;
         }
 
         public void Updat(IModel model)
         {
             throw new NotImplementedException();
         }
+
     }
 }

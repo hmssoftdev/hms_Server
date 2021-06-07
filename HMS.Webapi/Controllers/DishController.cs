@@ -29,5 +29,13 @@ namespace HMS.Webapi.Controllers
            var list =  _mapper.Map<List< HMS.Domain.Model.Dish>>(dishList);
             return Ok(list);
         }
+
+        [HttpGet("GetById/{id:int}")]
+        public IActionResult GetById(int id)
+        {
+            var dishList = _dishService.GetById<Dish>(id);
+            var list = _mapper.Map<List<HMS.Domain.Model.Dish>>(dishList);
+            return Ok(list);
+        }
     }
 }
