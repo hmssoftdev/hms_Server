@@ -30,6 +30,7 @@ namespace HMS.Webapi
             services.AddAutoMapper(typeof(Startup));
 
             services.AddSingleton<IDishService, DishService>();
+            services.AddSingleton<IUserConfigService, UserConfigService>();
 
         }
 

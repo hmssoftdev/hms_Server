@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using HMS.Domain;
+using HMS.Service;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,20 +12,22 @@ namespace HMS.Webapi.Controllers
 {
     public class UserConfigController : BaseController
     {
-        private readonly ILogger<UseConfigController> _logger;
-        IUserConfigService _dishService;
+        private readonly ILogger<UserConfigController> _logger;
+        IUserConfigService _UserConfigService;
         public UserConfigController(IMapper mapper, IUserConfigService modelService) : base(mapper)
         {
-            _dishService = modelService;
+            _UserConfigService = modelService;
         }
+
+        public object UserConfigdList { get; private set; }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
-            //var dishList = _dishService.GetAll<UserConfig>();
-            //var list = _mapper.Map<List<HMS.Domain.Model.Dish>>(dishList);
-            //return Ok(list);
+           
+            var UserConfigList = _UserConfigService.GetAll<UserConfig>();
+            var list = _mapper.Map<List<HMS.Domain.Model.UserConfig>>(UserConfigList);
+            return Ok(list);
         }
     }
 }
