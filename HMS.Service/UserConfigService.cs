@@ -24,6 +24,9 @@ namespace HMS.Service
         string insertQuery = "";
         string updateQuery = "";
         string deleteQuery = "";
+
+        public IList<object> UserConfigList { get; private set; }
+
         public void Add(IModel model)
         {
             throw new NotImplementedException();
@@ -39,10 +42,11 @@ namespace HMS.Service
             var UserConfigList = dbHelper.FetchData<UserConfig>($"{selectQuery}");
             return UserConfigList;
         }
-
-        public IList<T> GetById<T>(int id)
+       
+        public IList<UserConfig> GetById<UserConfig>(int id)
         {
-            throw new NotImplementedException();
+            var UserConfigList = dbHelper.FetchData<UserConfig>($"{selectQuery} where id ={id}");
+            return UserConfigList;
         }
 
         public void Updat(IModel model)
