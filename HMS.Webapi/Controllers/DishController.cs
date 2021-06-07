@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HMS.Domain;
+using HMS.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,20 +16,18 @@ namespace HMS.Webapi.Controllers
 
 
         private readonly ILogger<DishController> _logger;
-
-        public DishController(IMapper mapper):base(mapper)
+        IDishService _dishService;
+        public DishController(IMapper mapper, IDishService modelService) :base(mapper)
         {
-
+            _dishService = modelService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var dishList = new List<Dish>();
-            dishList.Add(new Dish { Name = "Name1" });
-            dishList.Add(new Dish { Name = "Name2" });
-            dishList.Add(new Dish { Name = "Name3" });
-            return Ok(dishList);
+            var dishList = _dishService.GetAll<Dish>();
+           var list =  _mapper.Map<List< HMS.Domain.Model.Dish>>(dishList);
+            return Ok(list);
         }
     }
 }

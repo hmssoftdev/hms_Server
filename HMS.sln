@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Webapi", "HMS.Webapi\HMS.Webapi.csproj", "{CD979235-954F-4AC2-BD4F-817E64F25CD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Webapi", "HMS.Webapi\HMS.Webapi.csproj", "{CD979235-954F-4AC2-BD4F-817E64F25CD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C6F1158D-7D61-4661-BDE0-671225A99FCD} = {C6F1158D-7D61-4661-BDE0-671225A99FCD}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Domain", "HMS.Domain\HMS.Domain.csproj", "{CCF38589-D60D-411F-B06E-6604DCE0F5EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Domain", "HMS.Domain\HMS.Domain.csproj", "{CCF38589-D60D-411F-B06E-6604DCE0F5EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{C6F1158D-7D61-4661-BDE0-671225A99FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{CCF38589-D60D-411F-B06E-6604DCE0F5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCF38589-D60D-411F-B06E-6604DCE0F5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCF38589-D60D-411F-B06E-6604DCE0F5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,4 @@
+using HMS.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,8 @@ namespace HMS.Webapi
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddSingleton<IDishService, DishService>();
 
         }
 

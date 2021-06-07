@@ -12,6 +12,8 @@
 /HMS.Webapi/obj/
 /HMS.Domain/bin/
 /HMS.Domain/obj/
+/HMS.Service/bin/
+/HMS.Service/obj/
 
 # profiling files
 chrome-profiler-events*.json
