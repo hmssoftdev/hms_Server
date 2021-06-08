@@ -6,7 +6,7 @@ namespace HMS.Domain
 {
    public class Client:BaseEntity
     {
-        public int Id { get; set; }
+       
         public string Business { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }

@@ -8,6 +8,7 @@ namespace HMS.Webapi
         {
             CreateMap<HMS.Domain.Dish, HMS.Domain.Model.Dish>();
             CreateMap<HMS.Domain.UserConfig, HMS.Domain.Model.UserConfig>();
+            CreateMap<HMS.Domain.Admin, HMS.Domain.Model.Admin>();
            
         }
     }

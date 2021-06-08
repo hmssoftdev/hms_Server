@@ -6,7 +6,7 @@ namespace HMS.Domain
 {
    public class ClientBankDetail:BaseEntity
     {
-        public int Id { get; set; }
+        
         public string AccountName { get; set; }
         public int AccountNumber { get; set; }
         public string BankName { get; set; }
