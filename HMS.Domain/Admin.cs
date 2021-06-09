@@ -10,7 +10,7 @@ namespace HMS.Domain
         public string BusinessName { get; set; }
         public string Category { get; set; }
         public int FoodLincNum { get; set; }
-        public string Address { get; set; }
+        //public string Address { get; set; }
         public int Gst { get; set; }
         public ClientBankDetail BankDetail { get; set; }
         public int PinCode { get; set; }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HMS.Webapi.Controllers
 {
+    [Route("[controller]")]
     public class UserConfigController : BaseController
     {
         private readonly ILogger<UserConfigController> _logger;
@@ -26,6 +27,13 @@ namespace HMS.Webapi.Controllers
         {
            
             var UserConfigList = _UserConfigService.GetAll<UserConfig>();
+            var list = _mapper.Map<List<HMS.Domain.Model.UserConfig>>(UserConfigList);
+            return Ok(list);
+        }
+        [HttpGet("GetById/{id:int}")]
+        public IActionResult GetById(int id)
+        {
+            var UserConfigList = _UserConfigService.GetById<UserConfig>(id);
             var list = _mapper.Map<List<HMS.Domain.Model.UserConfig>>(UserConfigList);
             return Ok(list);
         }
