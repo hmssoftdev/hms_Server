@@ -14,16 +14,17 @@ namespace HMS.Webapi.Controllers
     public class AdminController:BaseController
     {
         private readonly ILogger<AdminController> _logger;
-        IAdminService _dishService;
+        IAdminService _AdminService;
         public AdminController(IMapper mapper, IAdminService modelService) : base(mapper)
         {
-            _dishService = modelService;
+            _AdminService = modelService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var AdminList = _dishService.GetAll<Admin>();
+
+            var AdminList = _AdminService.GetAll<Admin>();
             var list = _mapper.Map<List<HMS.Domain.Model.Admin>>(AdminList);
             return Ok(list);
         }
@@ -31,9 +32,10 @@ namespace HMS.Webapi.Controllers
         [HttpGet("GetById/{id:int}")]
         public IActionResult GetById(int id)
         {
-            var AdminList = _dishService.GetById<Admin>(id);
+            var AdminList = _AdminService.GetById<Admin>(id);
             var list = _mapper.Map<List<HMS.Domain.Model.Admin>>(AdminList);
             return Ok(list);
         }
+       
     }
 }

@@ -37,5 +37,12 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.Dish>>(dishList);
             return Ok(list);
         }
+       [HttpPost]
+       public IActionResult post(Dish dish)
+        {
+            //Dish dish = new Dish();
+            dish.Name = "chicken";
+            return Ok(dish);
+        }
     }
 }
