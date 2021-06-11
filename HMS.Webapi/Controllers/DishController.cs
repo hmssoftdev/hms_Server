@@ -40,9 +40,8 @@ namespace HMS.Webapi.Controllers
        [HttpPost]
        public IActionResult post(Dish dish)
         {
-            //Dish dish = new Dish();
-            dish.Name = "chicken";
-            return Ok(dish);
+            _dishService.Add(dish);
+            return Ok();
         }
     }
 }

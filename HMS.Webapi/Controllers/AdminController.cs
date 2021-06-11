@@ -36,6 +36,12 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.Admin>>(AdminList);
             return Ok(list);
         }
-       
+        [HttpPost]
+        public IActionResult post(Admin admin)
+        {
+            _AdminService.Add(admin);
+            return Ok();
+        }
+
     }
 }

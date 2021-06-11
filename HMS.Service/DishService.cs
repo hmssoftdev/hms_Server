@@ -9,7 +9,7 @@ namespace HMS.Service
     {
         DbHelper dbHelper = new DbHelper();
         string selectQuery = @"SELECT [Id]
-                                  ,[IsActiv]
+                                  ,[IsActive]
                                   ,[CreatedOn]
                                   ,[CreatedBy]
                                   ,[UpdatedOn]
@@ -24,13 +24,44 @@ namespace HMS.Service
                                   ,[IsHalf]
                                   ,[IsFull]
                                    FROM[dbo].[Dish]";       
-        string insertQuery = "";
+        string insertQuery = @"INSERT INTO [dbo].[Dish]
+                                   ([IsActive]
+                                   ,[CreatedOn]
+                                   ,[CreatedBy]
+                                   ,[UpdatedOn]
+                                   ,[UpdatedBy]
+                                   ,[Name]
+                                   ,[Description]
+                                   ,[HalfPrice]
+                                   ,[FullPrice]
+                                   ,[HotelId]
+                                   ,[MainCategoryId]
+                                   ,[IsVeg]
+                                   ,[IsHalf]
+                                   ,[IsFull])
+                             VALUES
+                                   (@IsActive
+                                   ,@CreatedOn
+                                   ,@CreatedBy
+                                   ,@UpdatedOn
+                                   ,@UpdatedBy
+                                   ,@Name
+                                   ,@Description
+                                   ,@HalfPrice
+                                   ,@FullPrice
+                                   ,@HotelId
+                                   ,@MainCategoryId
+                                   ,@IsVeg
+                                   ,@IsHalf
+                                   ,@IsFull)";
         string updateQuery = "";
         string deleteQuery = "";
 
         public void Add(IModel model)
         {
-            throw new NotImplementedException();
+            var dish = (Dish)model;
+            dish.IsActive = true;
+            dbHelper.Add(insertQuery, dish);
         }
 
         public void Delete(int id)

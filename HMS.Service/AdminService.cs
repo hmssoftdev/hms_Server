@@ -28,13 +28,55 @@ namespace HMS.Service
                                   ,[RestaurentLogo]
                                   ,[Signature]
                                   ,[TermAndCondition]
+                                   ,[BankAddress]
                               FROM [dbo].[Admin]";
-        string insertQuery = "";
+        string insertQuery = @"INSERT INTO [dbo].[Admin]
+                                   ([IsActive]
+                                   ,[CreatedOn]
+                                   ,[CreatedBy]
+                                   ,[UpdatedOn]
+                                   ,[UpdatedBy]
+                                   ,[BusinessName]
+                                   ,[Category]
+                                   ,[FoodLincNum]
+                                   ,[Address]
+                                   ,[Gst]
+                                   ,[AccountName]
+                                   ,[AccountNumber]
+                                   ,[BankName]
+                                   ,[IfscCode]
+                                   ,[PinCode]
+                                   ,[RestaurentLogo]
+                                   ,[Signature]
+                                   ,[TermAndCondition]
+                                   ,[BankAddress])
+                             VALUES
+                                   (@IsActive 
+                                   ,@CreatedOn
+                                   ,@CreatedBy
+                                   ,@UpdatedOn
+                                   ,@UpdatedBy
+                                   ,@BusinessName
+                                   ,@Category
+                                   ,@FoodLincNum
+                                   ,@Address
+                                   ,@Gst
+                                   ,@AccountName
+                                   ,@AccountNumber
+                                   ,@BankName
+                                   ,@IfscCode
+                                   ,@PinCode
+                                   ,@RestaurentLogo
+                                   ,@Signature
+                                   ,@TermAndCondition
+                                   ,@BankAddress)";
         string updateQuery = "";
         string deleteQuery = "";
         public void Add(IModel model)
         {
-            throw new NotImplementedException();
+            var admin = (Admin)model;
+            admin.IsActive = true;
+            dbHelper.Add(insertQuery, admin);
         }
 
         public void Delete(int id)
