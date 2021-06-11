@@ -10,13 +10,13 @@ namespace HMS.Service
     public class DbHelper
     {
         string connectionString = "Data Source=DESKTOP-9IJKFVB;Initial Catalog=hms;Integrated Security=True";
-        public IList<T> FetchData<T>(string query)
+        public IList<T> FetchData<T>(string StateSelectQuery)
         {
             var result = new List<T>();
 
             using (var connection = new SqlConnection(connectionString))
             {
-                result = connection.Query<T>(query).ToList();
+                result = connection.Query<T>(StateSelectQuery).ToList();
             }
             return result;
         }

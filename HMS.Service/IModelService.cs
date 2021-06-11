@@ -18,4 +18,12 @@ namespace HMS.Service
     public interface IUserConfigService: IModelService { } 
     public interface IAdminService: IModelService { } 
     public interface IDishCategoryService: IModelService { } 
+    public interface IMasterService
+    {
+        IList<T> GetAllState<T>();
+        IList<T> GetAllCity<T>();
+    } 
+     
+
+    
 }

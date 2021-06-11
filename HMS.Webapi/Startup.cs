@@ -33,6 +33,7 @@ namespace HMS.Webapi
             services.AddSingleton<IUserConfigService, UserConfigService>();
             services.AddSingleton<IAdminService, AdminService>();
             services.AddSingleton<IDishCategoryService, DishCategoryService>();
+            services.AddSingleton<IMasterService, MasterService>();
 
         }
 
