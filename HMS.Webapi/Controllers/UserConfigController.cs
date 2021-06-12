@@ -37,5 +37,19 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.UserConfig>>(UserConfigList);
             return Ok(list);
         }
+        [HttpPost]
+        public IActionResult post(UserConfig userConfig)
+        {
+            _UserConfigService.Add(userConfig);
+            return Ok();
+        }
+
+
+        [HttpPut]
+        public IActionResult put(UserConfig userConfig)
+        {
+            _UserConfigService.Update(userConfig);
+            return Ok();
+        }
     }
 }

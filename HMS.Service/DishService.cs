@@ -54,7 +54,20 @@ namespace HMS.Service
                                    ,@IsVeg
                                    ,@IsHalf
                                    ,@IsFull)";
-        string updateQuery = "";
+        string updateQuery = @"UPDATE [dbo].[Dish]
+                                  SET [IsActive] = @IsActive
+                                  ,[UpdatedOn] = @UpdatedOn
+                                  ,[UpdatedBy] = @UpdatedBy
+                                  ,[Name] = @Name
+                                  ,[Description] = @Description
+                                  ,[HalfPrice] = @HalfPrice
+                                  ,[FullPrice] = @FullPrice
+                                  ,[HotelId] = @HotelId
+                                  ,[MainCategoryId] = @MainCategoryId
+                                  ,[IsVeg] = @IsVeg
+                                  ,[IsHalf] =@IsHalf
+                                  ,[IsFull] =@IsFull
+                             WHERE id = @id";
         string deleteQuery = "";
 
         public void Add(IModel model)
@@ -81,9 +94,10 @@ namespace HMS.Service
             return dishList;
         }
 
-        public void Updat(IModel model)
+        public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var dish = (Dish)model;
+            dbHelper.Update(updateQuery, dish);
         }
 
     }

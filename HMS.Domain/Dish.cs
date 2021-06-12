@@ -8,7 +8,7 @@ namespace HMS.Domain
     {
 
         public string Name { get; set; }
-        public int Description { get; set; }
+        public string Description { get; set; }
         public int HalfPrice { get; set; }
         public int FullPrice { get; set; }
 

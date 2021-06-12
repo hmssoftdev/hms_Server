@@ -70,7 +70,27 @@ namespace HMS.Service
                                    ,@Signature
                                    ,@TermAndCondition
                                    ,@BankAddress)";
-        string updateQuery = "";
+        string updateQuery = @"UPDATE [dbo].[Admin]
+                           SET [IsActive] =@IsActive
+                              ,[CreatedOn] =@CreatedOn
+                              ,[CreatedBy] =@CreatedBy
+                              ,[UpdatedOn] =@UpdatedOn
+                              ,[UpdatedBy] =@UpdatedBy
+                              ,[BusinessName] =@BusinessName
+                              ,[Category] =@Category
+                              ,[FoodLincNum] =@FoodLincNum
+                              ,[Address] =@Address
+                              ,[Gst] =@Gst
+                              ,[AccountName] =@AccountName
+                              ,[AccountNumber] =@AccountNumber
+                              ,[BankName] =@BankName
+                              ,[IfscCode] =@IfscCode
+                              ,[PinCode] =@PinCode
+                              ,[RestaurentLogo] =@RestaurentLogo
+                              ,[Signature] =@Signature
+                              ,[TermAndCondition] =@TermAndCondition
+                              ,[BankAddress] =@BankAddress
+                         WHERE Id=@Id";
         string deleteQuery = "";
         public void Add(IModel model)
         {
@@ -96,9 +116,11 @@ namespace HMS.Service
             return AdminList;
         }
 
-        public void Updat(IModel model)
+        public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var admin = (Admin)model;
+            
+            dbHelper.Add(updateQuery, admin);
         }
     }
 }

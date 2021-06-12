@@ -9,7 +9,7 @@ namespace HMS.Domain.Model
         public int Id { get; set; }
         public bool IsActive { get; set; }
         public string Name { get; set; }
-        public int Description { get; set; }
+        public string Description { get; set; }
         public int HalfPrice { get; set; }
         public int FullPrice { get; set; }
         public int HotelId { get; set; }

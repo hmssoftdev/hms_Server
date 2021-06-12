@@ -10,7 +10,7 @@ namespace HMS.Service
         IList<T> GetAll<T>();
         IList<T> GetById<T>(int id);
         void Add(IModel model);
-        void Updat(IModel model);
+        void Update(IModel model);
         void Delete(int id);
     }
 

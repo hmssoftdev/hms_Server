@@ -41,7 +41,7 @@ namespace HMS.Service
             throw new NotImplementedException();
         }
 
-        public void Updat(IModel model)
+        public void Update(IModel model)
         {
             throw new NotImplementedException();
         }

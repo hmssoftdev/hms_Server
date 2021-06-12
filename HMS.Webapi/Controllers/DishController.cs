@@ -38,9 +38,16 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
        [HttpPost]
-       public IActionResult post(Dish dish)
+       public IActionResult Post(Dish dish)
         {
             _dishService.Add(dish);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Put(Dish dish)
+        {
+            _dishService.Update(dish);
             return Ok();
         }
     }

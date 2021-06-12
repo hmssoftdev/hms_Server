@@ -21,15 +21,52 @@ namespace HMS.Service
                                   ,[UpdatedOn]
                                   ,[UpdatedBy]
                               FROM [dbo].[UserConfig]";
-        string insertQuery = "";
-        string updateQuery = "";
+        string insertQuery =@"INSERT INTO [dbo].[UserConfig]
+                           ([UserName]
+                           ,[Email]
+                           ,[Address]
+                           ,[City]
+                           ,[State]
+                           ,[PinCode]
+                           ,[IsActive]
+                           ,[CreatedOn]
+                           ,[CreatedBy]
+                           ,[UpdatedOn]
+                           ,[UpdatedBy])
+                     VALUES
+                           (@UserName
+                           , @Email
+                           , @Address
+                           , @City
+                           , @State
+                           , @PinCode
+                           , @IsActive
+                           , @CreatedOn
+                           , @CreatedBy
+                           , @UpdatedOn
+                           , @UpdatedBy)";
+        string updateQuery = @"UPDATE [dbo].[UserConfig]
+                           SET [UserName] =@UserName
+                              ,[Email] =@Email
+                              ,[Address] =@Address
+                              ,[City] =@City
+                              ,[State] =@State
+                              ,[PinCode] =@PinCode
+                              ,[IsActive] =@IsActive
+                              ,[CreatedOn] =@CreatedOn
+                              ,[CreatedBy] =@CreatedBy
+                              ,[UpdatedOn] =@UpdatedOn
+                              ,[UpdatedBy] =@UpdatedBy
+                         WHERE Id=@Id";
         string deleteQuery = "";
 
         public IList<object> UserConfigList { get; private set; }
 
         public void Add(IModel model)
         {
-            throw new NotImplementedException();
+            var userConfig = (UserConfig)model;
+            userConfig.IsActive = true;
+            dbHelper.Add(insertQuery, userConfig);
         }
 
         public void Delete(int id)
@@ -49,9 +86,12 @@ namespace HMS.Service
             return UserConfigList;
         }
 
-        public void Updat(IModel model)
+        public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var userConfig = (UserConfig)model;
+            
+            dbHelper.Update(updateQuery, userConfig);
+
         }
     }
 }
