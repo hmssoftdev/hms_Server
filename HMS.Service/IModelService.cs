@@ -17,7 +17,8 @@ namespace HMS.Service
     public interface IDishService: IModelService { } 
     public interface IUserConfigService: IModelService { } 
     public interface IAdminService: IModelService { } 
-    public interface IDishCategoryService: IModelService { } 
+    public interface IDishCategoryService: IModelService { }
+    public interface IUserFeedbackService : IModelService { }
     public interface IMasterService
     {
         IList<T> GetAllState<T>();
