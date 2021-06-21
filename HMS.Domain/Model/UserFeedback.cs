@@ -6,6 +6,7 @@ namespace HMS.Domain.Model
 {
    public  class UserFeedback
     {
+        public int Id { get; set; }
         public int Rating { get; set; }
         public string OpinionText { get; set; }
         public string ReviewTitle { get; set; }
