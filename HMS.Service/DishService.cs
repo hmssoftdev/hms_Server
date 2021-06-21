@@ -20,54 +20,68 @@ namespace HMS.Service
                                   ,[FullPrice]
                                   ,[HotelId]
                                   ,[MainCategoryId]
+                                  ,[Quantity]
+                                  ,[TimeForCook]
                                   ,[IsVeg]
-                                  ,[IsHalf]
-                                  ,[IsFull]
-                                   FROM[dbo].[Dish]";       
+                                  ,[NonVegCategory]
+                                  ,[status]
+                                  ,[ImageUrl]
+                              FROM [dbo].[Dish]";       
         string insertQuery = @"INSERT INTO [dbo].[Dish]
-                                   ([IsActive]
-                                   ,[CreatedOn]
-                                   ,[CreatedBy]
-                                   ,[UpdatedOn]
-                                   ,[UpdatedBy]
-                                   ,[Name]
-                                   ,[Description]
-                                   ,[HalfPrice]
-                                   ,[FullPrice]
-                                   ,[HotelId]
-                                   ,[MainCategoryId]
-                                   ,[IsVeg]
-                                   ,[IsHalf]
-                                   ,[IsFull])
-                             VALUES
-                                   (@IsActive
-                                   ,@CreatedOn
-                                   ,@CreatedBy
-                                   ,@UpdatedOn
-                                   ,@UpdatedBy
-                                   ,@Name
-                                   ,@Description
-                                   ,@HalfPrice
-                                   ,@FullPrice
-                                   ,@HotelId
-                                   ,@MainCategoryId
-                                   ,@IsVeg
-                                   ,@IsHalf
-                                   ,@IsFull)";
+                                       ([IsActive]
+                                       ,[CreatedOn]
+                                       ,[CreatedBy]
+                                       ,[UpdatedOn]
+                                       ,[UpdatedBy]
+                                       ,[Name]
+                                       ,[Description]
+                                       ,[HalfPrice]
+                                       ,[FullPrice]
+                                       ,[HotelId]
+                                       ,[MainCategoryId]
+                                       ,[Quantity]
+                                       ,[TimeForCook]
+                                       ,[IsVeg]
+                                       ,[NonVegCategory]
+                                       ,[status]
+                                       ,[ImageUrl])
+                                 VALUES
+                                       (@IsActive
+                                       ,@CreatedOn
+                                       ,@CreatedBy
+                                       ,@UpdatedOn
+                                       ,@UpdatedBy
+                                       ,@Name
+                                       ,@Description
+                                       ,@HalfPrice
+                                       ,@FullPrice
+                                       ,@HotelId
+                                       ,@MainCategoryId
+                                       ,@Quantity
+                                       ,@TimeForCook
+                                       ,@IsVeg
+                                       ,@NonVegCategory
+                                       ,@status
+                                       ,@ImageUrl)";
         string updateQuery = @"UPDATE [dbo].[Dish]
-                                  SET [IsActive] = @IsActive
-                                  ,[UpdatedOn] = @UpdatedOn
-                                  ,[UpdatedBy] = @UpdatedBy
-                                  ,[Name] = @Name
-                                  ,[Description] = @Description
-                                  ,[HalfPrice] = @HalfPrice
-                                  ,[FullPrice] = @FullPrice
-                                  ,[HotelId] = @HotelId
-                                  ,[MainCategoryId] = @MainCategoryId
-                                  ,[IsVeg] = @IsVeg
-                                  ,[IsHalf] =@IsHalf
-                                  ,[IsFull] =@IsFull
-                             WHERE id = @id";
+                                   SET [IsActive] =@IsActive
+                                      ,[CreatedOn] =@CreatedOn
+                                      ,[CreatedBy] =@CreatedBy
+                                      ,[UpdatedOn] =@UpdatedOn
+                                      ,[UpdatedBy] =@UpdatedBy
+                                      ,[Name] =@Name
+                                      ,[Description] =@Description
+                                      ,[HalfPrice] =@HalfPrice
+                                      ,[FullPrice] =@FullPrice
+                                      ,[HotelId] =@HotelId
+                                      ,[MainCategoryId] =@MainCategoryId
+                                      ,[Quantity] =@Quantity
+                                      ,[TimeForCook] =@TimeForCook
+                                      ,[IsVeg] =@IsVeg
+                                      ,[NonVegCategory] =@NonVegCategory
+                                      ,[status] =@status
+                                      ,[ImageUrl] =@ImageUrl
+                                 WHERE Id =@Id";
         string deleteQuery = "";
 
         public void Add(IModel model)

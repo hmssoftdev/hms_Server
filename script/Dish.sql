@@ -1,7 +1,7 @@
 USE [hms]
 GO
 
-/****** Object:  Table [dbo].[Dish]    Script Date: 05-06-2021 14:02:25 ******/
+/****** Object:  Table [dbo].[Dish]    Script Date: 21-06-2021 18:28:18 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,20 +10,23 @@ GO
 
 CREATE TABLE [dbo].[Dish](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[IsActiv] [bit] NULL,
+	[IsActive] [bit] NULL,
 	[CreatedOn] [datetime] NULL,
 	[CreatedBy] [int] NULL,
 	[UpdatedOn] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[Name] [varchar](100) NULL,
-	[Description] [int] NULL,
+	[Description] [varchar](100) NULL,
 	[HalfPrice] [int] NULL,
 	[FullPrice] [int] NULL,
 	[HotelId] [int] NULL,
 	[MainCategoryId] [int] NULL,
+	[Quantity] [int] NULL,
+	[TimeForCook] [int] NULL,
 	[IsVeg] [bit] NULL,
-	[IsHalf] [bit] NULL,
-	[IsFull] [bit] NULL
+	[NonVegCategory] [varchar](100) NULL,
+	[status] [varchar](100) NULL,
+	[ImageUrl] [varchar](100) NULL
 ) ON [PRIMARY]
 GO
 

@@ -16,8 +16,12 @@ namespace HMS.Domain
         public  Hotel Hotel{get; set;}
         public int MainCategoryId { get; set; }
         public bool IsVeg { get; set; }
-        public bool IsHalf { get; set; }
-        public bool IsFull { get; set; }
+        public int Quantity { get; set; }
+        public int TimeForCook { get; set; }
+        public string NonVegCategory { get; set; }
+        public string status { get; set; }
+        public string ImageUrl { get; set; }
+      
      
 
     }
