@@ -28,7 +28,9 @@ namespace HMS.Service
                                   ,[RestaurentLogo]
                                   ,[Signature]
                                   ,[TermAndCondition]
-                                   ,[BankAddress]
+                                  ,[BankAddress]
+                                  ,[CodeImage]
+                                  ,[CodeNumber]
                               FROM [dbo].[Admin]";
         string insertQuery = @"INSERT INTO [dbo].[Admin]
                                    ([IsActive]
@@ -49,7 +51,9 @@ namespace HMS.Service
                                    ,[RestaurentLogo]
                                    ,[Signature]
                                    ,[TermAndCondition]
-                                   ,[BankAddress])
+                                   ,[BankAddress]
+                                   ,[CodeImage]
+                                   ,[CodeNumber])
                              VALUES
                                    (@IsActive 
                                    ,@CreatedOn
@@ -69,7 +73,9 @@ namespace HMS.Service
                                    ,@RestaurentLogo
                                    ,@Signature
                                    ,@TermAndCondition
-                                   ,@BankAddress)";
+                                   ,@BankAddress
+                                   ,@CodeImage
+                                   ,@CodeNumber)";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -90,6 +96,8 @@ namespace HMS.Service
                               ,[Signature] =@Signature
                               ,[TermAndCondition] =@TermAndCondition
                               ,[BankAddress] =@BankAddress
+                              ,[CodeImage] =@CodeImage
+                              ,[CodeNumber] =@CodeNumber
                          WHERE Id=@Id";
         string deleteQuery = "";
         public void Add(IModel model)

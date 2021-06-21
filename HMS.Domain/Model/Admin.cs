@@ -23,5 +23,7 @@ namespace HMS.Domain.Model
         public string RestaurentSeal { get; set; }
         public string Signature { get; set; }
         public string TermAndCondition { get; set; }
+        public string CodeImage { get; set; }
+        public string CodeNumber { get; set; }
     }
 }
