@@ -6,6 +6,7 @@ namespace HMS.Domain.Model
 {
    public class Admin
     {
+        public int Id { get; set; }
         public string BusinessName { get; set; }
         public string Category { get; set; }
         public string FoodLincNum { get; set; }
