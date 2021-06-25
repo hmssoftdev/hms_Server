@@ -18,6 +18,7 @@ namespace HMS.Service
                                   ,[OpinionText]
                                   ,[ReviewTitle]
                                   ,[TermsAccept]
+                                  ,[TimeStamp]
                               FROM [dbo].[UserFeedback]";
         string insertQuery = @"INSERT INTO [dbo].[UserFeedback]
                                        ([IsActive]
@@ -28,7 +29,8 @@ namespace HMS.Service
                                        ,[Rating]
                                        ,[OpinionText]
                                        ,[ReviewTitle]
-                                       ,[TermsAccept])
+                                       ,[TermsAccept]
+                                       ,[TimeStamp])
                                  VALUES
                                        (@IsActive
                                        ,@CreatedOn
@@ -38,7 +40,8 @@ namespace HMS.Service
                                        ,@Rating
                                        ,@OpinionText
                                        ,@ReviewTitle
-                                       ,@TermsAccept)";
+                                       ,@TermsAccept
+                                       ,@TimeStamp)";
         string updateQuery = @"UPDATE [dbo].[UserFeedback]
                                    SET [IsActive] =@IsActive
                                       ,[CreatedOn] =@CreatedOn
@@ -49,6 +52,7 @@ namespace HMS.Service
                                       ,[OpinionText] =@OpinionText
                                       ,[ReviewTitle] =@ReviewTitle
                                       ,[TermsAccept] =@TermsAccept
+                                      ,[TimeStamp]=@TimeStamp
                                  WHERE Id =@Id";
         string deleteQuery = "";
         public void Add(IModel model)

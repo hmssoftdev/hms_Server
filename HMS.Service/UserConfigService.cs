@@ -8,25 +8,30 @@ namespace HMS.Service
     public class UserConfigService : IUserConfigService
     {
         DbHelper dbHelper = new DbHelper();
-        string selectQuery = @"SELECT [UserName]
-                                  ,[Email]
-                                  ,[Address]
-                                  ,[City]
-                                  ,[State]
-                                  ,[PinCode]
-                                  ,[Id]
-                                  ,[IsActive]
-                                  ,[CreatedOn]
-                                  ,[CreatedBy]
-                                  ,[UpdatedOn]
-                                  ,[UpdatedBy]
-                              FROM [dbo].[UserConfig]";
+        string selectQuery = @"SELECT  u.[UserName]
+                              ,u.[Email]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]   
+	                          ,st.[Name] as State
+	                          ,ct.[Name] as City
+	                          FROM [hms].[dbo].[UserConfig] u
+                          inner join StateMaster st on st.Id = u.[StateId]
+                          inner join CityMaster ct on ct.Id = u.[CityId]
+                          order by u.UpdatedOn desc";
         string insertQuery =@"INSERT INTO [dbo].[UserConfig]
                            ([UserName]
                            ,[Email]
                            ,[Address]
-                           ,[City]
-                           ,[State]
+                           ,[CityId]
+                           ,[StateId]
                            ,[PinCode]
                            ,[IsActive]
                            ,[CreatedOn]
@@ -37,8 +42,8 @@ namespace HMS.Service
                            (@UserName
                            , @Email
                            , @Address
-                           , @City
-                           , @State
+                           , @CityId
+                           , @StateId
                            , @PinCode
                            , @IsActive
                            , @CreatedOn
@@ -49,8 +54,8 @@ namespace HMS.Service
                            SET [UserName] =@UserName
                               ,[Email] =@Email
                               ,[Address] =@Address
-                              ,[City] =@City
-                              ,[State] =@State
+                              ,[CityId] =@CityId
+                              ,[StateId] =@StateId
                               ,[PinCode] =@PinCode
                               ,[IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -58,6 +63,24 @@ namespace HMS.Service
                               ,[UpdatedOn] =@UpdatedOn
                               ,[UpdatedBy] =@UpdatedBy
                          WHERE Id=@Id";
+        string selectByIdQuery = @"SELECT  u.[UserName]
+                              ,u.[Email]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]
+	                          ,st.[Name] as State
+	                          ,ct.[Name] as City
+	                          FROM [hms].[dbo].[UserConfig] u
+                          inner join StateMaster st on st.Id = u.[StateId] 
+						  inner join CityMaster ct on ct.Id=u.[CityId]
+						  where u.Id=";
         string deleteQuery = "";
 
         public IList<object> UserConfigList { get; private set; }
@@ -82,7 +105,7 @@ namespace HMS.Service
        
         public IList<UserConfig> GetById<UserConfig>(int id)
         {
-            var UserConfigList = dbHelper.FetchData<UserConfig>($"{selectQuery} where id ={id}");
+            var UserConfigList = dbHelper.FetchData<UserConfig>($"{selectByIdQuery} {id}");
             return UserConfigList;
         }
 

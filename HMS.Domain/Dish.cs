@@ -15,6 +15,7 @@ namespace HMS.Domain
         public int HotelId { get; set; }
         public  Hotel Hotel{get; set;}
         public int MainCategoryId { get; set; }
+        public string DishCategory { get; set; }
         public bool IsVeg { get; set; }
         public int Quantity { get; set; }
         public int TimeForCook { get; set; }
