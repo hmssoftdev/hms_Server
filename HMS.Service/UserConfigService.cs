@@ -26,7 +26,8 @@ namespace HMS.Service
                           inner join StateMaster st on st.Id = u.[StateId]
                           inner join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
-        string insertQuery =@"INSERT INTO [dbo].[UserConfig]
+        string insertQuery =@"INSERT INTO [dbo].[UserConfig] 
+                          
                            ([UserName]
                            ,[Email]
                            ,[Address]
@@ -37,7 +38,8 @@ namespace HMS.Service
                            ,[CreatedOn]
                            ,[CreatedBy]
                            ,[UpdatedOn]
-                           ,[UpdatedBy])
+                           ,[UpdatedBy]
+                        
                      VALUES
                            (@UserName
                            , @Email
