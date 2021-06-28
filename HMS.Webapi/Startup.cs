@@ -25,6 +25,15 @@ namespace HMS.Webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                    });
+            });
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
@@ -36,6 +45,8 @@ namespace HMS.Webapi
             services.AddSingleton<IMasterService, MasterService>();
             services.AddSingleton<IUserFeedbackService, UserFeedbackService>();
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
+
+
 
         }
 
@@ -55,7 +66,7 @@ namespace HMS.Webapi
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
