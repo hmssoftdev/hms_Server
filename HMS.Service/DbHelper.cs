@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using HMS.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -45,6 +46,11 @@ namespace HMS.Service
             {
                 var result = db.Execute(query, model);
             }
+        }
+
+        internal void Add(object insertQuery, BusinessCategory businessCategory)
+        {
+            throw new NotImplementedException();
         }
     }
 }

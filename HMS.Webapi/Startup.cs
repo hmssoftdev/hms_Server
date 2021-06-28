@@ -35,6 +35,7 @@ namespace HMS.Webapi
             services.AddSingleton<IDishCategoryService, DishCategoryService>();
             services.AddSingleton<IMasterService, MasterService>();
             services.AddSingleton<IUserFeedbackService, UserFeedbackService>();
+            services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
 
         }
 
