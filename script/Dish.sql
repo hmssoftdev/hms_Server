@@ -1,7 +1,7 @@
 USE [hms]
 GO
 
-/****** Object:  Table [dbo].[Dish]    Script Date: 21-06-2021 18:28:18 ******/
+/****** Object:  Table [dbo].[Dish]    Script Date: 26-06-2021 13:34:43 ******/
 SET ANSI_NULLS ON
 GO
 

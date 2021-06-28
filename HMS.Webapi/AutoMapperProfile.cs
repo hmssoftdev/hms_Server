@@ -13,6 +13,7 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.StateMaster, HMS.Domain.Model.StateMaster>();
             CreateMap<HMS.Domain.CityMaster, HMS.Domain.Model.CityMaster>();
             CreateMap<HMS.Domain.UserFeedback, HMS.Domain.Model.UserFeedback>();
+            CreateMap<HMS.Domain.BusinessCategory, HMS.Domain.Model.BusinessCategory>();
            
         }
     }
