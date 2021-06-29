@@ -27,7 +27,7 @@ namespace HMS.Service
                                       ,d.[status]
                                       ,d.[ImageUrl]
 	                                  ,dc.[Name] as DishCategory
-                                  FROM [hms].[dbo].[Dish] d
+                                  FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId]
                                   order by d.UpdatedOn desc";       
         string insertQuery = @"INSERT INTO [dbo].[Dish] 
@@ -49,41 +49,41 @@ namespace HMS.Service
                                                    ,[status]
                                                    ,[ImageUrl])
                                              VALUES
-                                                   (@d.IsActive
-                                                   ,@d.CreatedOn
-                                                   ,@d.CreatedBy
-                                                   ,@d.UpdatedOn
-                                                   ,@d.UpdatedBy
-                                                   ,@d.Name
-                                                   ,@d.Description
-                                                   ,@d.HalfPrice
-                                                   ,@d.FullPrice
-                                                   ,@d.HotelId
-                                                   ,@d.MainCategoryId
-                                                   ,@d.Quantity
-                                                   ,@d.TimeForCook
-                                                   ,@d.IsVeg
-                                                   ,@d.NonVegCategory
-                                                   ,@d.status
-                                                   ,@d.ImageUrl)";
+                                                   (@IsActive
+                                                   ,@CreatedOn
+                                                   ,@CreatedBy
+                                                   ,@UpdatedOn
+                                                   ,@UpdatedBy
+                                                   ,@Name
+                                                   ,@Description
+                                                   ,@HalfPrice
+                                                   ,@FullPrice
+                                                   ,@HotelId
+                                                   ,@MainCategoryId
+                                                   ,@Quantity
+                                                   ,@TimeForCook
+                                                   ,@IsVeg
+                                                   ,@NonVegCategory
+                                                   ,@status
+                                                   ,@ImageUrl)";
         string updateQuery = @"UPDATE [dbo].[Dish] 
-                                       SET [IsActive]=@d.IsActive
-                                          ,[CreatedOn]=@d.CreatedOn
-                                          ,[CreatedBy]=@d.CreatedBy
-                                          ,[UpdatedOn]=@d.UpdatedOn
-                                          ,[UpdatedBy]=@d.UpdatedBy
-                                          ,[Name]=@d.Name
-                                          ,[Description]=@d.Description
-                                          ,[HalfPrice]=@d.HalfPrice
-                                          ,[FullPrice]=@d.FullPrice
-                                          ,[HotelId]=@d.HotelId
-                                          ,[MainCategoryId]=@d.MainCategoryId
-                                          ,[Quantity]=@d.Quantity
-                                          ,[TimeForCook]=@d.TimeForCook
-                                          ,[IsVeg]=@d.IsVeg
-                                          ,[NonVegCategory]=@d.NonVegCategory
-                                          ,[status]=@d.status
-                                          ,[ImageUrl]=@d.ImageUrl
+                                       SET [IsActive]=@IsActive
+                                          ,[CreatedOn]=@CreatedOn
+                                          ,[CreatedBy]=@CreatedBy
+                                          ,[UpdatedOn]=@UpdatedOn
+                                          ,[UpdatedBy]=@UpdatedBy
+                                          ,[Name]=@Name
+                                          ,[Description]=@Description
+                                          ,[HalfPrice]=@HalfPrice
+                                          ,[FullPrice]=@FullPrice
+                                          ,[HotelId]=@HotelId
+                                          ,[MainCategoryId]=@MainCategoryId
+                                          ,[Quantity]=@Quantity
+                                          ,[TimeForCook]=@TimeForCook
+                                          ,[IsVeg]=@IsVeg
+                                          ,[NonVegCategory]=@NonVegCategory
+                                          ,[status]=@status
+                                          ,[ImageUrl]=@ImageUrl
                                      WHERE Id=@Id";
         string selectByIdQuery = @"SELECT  d.[Id]
                                       ,d.[IsActive]
@@ -104,7 +104,7 @@ namespace HMS.Service
                                       ,d.[status]
                                       ,d.[ImageUrl]
 	                                  ,dc.[Name] as DishCategory
-                                  FROM [hms].[dbo].[Dish] d
+                                  FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.id =";
         string deleteQuery = "";
 
