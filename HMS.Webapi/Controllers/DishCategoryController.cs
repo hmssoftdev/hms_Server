@@ -25,6 +25,18 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.DishCategory>>(dishCategoryList);
             return Ok(list);
         }
+        [HttpPost]
+        public IActionResult Post(DishCategory dishCategory)
+        {
+            _dishCategoryService.Add(dishCategory);
+            return Ok();
+        }
+        [HttpPut]
+        public IActionResult Put(DishCategory dishCategory)
+        {
+            _dishCategoryService.Update(dishCategory);
+            return Ok();
+        }
 
     }
 }
