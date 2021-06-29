@@ -17,12 +17,37 @@ namespace HMS.Service
                                   ,[Name]
                                   ,[HotelId]
                               FROM[dbo].[DishCategory]";
-        string insertQuery = "";
-        string updateQuery = "";
+        string insertQuery = @"INSERT INTO [dbo].[DishCategory]
+                                   ([IsActive]
+                                   ,[CreatedOn]
+                                   ,[CreatedBy]
+                                   ,[UpdatedOn]
+                                   ,[UpdatedBy]
+                                   ,[Name]
+                                   ,[HotelId])
+                             VALUES
+                                   (@IsActive
+                                   ,@CreatedOn
+                                   ,@CreatedBy
+                                   ,@UpdatedOn
+                                   ,@UpdatedBy
+                                   ,@Name
+                                   ,@HotelId)";
+        string updateQuery = @"UPDATE [dbo].[DishCategory]
+                                   SET [IsActive] =@IsActive
+                                      ,[CreatedOn] =@CreatedOn
+                                      ,[CreatedBy] =@CreatedBy
+                                      ,[UpdatedOn] =@UpdatedOn
+                                      ,[UpdatedBy] =@UpdatedBy
+                                      ,[Name] =@Name
+                                      ,[HotelId] =@HotelId
+                                 WHERE Id=@Id";
         string deleteQuery = "";
         public void Add(IModel model)
         {
-            throw new NotImplementedException();
+            var dishCategory = (DishCategory)model;
+            dishCategory.IsActive = true;
+            dbHelper.Add(insertQuery, dishCategory);
         }
 
         public void Delete(int id)
@@ -43,7 +68,9 @@ namespace HMS.Service
 
         public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var dishCategory = (DishCategory)model;
+           
+            dbHelper.Update(updateQuery, dishCategory);
         }
     }
 }
