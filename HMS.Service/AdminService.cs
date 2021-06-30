@@ -16,7 +16,7 @@ namespace HMS.Service
                                   ,[UpdatedOn]
                                   ,[UpdatedBy]
                                   ,[BusinessName]
-                                  ,[Category]
+                                  ,[CategoryId]
                                   ,[FoodLincNum]
                                   ,[Address]
                                   ,[Gst]
@@ -31,6 +31,8 @@ namespace HMS.Service
                                   ,[BankAddress]
                                   ,[CodeImage]
                                   ,[CodeNumber]
+                                  ,[CityId]
+                                  ,[StateId]
                               FROM [dbo].[Admin]";
         string insertQuery = @"INSERT INTO [dbo].[Admin]
                                    ([IsActive]
@@ -39,7 +41,7 @@ namespace HMS.Service
                                    ,[UpdatedOn]
                                    ,[UpdatedBy]
                                    ,[BusinessName]
-                                   ,[Category]
+                                   ,[CategoryId]
                                    ,[FoodLincNum]
                                    ,[Address]
                                    ,[Gst]
@@ -53,7 +55,9 @@ namespace HMS.Service
                                    ,[TermAndCondition]
                                    ,[BankAddress]
                                    ,[CodeImage]
-                                   ,[CodeNumber])
+                                   ,[CodeNumber]
+                                   ,[CityId]
+                                  ,[StateId])
                              VALUES
                                    (@IsActive 
                                    ,@CreatedOn
@@ -61,7 +65,7 @@ namespace HMS.Service
                                    ,@UpdatedOn
                                    ,@UpdatedBy
                                    ,@BusinessName
-                                   ,@Category
+                                   ,@CategoryId
                                    ,@FoodLincNum
                                    ,@Address
                                    ,@Gst
@@ -75,7 +79,9 @@ namespace HMS.Service
                                    ,@TermAndCondition
                                    ,@BankAddress
                                    ,@CodeImage
-                                   ,@CodeNumber)";
+                                   ,@CodeNumber
+                                   ,@CityId
+                                  ,@StateId)";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -83,7 +89,7 @@ namespace HMS.Service
                               ,[UpdatedOn] =@UpdatedOn
                               ,[UpdatedBy] =@UpdatedBy
                               ,[BusinessName] =@BusinessName
-                              ,[Category] =@Category
+                              ,[CategoryId] =@CategoryId
                               ,[FoodLincNum] =@FoodLincNum
                               ,[Address] =@Address
                               ,[Gst] =@Gst
@@ -98,6 +104,8 @@ namespace HMS.Service
                               ,[BankAddress] =@BankAddress
                               ,[CodeImage] =@CodeImage
                               ,[CodeNumber] =@CodeNumber
+                              ,[CityId]=@CityId
+                               ,[StateId]=@StateId
                          WHERE Id=@Id";
         string deleteQuery = "";
         public void Add(IModel model)

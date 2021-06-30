@@ -1,7 +1,7 @@
 USE [hms]
 GO
 
-/****** Object:  Table [dbo].[Admin]    Script Date: 21-06-2021 19:15:35 ******/
+/****** Object:  Table [dbo].[Admin]    Script Date: 30-06-2021 20:07:22 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[Admin](
 	[UpdatedOn] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[BusinessName] [varchar](100) NULL,
-	[Category] [varchar](100) NULL,
+	[CategoryId] [int] NULL,
 	[FoodLincNum] [varchar](50) NULL,
 	[Address] [varchar](100) NULL,
 	[Gst] [varchar](50) NULL,
@@ -30,7 +30,9 @@ CREATE TABLE [dbo].[Admin](
 	[TermAndCondition] [varchar](100) NULL,
 	[BankAddress] [varchar](100) NULL,
 	[CodeImage] [varchar](100) NULL,
-	[CodeNumber] [varchar](100) NULL
+	[CodeNumber] [varchar](100) NULL,
+	[CityId] [int] NULL,
+	[StateId] [int] NULL
 ) ON [PRIMARY]
 GO
 
