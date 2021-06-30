@@ -128,7 +128,7 @@ namespace HMS.Service
         {
             var admin = (Admin)model;
             
-            dbHelper.Add(updateQuery, admin);
+            dbHelper.Update(updateQuery, admin);
         }
     }
 }

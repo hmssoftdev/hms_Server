@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HMS.Domain.Model
 {
-   public class Admin
+    public class Admin
     {
         public int Id { get; set; }
         public string BusinessName { get; set; }
@@ -17,6 +17,7 @@ namespace HMS.Domain.Model
         public string BankName { get; set; }
         public string IfscCode { get; set; }
         public string BankAddress { get; set; }
+    
         
         public long PinCode { get; set; }
         public string RestaurentLogo { get; set; }

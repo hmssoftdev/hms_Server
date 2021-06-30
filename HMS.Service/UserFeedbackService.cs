@@ -84,7 +84,7 @@ namespace HMS.Service
         {
             var userFeedback = (UserFeedback)model;
            
-            dbHelper.Add(updateQuery, userFeedback);
+            dbHelper.Update(updateQuery, userFeedback);
         }
     }
 }
