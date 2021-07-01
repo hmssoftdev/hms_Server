@@ -15,6 +15,6 @@ namespace HMS.Domain.Model
         public string State { get; set; }
         public int StateId { get; set; }
         public long PinCode { get; set; }
-        public int Contact { get; set; }
+        public long Contact { get; set; }
     }
 }
