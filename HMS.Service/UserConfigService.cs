@@ -14,6 +14,7 @@ namespace HMS.Service
                               ,u.[CityId]
                               ,u.[StateId]
                               ,u.[PinCode]
+                              ,u.[Contact]
                               ,u.[Id]
                               ,u.[IsActive]
                               ,u.[CreatedOn]
@@ -26,7 +27,7 @@ namespace HMS.Service
                           inner join StateMaster st on st.Id = u.[StateId]
                           inner join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
-        string insertQuery =@"INSERT INTO [dbo].[UserConfig] 
+        string insertQuery = @"INSERT INTO [dbo].[UserConfig] 
                           
                            ([UserName]
                            ,[Email]
@@ -34,6 +35,7 @@ namespace HMS.Service
                            ,[CityId]
                            ,[StateId]
                            ,[PinCode]
+                           ,[Contact]
                            ,[IsActive]
                            ,[CreatedOn]
                            ,[CreatedBy]
@@ -47,6 +49,7 @@ namespace HMS.Service
                            , @CityId
                            , @StateId
                            , @PinCode
+                           , @Contact
                            , @IsActive
                            , @CreatedOn
                            , @CreatedBy
@@ -59,6 +62,7 @@ namespace HMS.Service
                               ,[CityId] =@CityId
                               ,[StateId] =@StateId
                               ,[PinCode] =@PinCode
+                              ,[Contact]=@Contact
                               ,[IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
                               ,[CreatedBy] =@CreatedBy
