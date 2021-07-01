@@ -1,7 +1,7 @@
 USE [hms]
 GO
 
-/****** Object:  Table [dbo].[UserConfig]    Script Date: 01-07-2021 12:20:35 ******/
+/****** Object:  Table [dbo].[UserConfig]    Script Date: 01-07-2021 13:49:54 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -21,7 +21,7 @@ CREATE TABLE [dbo].[UserConfig](
 	[CreatedBy] [int] NULL,
 	[UpdatedOn] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
-	[Contact] [int] NULL
+	[Contact] [varchar](100) NULL
 ) ON [PRIMARY]
 GO
 

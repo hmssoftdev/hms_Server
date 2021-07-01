@@ -66,7 +66,7 @@ namespace HMS.Service
         {
             var businessCategory = (BusinessCategory)model;
           
-            dbHelper.Update(insertQuery, businessCategory);
+            dbHelper.Update(updateQuery, businessCategory);
         }
     }
 }
