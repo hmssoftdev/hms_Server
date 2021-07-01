@@ -23,7 +23,7 @@ namespace HMS.Service
                               ,u.[UpdatedBy]   
 	                          ,st.[Name] as State
 	                          ,ct.[Name] as City
-	                          FROM [hms].[dbo].[UserConfig] u
+	                          FROM [dbo].[UserConfig] u
                           inner join StateMaster st on st.Id = u.[StateId]
                           inner join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
@@ -83,7 +83,7 @@ namespace HMS.Service
                               ,u.[UpdatedBy]
 	                          ,st.[Name] as State
 	                          ,ct.[Name] as City
-	                          FROM [hms].[dbo].[UserConfig] u
+	                          FROM [dbo].[UserConfig] u
                           inner join StateMaster st on st.Id = u.[StateId] 
 						  inner join CityMaster ct on ct.Id=u.[CityId]
 						  where u.Id=";
