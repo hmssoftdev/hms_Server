@@ -10,9 +10,9 @@ namespace HMS.Service
 {
     public class DbHelper
     {
-        string connectionString = "Data Source=DESKTOP-9IJKFVB;Initial Catalog=hms;Integrated Security=True";
+        //string connectionString = "Data Source=DESKTOP-9IJKFVB;Initial Catalog=hms;Integrated Security=True";
         // only when deplyed
-        //string connectionString = "Data Source=148.72.232.168;Initial Catalog=hms_db;Integrated Security=False;User ID=hms_admin;password=*2mf6yL2;Connect Timeout=15;Encrypt=False;Packet Size=4096";
+        string connectionString = "Data Source=148.72.232.168;Initial Catalog=hms_db;Integrated Security=False;User ID=hms_admin;password=*2mf6yL2;Connect Timeout=15;Encrypt=False;Packet Size=4096";
         public IList<T> FetchData<T>(string StateSelectQuery)
         {
             var result = new List<T>();
@@ -39,6 +39,7 @@ namespace HMS.Service
                 var result = db.Execute(query, model);
             }
         }
+
 
         public void Delete<Model>(string query, Model model)
         {
