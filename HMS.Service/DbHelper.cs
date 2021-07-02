@@ -49,9 +49,6 @@ namespace HMS.Service
             }
         }
 
-        internal void Add(object insertQuery, BusinessCategory businessCategory)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

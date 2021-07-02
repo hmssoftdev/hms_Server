@@ -14,61 +14,59 @@ namespace HMS.Service
                               ,u.[CityId]
                               ,u.[StateId]
                               ,u.[PinCode]
-                              ,u.[Contact]
                               ,u.[Id]
                               ,u.[IsActive]
                               ,u.[CreatedOn]
                               ,u.[CreatedBy]
                               ,u.[UpdatedOn]
-                              ,u.[UpdatedBy]   
+                              ,u.[UpdatedBy]
+                              ,u.[Contact]
 	                          ,st.[Name] as State
 	                          ,ct.[Name] as City
 	                          FROM [dbo].[UserConfig] u
                           inner join StateMaster st on st.Id = u.[StateId]
                           inner join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
-        string insertQuery = @"INSERT INTO [dbo].[UserConfig] 
-                          
-                           ([UserName]
-                           ,[Email]
-                           ,[Address]
-                           ,[CityId]
-                           ,[StateId]
-                           ,[PinCode]
-                           ,[Contact]
-                           ,[IsActive]
-                           ,[CreatedOn]
-                           ,[CreatedBy]
-                           ,[UpdatedOn]
-                           ,[UpdatedBy]
-                        
-                     VALUES
-                           (@UserName
-                           , @Email
-                           , @Address
-                           , @CityId
-                           , @StateId
-                           , @PinCode
-                           , @Contact
-                           , @IsActive
-                           , @CreatedOn
-                           , @CreatedBy
-                           , @UpdatedOn
-                           , @UpdatedBy)";
+        string insertQuery = @"INSERT INTO [dbo].[UserConfig]
+                                   ([UserName]
+                                   ,[Email]
+                                   ,[Address]
+                                   ,[CityId]
+                                   ,[StateId]
+                                   ,[PinCode]
+                                   ,[IsActive]
+                                   ,[CreatedOn]
+                                   ,[CreatedBy]
+                                   ,[UpdatedOn]
+                                   ,[UpdatedBy]
+                                   ,[Contact])
+                             VALUES
+                                   (@UserName
+                                   ,@Email
+                                   ,@Address
+                                   ,@CityId
+                                   ,@StateId
+                                   ,@PinCode
+                                   ,@IsActive
+                                   ,@CreatedOn
+                                   ,@CreatedBy
+                                   ,@UpdatedOn
+                                   ,@UpdatedBy
+                                   ,@Contact)";
         string updateQuery = @"UPDATE [dbo].[UserConfig]
-                           SET [UserName] =@UserName
-                              ,[Email] =@Email
-                              ,[Address] =@Address
-                              ,[CityId] =@CityId
-                              ,[StateId] =@StateId
-                              ,[PinCode] =@PinCode
-                              ,[Contact]=@Contact
-                              ,[IsActive] =@IsActive
-                              ,[CreatedOn] =@CreatedOn
-                              ,[CreatedBy] =@CreatedBy
-                              ,[UpdatedOn] =@UpdatedOn
-                              ,[UpdatedBy] =@UpdatedBy
-                         WHERE Id=@Id";
+                               SET [UserName] =@UserName
+                                  ,[Email] =@Email
+                                  ,[Address] =@Address
+                                  ,[CityId] =@CityId
+                                  ,[StateId] =@StateId
+                                  ,[PinCode] =@PinCode
+                                  ,[IsActive] =@IsActive
+                                  ,[CreatedOn] =@CreatedOn
+                                  ,[CreatedBy] =@CreatedBy
+                                  ,[UpdatedOn] =@UpdatedOn
+                                  ,[UpdatedBy] =@UpdatedBy
+                                  ,[Contact] =@Contact
+                             WHERE Id=@Id";
         string selectByIdQuery = @"SELECT  u.[UserName]
                               ,u.[Email]
                               ,u.[Address]
@@ -81,6 +79,7 @@ namespace HMS.Service
                               ,u.[CreatedBy]
                               ,u.[UpdatedOn]
                               ,u.[UpdatedBy]
+                              ,u.[Contact]
 	                          ,st.[Name] as State
 	                          ,ct.[Name] as City
 	                          FROM [dbo].[UserConfig] u

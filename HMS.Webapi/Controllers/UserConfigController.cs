@@ -38,7 +38,7 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult post(UserConfig userConfig)
+        public IActionResult Post(UserConfig userConfig)
         {
             _UserConfigService.Add(userConfig);
             return Ok();
@@ -46,7 +46,7 @@ namespace HMS.Webapi.Controllers
 
 
         [HttpPut]
-        public IActionResult put(UserConfig userConfig)
+        public IActionResult Put(UserConfig userConfig)
         {
             _UserConfigService.Update(userConfig);
             return Ok();
