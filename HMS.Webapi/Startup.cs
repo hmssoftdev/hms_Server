@@ -2,6 +2,7 @@ using HMS.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace HMS.Webapi
@@ -35,6 +37,8 @@ namespace HMS.Webapi
                     });
             });
             services.AddControllers();
+            //services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
+            //services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
 
@@ -46,6 +50,21 @@ namespace HMS.Webapi
             services.AddSingleton<IUserFeedbackService, UserFeedbackService>();
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
 
+            services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var result = new BadRequestObjectResult(context.ModelState);
+
+            // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
+            result.ContentTypes.Add(MediaTypeNames.Application.Json);
+            result.ContentTypes.Add(MediaTypeNames.Application.Xml);
+
+            return result;
+        };
+    });
+
 
 
         }
@@ -55,7 +74,13 @@ namespace HMS.Webapi
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/error-local-development");
+                //  app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/error-local-development");
+               // app.UseExceptionHandler("/error");
             }
             app.UseSwagger();
             app.UseSwaggerUI(c =>
