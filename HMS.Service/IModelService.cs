@@ -20,6 +20,7 @@ namespace HMS.Service
     public interface IDishCategoryService: IModelService { }
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
+    public interface IUserService : IModelService { }
     public interface IMasterService
     {
         IList<T> GetAllState<T>();

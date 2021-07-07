@@ -14,6 +14,7 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.CityMaster, HMS.Domain.Model.CityMaster>();
             CreateMap<HMS.Domain.UserFeedback, HMS.Domain.Model.UserFeedback>();
             CreateMap<HMS.Domain.BusinessCategory, HMS.Domain.Model.BusinessCategory>();
+            CreateMap<HMS.Domain.User, HMS.Domain.Model.User>();
            
         }
     }

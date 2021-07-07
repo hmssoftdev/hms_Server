@@ -49,6 +49,7 @@ namespace HMS.Webapi
             services.AddSingleton<IMasterService, MasterService>();
             services.AddSingleton<IUserFeedbackService, UserFeedbackService>();
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
+            services.AddSingleton<IUserService, UserService>();
 
             services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
