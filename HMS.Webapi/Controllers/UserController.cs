@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HMS.Domain;
 using HMS.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,18 +11,37 @@ using System.Threading.Tasks;
 
 namespace HMS.Webapi.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
-    public class UserController : BaseController
+    public class UserController : ControllerBase
     {
+        private IUserAuthService _userAuthService;
 
 
         private readonly ILogger<UserController> _logger;
+        public readonly IMapper _mapper;
+
         IUserService _userService;
-        public UserController(IMapper mapper, IUserService modelService) :base(mapper)
+        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService)
         {
             _userService = modelService;
+            _userAuthService = userAuthService;
+            _mapper = mapper;
+
+        }
+        
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userAuthService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -30,6 +50,7 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
+        [Authorize]
         [HttpGet("GetById/{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -37,13 +58,16 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.User>>(dishList);
             return Ok(list);
         }
-       [HttpPost]
+
+        [Authorize]
+        [HttpPost]
        public IActionResult Post(User user)
         {
             _userService.Add(user);
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         public IActionResult Put(User user)
         {

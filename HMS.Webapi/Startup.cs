@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using WebApi.Helpers;
 
 namespace HMS.Webapi
 {
@@ -37,6 +38,9 @@ namespace HMS.Webapi
                     });
             });
             services.AddControllers();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddScoped<ActionFilter>();
+
             //services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
             //services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
             services.AddSwaggerGen();
@@ -50,6 +54,8 @@ namespace HMS.Webapi
             services.AddSingleton<IUserFeedbackService, UserFeedbackService>();
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserAuthService, UserAuthService>();
+
 
             services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
@@ -90,7 +96,8 @@ namespace HMS.Webapi
             });
 
             app.UseRouting();
-
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthorization();
             app.UseCors();
             app.UseEndpoints(endpoints =>
