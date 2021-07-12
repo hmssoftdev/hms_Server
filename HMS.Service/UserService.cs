@@ -20,8 +20,8 @@ namespace HMS.Service
                               ,[Email]
                               ,[Mobile]
                               ,[Password]
-                          FROM [dbo].[Users]";
-        string insertQuery = @"INSERT INTO [dbo].[Users]
+                          FROM [dbo].[User]";
+        string insertQuery = @"INSERT INTO [dbo].[User]
                                ([IsActive]
                                ,[CreatedOn]
                                ,[CreatedBy]
@@ -45,7 +45,7 @@ namespace HMS.Service
                                ,@Email
                                ,@Mobile
                                ,@Password)";
-        string updateQuery = @"UPDATE [dbo].[Users]
+        string updateQuery = @"UPDATE [dbo].[User]
                                SET [IsActive] =  @IsActive 
                                   ,[CreatedOn] = @CreatedOn
                                   ,[CreatedBy] = @CreatedBy
