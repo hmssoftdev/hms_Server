@@ -20,8 +20,8 @@ namespace HMS.Service
                               ,[Email]
                               ,[Mobile]
                               ,[Password]
-                          FROM [dbo].[User]";
-        string insertQuery = @"INSERT INTO [dbo].[User]
+                          FROM [dbo].[Users]";
+        string insertQuery = @"INSERT INTO [dbo].[Users]
                                ([IsActive]
                                ,[CreatedOn]
                                ,[CreatedBy]
@@ -45,7 +45,7 @@ namespace HMS.Service
                                ,@Email
                                ,@Mobile
                                ,@Password)";
-        string updateQuery = @"UPDATE [dbo].[User]
+        string updateQuery = @"UPDATE [dbo].[Users]
                                SET [IsActive] =  @IsActive 
                                   ,[CreatedOn] = @CreatedOn
                                   ,[CreatedBy] = @CreatedBy
@@ -93,6 +93,11 @@ namespace HMS.Service
             
             dbHelper.Update(updateQuery, userConfig);
 
+        }
+
+        public User ValidateUser(string userName, string pwd)
+        {
+            throw new NotImplementedException();
         }
     }
 }

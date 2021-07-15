@@ -20,7 +20,10 @@ namespace HMS.Service
     public interface IDishCategoryService: IModelService { }
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
-    public interface IUserService : IModelService { }
+    public interface IFileUploadService : IModelService { }
+    public interface IUserService : IModelService {
+       User ValidateUser(string userName, string pwd);
+    }
     public interface IMasterService
     {
         IList<T> GetAllState<T>();
