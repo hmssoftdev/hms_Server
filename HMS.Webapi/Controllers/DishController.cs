@@ -41,14 +41,14 @@ namespace HMS.Webapi.Controllers
        public IActionResult Post(Dish dish)
         {
             _dishService.Add(dish);
-            return Ok();
+            return Ok("Data Added");
         }
 
         [HttpPut]
         public IActionResult Put(Dish dish)
         {
             _dishService.Update(dish);
-            return Ok();
+            return Ok("Data Updated");
         }
     }
 }

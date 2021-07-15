@@ -29,13 +29,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(DishCategory dishCategory)
         {
             _dishCategoryService.Add(dishCategory);
-            return Ok();
+            return Ok("Data Added");
         }
         [HttpPut]
         public IActionResult Put(DishCategory dishCategory)
         {
             _dishCategoryService.Update(dishCategory);
-            return Ok();
+            return Ok("Data Updated");
         }
 
     }

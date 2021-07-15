@@ -36,13 +36,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(UserFeedback userFeedback)
         {
             _UserFeedbackService.Add(userFeedback);
-            return Ok();
+            return Ok("Data Added");
         }
         [HttpPut]
         public IActionResult Put(UserFeedback userFeedback)
         {
             _UserFeedbackService.Update(userFeedback);
-            return Ok();
+            return Ok("Data Updated");
         }
 
 

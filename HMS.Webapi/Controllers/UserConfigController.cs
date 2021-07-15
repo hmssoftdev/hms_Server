@@ -41,7 +41,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(UserConfig userConfig)
         {
             _UserConfigService.Add(userConfig);
-            return Ok();
+            return Ok("Data Added");
         }
 
 
@@ -49,7 +49,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult Put(UserConfig userConfig)
         {
             _UserConfigService.Update(userConfig);
-            return Ok();
+            return Ok("Data Updated");
         }
     }
 }

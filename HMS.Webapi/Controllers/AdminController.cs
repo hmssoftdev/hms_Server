@@ -40,13 +40,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult post(Admin admin)
         {
             _AdminService.Add(admin);
-            return Ok();
+            return Ok("Data Added");
         }
         [HttpPut]
         public IActionResult put(Admin admin)
         {
             _AdminService.Update(admin);
-            return Ok();
+            return Ok("Data Updated");
         }
 
     }

@@ -31,13 +31,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(BusinessCategory businessCategory)
         {
             _BusinessCategoryService.Add(businessCategory);
-            return Ok();
+            return Ok("Data Added");
         }
         [HttpPut]
         public IActionResult Put(BusinessCategory businessCategory)
         {
             _BusinessCategoryService.Update(businessCategory);
-            return Ok();
+            return Ok("Data Updated");
         }
     }
 }
