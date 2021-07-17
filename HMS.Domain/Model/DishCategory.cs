@@ -13,5 +13,6 @@ namespace HMS.Domain.Model
         public int HotelId { get; set; }
 
         public Hotel Hotel { get; set; }
+        public bool IsActive { get; set; } = false;
     }
 }
