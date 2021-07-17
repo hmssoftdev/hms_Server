@@ -18,7 +18,7 @@ namespace HMS.Domain
         public string IfscCode { get; set; }
         public string BankAddress { get; set; }
         
-        public long PinCode { get; set; }
+        public String PinCode { get; set; }
         public string RestaurentLogo { get; set; }
         public string RestaurentSeal { get; set; }
         public string Signature { get; set; }
