@@ -19,7 +19,7 @@ namespace HMS.Domain.Model
         public string BankAddress { get; set; }
     
         
-        public long PinCode { get; set; }
+        public string PinCode { get; set; }
         public string RestaurentLogo { get; set; }
         public string RestaurentSeal { get; set; }
         public string Signature { get; set; }
