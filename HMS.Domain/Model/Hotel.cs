@@ -4,15 +4,13 @@ using System.Text;
 
 namespace HMS.Domain.Model
 {
-  public  class DishCategory
+  public  class Hotel
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
-        public int HotelId { get; set; }
-
-        public Domain.Hotel Hotel { get; set; }
-        public bool IsActive { get; set; } = false;
+        public int Size { get; set; }
+        public bool IsAc { get; set; }
+        public string Shape { get; set; }
+        public string BarcodeTest { get; set; }
     }
 }

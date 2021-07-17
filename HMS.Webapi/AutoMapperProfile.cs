@@ -16,6 +16,7 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.BusinessCategory, HMS.Domain.Model.BusinessCategory>();
             CreateMap<HMS.Domain.User, HMS.Domain.Model.User>();
             CreateMap<HMS.Domain.UploadFile, HMS.Domain.Model.UploadFile>();
+            CreateMap<HMS.Domain.Hotel, HMS.Domain.Model.Hotel>();
            
         }
     }

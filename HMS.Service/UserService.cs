@@ -115,9 +115,6 @@ namespace HMS.Service
 
         }
 
-        public User ValidateUser(string userName, string pwd)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

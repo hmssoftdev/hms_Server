@@ -1,11 +1,12 @@
 ﻿using HMS.Domain;
+using HMS.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace HMS.Service
 {
-    public class FileUploadService : IFileUploadService
+    public class FileUploadService : IUploadFileService
     {
         DbHelper dbHelper = new DbHelper();
         string selectQuery = "";

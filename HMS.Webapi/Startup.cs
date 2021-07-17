@@ -55,6 +55,8 @@ namespace HMS.Webapi
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
+            services.AddSingleton<IUploadFileService, FileUploadService>();
+            services.AddSingleton<IPortalService, HotelService>();
 
 
             services.AddControllers()
