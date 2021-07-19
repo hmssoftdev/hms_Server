@@ -19,7 +19,8 @@ namespace HMS.Service
                                   ,[ReviewTitle]
                                   ,[TermsAccept]
                                   ,[TimeStamp]
-                              FROM [dbo].[UserFeedback]";
+                              FROM [dbo].[UserFeedback]
+                                order by UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[UserFeedback]
                                        ([IsActive]
                                        ,[CreatedOn]
