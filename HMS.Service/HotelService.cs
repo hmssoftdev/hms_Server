@@ -19,8 +19,8 @@ namespace HMS.Service
                               ,[IsAc]
                               ,[Shape]
                               ,[BarcodeTest]
-                          FROM [dbo].[Portal]";
-        string insertQuery = @"NSERT INTO [dbo].[Portal]
+                          FROM [dbo].[Hotel]";
+        string insertQuery = @"NSERT INTO [dbo].[Hotel]
                                        ([IsActive]
                                        ,[CreatedOn]
                                        ,[CreatedBy]
@@ -42,7 +42,7 @@ namespace HMS.Service
                                        ,@IsAc
                                        ,@Shape
                                        ,@BarcodeTest)";
-        string updateQuery = @"UPDATE [dbo].[Portal]
+        string updateQuery = @"UPDATE [dbo].[Hotel]
                        SET [IsActive] =@IsActive
                           ,[CreatedOn] =@CreatedOn
                           ,[CreatedBy] =@CreatedBy
