@@ -21,7 +21,7 @@ namespace HMS.Service
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
     public interface IHotelService : IModelService { }
-    public interface IUploadFileService : IModelService { }
+   
     public interface IUserService : IModelService {
        User ValidateUser(string userName, string pwd);
     }

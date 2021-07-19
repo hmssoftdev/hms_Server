@@ -54,12 +54,13 @@ namespace HMS.Service
                           ,[Shape] =@Shape
                           ,[BarcodeTest] =@arcodeTest
                      WHERE Id=@Id";
+        string selectByIdQuery = "";
         string deleteQuery = "";
         public void Add(IModel model)
         {
-            var portal = (Hotel)model;
-            portal.IsActive = true;
-            dbHelper.Add(insertQuery, portal);
+            var hotel = (Hotel)model;
+            hotel.IsActive = true;
+            dbHelper.Add(insertQuery, hotel);
         }
 
         public void Delete(int id)
@@ -67,22 +68,23 @@ namespace HMS.Service
             throw new NotImplementedException();
         }
 
-        public IList<Hotel> GetAll<Portal>()
+        public IList<Hotel> GetAll<Hotel>()
         {
-            var PortalList = dbHelper.FetchData<Portal>($"{selectQuery}");
-            return PortalList;
+            var HotelList = dbHelper.FetchData<Hotel>($"{selectQuery}");
+            return HotelList;
         }
 
-        public IList<T> GetById<T>(int id)
+        public IList<Hotel> GetById<Hotel>(int id)
         {
-            throw new NotImplementedException();
+            var HotelList = dbHelper.FetchData<Hotel>($"{selectQuery} where id ={id}");
+            return HotelList;
         }
 
         public void Update(IModel model)
         {
-            var portal = (Hotel)model;
+            var hotel = (Hotel)model;
 
-            dbHelper.Update(updateQuery, portal);
+            dbHelper.Update(updateQuery, hotel);
         }
     }
 }
