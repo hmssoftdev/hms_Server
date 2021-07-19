@@ -33,8 +33,9 @@ namespace HMS.Webapi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
-                            .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                        builder.WithOrigins("http://localhost:4200",
+                              "http://webapplication121-dev.us-east-2.elasticbeanstalk.com")
+                              .AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
                     });
             });
             services.AddControllers();
@@ -56,7 +57,7 @@ namespace HMS.Webapi
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
             services.AddSingleton<IUploadFileService, FileUploadService>();
-            services.AddSingleton<IPortalService, HotelService>();
+            //services.AddSingleton<IPortalService, HotelService>();
 
 
             services.AddControllers()
