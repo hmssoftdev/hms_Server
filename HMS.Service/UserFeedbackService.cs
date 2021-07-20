@@ -55,7 +55,7 @@ namespace HMS.Service
                                       ,[TermsAccept] =@TermsAccept
                                       ,[TimeStamp]=@TimeStamp
                                  WHERE Id =@Id";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from UserFeedback";
         public void Add(IModel model)
         {
      
@@ -66,7 +66,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new UserFeedback { Id = id });
         }
 
         public IList<UserFeedback> GetAll<UserFeedback>()
@@ -87,5 +87,6 @@ namespace HMS.Service
            
             dbHelper.Update(updateQuery, userFeedback);
         }
+
     }
 }
