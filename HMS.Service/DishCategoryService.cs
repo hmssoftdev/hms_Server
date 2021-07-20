@@ -42,7 +42,7 @@ namespace HMS.Service
                                       ,[Name] =@Name
                                       ,[HotelId] =@HotelId
                                  WHERE Id=@Id";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from DishCategory";
         public void Add(IModel model)
         {
             var dishCategory = (DishCategory)model;
@@ -52,7 +52,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new DishCategory { Id = id });
         }
 
         public IList<DishCategory> GetAll<DishCategory>()

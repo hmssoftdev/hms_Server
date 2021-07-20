@@ -37,6 +37,12 @@ namespace HMS.Webapi.Controllers
             _dishCategoryService.Update(dishCategory);
             return Ok("Data Updated");
         }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _dishCategoryService.Delete(id);
+            return Ok("deleted");
+        }
 
     }
 }
