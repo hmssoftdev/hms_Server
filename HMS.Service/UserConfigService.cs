@@ -86,7 +86,7 @@ namespace HMS.Service
                           inner join StateMaster st on st.Id = u.[StateId] 
 						  inner join CityMaster ct on ct.Id=u.[CityId]
 						  where u.Id=";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from UserConfig";
 
         public IList<object> UserConfigList { get; private set; }
 
@@ -99,7 +99,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new UserConfig { Id = id });
         }
 
         public IList<UserConfig> GetAll<UserConfig>()
