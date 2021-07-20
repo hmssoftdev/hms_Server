@@ -48,5 +48,11 @@ namespace HMS.Webapi.Controllers
             _HotelService.Update(hotel);
             return Ok("Data Updated");
         }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _HotelService.Delete(id);
+            return Ok("deleted");
+        }
     }
 }
