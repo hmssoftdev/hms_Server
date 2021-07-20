@@ -107,7 +107,7 @@ namespace HMS.Service
                               ,[CityId]=@CityId
                               ,[StateId]=@StateId
                          WHERE Id=@Id";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
         {
             var admin = (Admin)model;
@@ -117,7 +117,8 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}",new Admin { Id = id });
+            
         }
 
         public IList<Admin> GetAll<Admin>()

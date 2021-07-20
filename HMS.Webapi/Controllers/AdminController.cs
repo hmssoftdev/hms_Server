@@ -48,6 +48,12 @@ namespace HMS.Webapi.Controllers
             _AdminService.Update(admin);
             return Ok("Data Updated");
         }
+       [HttpDelete]
+       public IActionResult DeleteById(int id)
+        {
+            _AdminService.Delete(id);          
+            return Ok("deleted");
+        }
 
     }
 }

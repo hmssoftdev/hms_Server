@@ -38,7 +38,7 @@ namespace HMS.Service
                                   ,[UpdatedBy] =@UpdatedBy
                                   ,[Name] =@Name
                              WHERE Id=@Id";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from BusinessCategory";
         public void Add(IModel model)
         {
             var businessCategory = (BusinessCategory)model;
@@ -48,7 +48,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new BusinessCategory { Id = id });
         }
 
         public IList<BusinessCategory> GetAll<BusinessCategory>()
