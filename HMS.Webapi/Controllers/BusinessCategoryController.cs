@@ -39,5 +39,11 @@ namespace HMS.Webapi.Controllers
             _BusinessCategoryService.Update(businessCategory);
             return Ok("Data Updated");
         }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _BusinessCategoryService.Delete(id);
+            return Ok("deleted");
+        }
     }
 }

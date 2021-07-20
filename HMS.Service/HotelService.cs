@@ -55,7 +55,7 @@ namespace HMS.Service
                           ,[BarcodeTest] =@arcodeTest
                      WHERE Id=@Id";
         string selectByIdQuery = "";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from Hotel";
         public void Add(IModel model)
         {
             var hotel = (Hotel)model;
@@ -65,7 +65,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new Hotel { Id = id });
         }
 
         public IList<Hotel> GetAll<Hotel>()

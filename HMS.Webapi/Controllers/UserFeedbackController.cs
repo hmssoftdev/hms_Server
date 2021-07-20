@@ -45,6 +45,11 @@ namespace HMS.Webapi.Controllers
             return Ok("Data Updated");
         }
 
-
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _UserFeedbackService.Delete(id);
+            return Ok("deleted");
+        }
     }
 }

@@ -50,5 +50,11 @@ namespace HMS.Webapi.Controllers
             _dishService.Update(dish);
             return Ok("Data Updated");
         }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _dishService.Delete(id);
+            return Ok("deleted");
+        }
     }
 }

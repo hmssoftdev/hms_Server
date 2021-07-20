@@ -51,5 +51,11 @@ namespace HMS.Webapi.Controllers
             _UserConfigService.Update(userConfig);
             return Ok("Data Updated");
         }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _UserConfigService.Delete(id);
+            return Ok("deleted");
+        }
     }
 }

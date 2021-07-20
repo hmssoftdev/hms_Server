@@ -106,7 +106,7 @@ namespace HMS.Service
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.id =";
-        string deleteQuery = "";
+        string deleteQuery = "Delete from Dish";
 
         public void Add(IModel model)
         {
@@ -117,7 +117,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new Dish { Id = id });
         }
 
         public IList<Dish> GetAll<Dish>()
