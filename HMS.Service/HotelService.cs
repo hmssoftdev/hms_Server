@@ -20,7 +20,7 @@ namespace HMS.Service
                               ,[Shape]
                               ,[BarcodeTest]
                           FROM [dbo].[Hotel]";
-        string insertQuery = @"NSERT INTO [dbo].[Hotel]
+        string insertQuery = @"INSERT INTO [dbo].[Hotel]
                                        ([IsActive]
                                        ,[CreatedOn]
                                        ,[CreatedBy]
