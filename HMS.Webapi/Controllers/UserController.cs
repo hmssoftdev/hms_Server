@@ -45,8 +45,8 @@ namespace HMS.Webapi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var userList = _userService.GetAll<User>();
-           var list =  _mapper.Map<List< HMS.Domain.Model.User>>(userList);
+            var UserList = _userService.GetAll<User>();
+           var list =  _mapper.Map<List< HMS.Domain.Model.User>>(UserList);
             return Ok(list);
         }
 
@@ -54,8 +54,8 @@ namespace HMS.Webapi.Controllers
         [HttpGet("GetById/{id:int}")]
         public IActionResult GetById(int id)
         {
-            var dishList = _userService.GetById<User>(id);
-            var list = _mapper.Map<List<HMS.Domain.Model.User>>(dishList);
+            var UserList = _userService.GetById<User>(id);
+            var list = _mapper.Map<List<HMS.Domain.Model.User>>(UserList);
             return Ok(list);
         }
 
@@ -73,6 +73,12 @@ namespace HMS.Webapi.Controllers
         {
             _userService.Update(user);
             return Ok("Data Updated");
+        }
+        [HttpDelete]
+        public IActionResult DeleteById(int id)
+        {
+            _userService.Delete(id);
+            return Ok("deleted");
         }
     }
 }
