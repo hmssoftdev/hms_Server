@@ -9,19 +9,24 @@ namespace HMS.Service
     public class UserService : IUserService
     {
         DbHelper dbHelper = new DbHelper();
-        string selectQuery = @"SELECT [Id]
-                              ,[IsActive]
-                              ,[CreatedOn]
-                              ,[CreatedBy]
-                              ,[UpdatedOn]
-                              ,[UpdatedBy]
-                              ,[Name]
-                              ,[UserType]
-                              ,[UserName]
-                              ,[Email]
-                              ,[Mobile]
-                              ,[Password]
-                          FROM [dbo].[Users]";
+        string selectQuery = @"SELECT us.[Id]
+                              ,us.[IsActive]
+                              ,us.[CreatedOn]
+                              ,us.[CreatedBy]
+                              ,us.[UpdatedOn]
+                              ,us.[UpdatedBy]
+                              ,us.[Name]
+                              ,us.[UserType]
+                              ,us.[UserName]
+                              ,us.[Email]
+                              ,us.[Mobile]
+                              ,us.[Password]
+                              ,u.[Name] as UserType
+                          FROM [dbo].[Users]us
+                       if
+                        UserType = 3
+                          inner join UserConfig u on u.Id= us.[UserType]
+                            order by u.UpdatedOn desc";
         string ValidateUserQuery = @"SELECT [Id]
                               ,[Name]
                               ,[UserType]

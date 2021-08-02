@@ -10,7 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Webapi", "HMS.Webapi\HM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Domain", "HMS.Domain\HMS.Domain.csproj", "{CCF38589-D60D-411F-B06E-6604DCE0F5EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{C6F1158D-7D61-4661-BDE0-671225A99FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{C6F1158D-7D61-4661-BDE0-671225A99FCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicer", "Invoicer\Invoicer.csproj", "{20C61617-6660-4283-96E9-8D579D9A15DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicer.Console", "Invoicer.Console\Invoicer.Console.csproj", "{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,14 @@ Global
 		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6F1158D-7D61-4661-BDE0-671225A99FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20C61617-6660-4283-96E9-8D579D9A15DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C61617-6660-4283-96E9-8D579D9A15DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C61617-6660-4283-96E9-8D579D9A15DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C61617-6660-4283-96E9-8D579D9A15DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
