@@ -33,6 +33,8 @@ namespace HMS.Service
                                           ,a.[CodeNumber]
                                           ,a.[CityId]
                                           ,a.[StateId]
+                                          ,a.[Contact]
+                                          ,a.[Email]
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
@@ -64,7 +66,12 @@ namespace HMS.Service
                                            ,[CodeImage]
                                            ,[CodeNumber]
                                            ,[CityId]
-                                           ,[StateId])
+                                           ,[StateId]
+                                           ,[StartDate]
+                                           ,[EndDate]
+                                           ,[SubscriptionStatus]
+                                           ,[Contact]
+                                           ,[Email])
                                      VALUES
                                            (@IsActive
                                            ,@CreatedOn
@@ -88,7 +95,12 @@ namespace HMS.Service
                                            ,@CodeImage
                                            ,@CodeNumber
                                            ,@CityId
-                                           ,@StateId)";
+                                           ,@StateId
+                                           ,@StartDate
+                                           ,@EndDate
+                                           ,@SubscriptionStatus
+                                           ,@Contact
+                                           ,@Email )";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -113,6 +125,8 @@ namespace HMS.Service
                               ,[CodeNumber] =@CodeNumber
                               ,[CityId]=@CityId
                               ,[StateId]=@StateId
+                              ,[Contact]=@Contact
+                              ,[Email]=@Email
                          WHERE Id=@Id";
         string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
@@ -146,5 +160,6 @@ namespace HMS.Service
             
             dbHelper.Update(updateQuery, admin);
         }
+       
     }
 }

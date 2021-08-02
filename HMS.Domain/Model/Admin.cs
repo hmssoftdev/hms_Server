@@ -32,5 +32,10 @@ namespace HMS.Domain.Model
        
         public int StateId { get; set; }
         public string State { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime EndDAte { get; set; } = DateTime.Now.AddDays(30);
+        public int SubscriptionStatus { get; set; }
+        public string Contact { get; set; }
+        public string Email { get; set; }
     }
 }
