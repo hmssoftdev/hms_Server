@@ -11,7 +11,7 @@ namespace HMS.Domain.Model
         public int UserType { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string Mobile { get; set; }
+        public string Contact { get; set; }
         public string Password { get; set; }
 
     }
