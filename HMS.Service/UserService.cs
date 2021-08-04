@@ -19,7 +19,7 @@ namespace HMS.Service
                               ,[UserType]
                               ,[UserName]
                               ,[Email]
-                              ,[Contact]
+                              ,[Mobile]
                               ,[Password]
                           FROM [dbo].[Users]";
         string ValidateUserQuery = @"SELECT [Id]
@@ -27,7 +27,7 @@ namespace HMS.Service
                               ,[UserType]
                               ,[UserName]
                               ,[Email]
-                              ,[Contact]
+                              ,[Mobile]
                           FROM [dbo].[Users] ";
         string insertQuery = @"INSERT INTO [dbo].[Users]
                                ([IsActive]
@@ -39,7 +39,7 @@ namespace HMS.Service
                                ,[UserType]
                                ,[UserName]
                                ,[Email]
-                               ,[Contact]
+                               ,[Mobile]
                                ,[Password])
                          VALUES
                                (@IsActive
@@ -51,7 +51,7 @@ namespace HMS.Service
                                ,@UserType
                                ,@UserName
                                ,@Email
-                               ,@Contact
+                               ,@Mobile
                                ,@Password)";
         string updateQuery = @"UPDATE [dbo].[Users]
                                SET [IsActive] =  @IsActive 
@@ -63,7 +63,7 @@ namespace HMS.Service
                                   ,[UserType] =  @UserType 
                                   ,[UserName] =  @UserName 
                                   ,[Email] =     @Email
-                                  ,[Contact] =    @Contact
+                                  ,[Mobile] =    @Mobile
                                   ,[Password] =  @Password 
                              WHERE id = @id";
         string selectByIdQuery = @"SELECT [Id]
@@ -72,7 +72,7 @@ namespace HMS.Service
                               ,[UserType]
                               ,[UserName]
                               ,[Email]
-                              ,[Contact]                              
+                              ,[Mobile]                              
                           FROM [dbo].[Users] ";
         string deleteQuery = "Delete from Users";
 
