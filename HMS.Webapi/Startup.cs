@@ -40,6 +40,8 @@ namespace HMS.Webapi
             });
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            var connectionSettings  = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
+            
             services.AddScoped<ActionFilter>();
 
             //services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
@@ -58,6 +60,8 @@ namespace HMS.Webapi
             services.AddSingleton<IUserAuthService, UserAuthService>();
          
             services.AddSingleton<IHotelService, HotelService>();
+            services.AddSingleton<IDbHelper, DbHelper>();
+            services.AddSingleton<ConnectionSettings>(connectionSettings);
 
 
             services.AddControllers()
