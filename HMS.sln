@@ -12,6 +12,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Domain", "HMS.Domain\HM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMS.Service", "HMS.Service\HMS.Service.csproj", "{C6F1158D-7D61-4661-BDE0-671225A99FCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicer", "Invoicer\Invoicer.csproj", "{20C61617-6660-4283-96E9-8D579D9A15DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicer.Console", "Invoicer.Console\Invoicer.Console.csproj", "{EEFBFDCB-2993-4D30-B1EA-95DFFFEFC7CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
