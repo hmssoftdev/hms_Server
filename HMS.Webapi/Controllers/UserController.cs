@@ -41,7 +41,7 @@ namespace HMS.Webapi.Controllers
             return Ok(response);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -59,7 +59,7 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
        public IActionResult Post(User user)
         {
