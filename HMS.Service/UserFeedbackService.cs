@@ -7,7 +7,11 @@ namespace HMS.Service
 {
     public class UserFeedbackService : IUserFeedbackService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+        public UserFeedbackService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT [Id]
                                   ,[IsActive]
                                   ,[CreatedOn]

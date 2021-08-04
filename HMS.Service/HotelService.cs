@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class HotelService : IHotelService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public HotelService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT [Id]
                               ,[IsActive]
                               ,[CreatedOn]

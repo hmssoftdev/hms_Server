@@ -8,7 +8,12 @@ namespace HMS.Service
 {
     public class UserService : IUserService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public UserService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT [Id]
                               ,[IsActive]
                               ,[CreatedOn]

@@ -17,7 +17,7 @@ namespace HMS.Service
     }
     public class DbHelper : IDbHelper
     {
-        string connectionString = "Data Source=148.72.232.168;Initial Catalog=hms_db;Integrated Security=False;User ID=hms_admin;password=*2mf6yL2;Connect Timeout=15;Encrypt=False;Packet Size=4096";
+        string connectionString;
         public DbHelper(ConnectionSettings connectionSettings)
         {
             connectionString = connectionSettings.DefaultConnection;

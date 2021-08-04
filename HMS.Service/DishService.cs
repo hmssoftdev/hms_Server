@@ -7,7 +7,11 @@ namespace HMS.Service
 {
     public class DishService : IDishService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+        public DishService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT  d.[Id]
                                       ,d.[IsActive]
                                       ,d.[CreatedOn]
