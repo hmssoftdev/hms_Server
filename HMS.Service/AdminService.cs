@@ -40,6 +40,7 @@ namespace HMS.Service
                                           ,a.[StateId]
                                           ,a.[Contact]
                                           ,a.[Email]
+                                          ,a.[SubscriptionStatus]
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
