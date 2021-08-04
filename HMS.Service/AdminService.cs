@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class AdminService : IAdminService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public AdminService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
 
         string selectQuery = @"SELECT a.[Id]
                                           ,a.[IsActive]

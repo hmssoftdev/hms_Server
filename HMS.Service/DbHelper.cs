@@ -8,17 +8,31 @@ using System.Text;
 
 namespace HMS.Service
 {
-    public class DbHelper
+    public interface IDbHelper
     {
-        string connectionString = "Data Source=DESKTOP-9IJKFVB;Initial Catalog=hms;Integrated Security=True";
+        public IList<T> FetchData<T>(string StateSelectQuery);
+        public void Add<Model>(string query, Model model);
+        public void Update<Model>(string query, Model model);
+        public void Delete<Model>(string query, Model model);
+    }
+    public class DbHelper : IDbHelper
+    {
+        string connectionString = "Data Source=148.72.232.168;Initial Catalog=hms_db;Integrated Security=False;User ID=hms_admin;password=*2mf6yL2;Connect Timeout=15;Encrypt=False;Packet Size=4096";
+        public DbHelper(ConnectionSettings connectionSettings)
+        {
+            connectionString = connectionSettings.DefaultConnection;
+        }
+        public DbHelper()
+        {
 
+        }
+       
         internal void Add(string insertQuery, object fileUpload)
         {
             throw new NotImplementedException();
         }
 
         // only when deplyed
-        ///string connectionString = "Data Source=148.72.232.168;Initial Catalog=hms_db;Integrated Security=False;User ID=hms_admin;password=*2mf6yL2;Connect Timeout=15;Encrypt=False;Packet Size=4096";
         public IList<T> FetchData<T>(string StateSelectQuery)
         {
             var result = new List<T>();

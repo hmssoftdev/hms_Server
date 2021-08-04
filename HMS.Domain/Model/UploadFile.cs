@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Http;
-using System;
-
 using System.Linq;
 using System.Threading.Tasks;
 using static HMS.Domain.UploadFilecs;
