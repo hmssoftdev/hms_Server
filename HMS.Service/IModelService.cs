@@ -16,7 +16,9 @@ namespace HMS.Service
 
     public interface IDishService: IModelService { } 
     public interface IUserConfigService: IModelService { } 
-    public interface IAdminService: IModelService { } 
+    public interface IAdminService: IModelService {
+      void  UpdateSubscriptionId(IModel model);
+    } 
     public interface IDishCategoryService: IModelService { }
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }

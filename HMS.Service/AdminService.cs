@@ -160,6 +160,14 @@ namespace HMS.Service
             
             dbHelper.Update(updateQuery, admin);
         }
-       
+        public void UpdateSubscriptionId(IModel model)
+        {
+            var admin = (Admin)model;
+
+            dbHelper.Update($"UPDATE[dbo].[Admin] SET [SubscriptionStatus] = {admin.SubscriptionStatus} WHERE ID = {admin.Id}", admin);
+        }
+
+
+
     }
 }
