@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "rPL0OL/ML11/ok0I6TQBx6xhtcuRDc4LN/ktPtp9RpJf3KX9KC5iwjUXebo2MkVVrltXFIvhtZH3WNHZAC5Qtg==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\HMS\\HMS_Backend\\HMS_Server\\Invoicer\\Invoicer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\shaik\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\shaik\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\shaik\\.nuget\\packages\\pdfsharp-migradoc-gdi\\1.50.5147\\pdfsharp-migradoc-gdi.1.50.5147.nupkg.sha512",
+    "C:\\Users\\shaik\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PDFsharp-MigraDoc-gdi 1.50.5147' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PDFsharp-MigraDoc-gdi",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}
