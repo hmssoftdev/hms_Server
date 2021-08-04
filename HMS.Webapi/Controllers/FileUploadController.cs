@@ -1,4 +1,4 @@
-﻿//using FileUpload.Models;
+﻿//using FileUpload.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
