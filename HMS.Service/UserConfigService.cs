@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class UserConfigService : IUserConfigService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public UserConfigService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT  u.[UserName]
                               ,u.[Email]
                               ,u.[Address]
@@ -24,8 +29,8 @@ namespace HMS.Service
 	                          ,st.[Name] as State
 	                          ,ct.[Name] as City
 	                          FROM [dbo].[UserConfig] u
-                          inner join StateMaster st on st.Id = u.[StateId]
-                          inner join CityMaster ct on ct.Id = u.[CityId]
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[UserConfig]
                                    ([UserName]

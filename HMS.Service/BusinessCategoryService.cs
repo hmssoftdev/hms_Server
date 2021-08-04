@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class BusinessCategoryService : IBusinessCategoryService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public BusinessCategoryService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string selectQuery = @"SELECT [Id]
                                   ,[IsActive]
                                   ,[CreatedOn]

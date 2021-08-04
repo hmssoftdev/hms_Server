@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class AdminService : IAdminService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public AdminService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
 
         string selectQuery = @"SELECT a.[Id]
                                           ,a.[IsActive]
@@ -160,6 +165,14 @@ namespace HMS.Service
             
             dbHelper.Update(updateQuery, admin);
         }
-       
+        public void UpdateSubscriptionId(IModel model)
+        {
+            var admin = (Admin)model;
+
+            dbHelper.Update($"UPDATE[dbo].[Admin] SET [SubscriptionStatus] = {admin.SubscriptionStatus} WHERE ID = {admin.Id}", admin);
+        }
+
+
+
     }
 }

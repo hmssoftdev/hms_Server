@@ -7,7 +7,12 @@ namespace HMS.Service
 {
     public class MasterService :IMasterService
     {
-        DbHelper dbHelper = new DbHelper();
+        IDbHelper dbHelper;
+
+        public MasterService(IDbHelper dbHelper)
+        {
+            this.dbHelper = dbHelper;
+        }
         string StateSelectQuery = @"SELECT [Id]
                                   ,[IsActive]
                                   ,[CreatedOn]

@@ -37,18 +37,26 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult post(Admin admin)
+        public IActionResult Post(Admin admin)
         {
+            admin.SubscriptionStatus = 1;
             _AdminService.Add(admin);
             return Ok("Data Added");
         }
         [HttpPut]
-        public IActionResult put(Admin admin)
+        public IActionResult Put(Admin admin)
         {
             _AdminService.Update(admin);
             return Ok("Data Updated");
         }
-       [HttpDelete]
+        [HttpPut("updateSubscription")]
+        public IActionResult UpdateSubscription(Admin admin)
+        {
+            _AdminService.UpdateSubscriptionId(admin);
+            return Ok("Data Updated");
+        }
+
+        [HttpDelete]
        public IActionResult DeleteById(int id)
         {
             _AdminService.Delete(id);          
