@@ -41,7 +41,7 @@ namespace HMS.Webapi.Controllers
             return Ok(response);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -50,7 +50,7 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("GetById/{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -59,7 +59,7 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
        public IActionResult Post(User user)
         {
@@ -67,7 +67,7 @@ namespace HMS.Webapi.Controllers
             return Ok("Data Added");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         public IActionResult Put(User user)
         {
