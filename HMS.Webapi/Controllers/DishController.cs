@@ -71,32 +71,8 @@ namespace HMS.Webapi.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromForm]Dish dish)
+        public IActionResult Put(Dish dish)
         {
-            if (dish.files.Length > 0)
-            {
-                try
-                {
-                    if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
-                    {
-                        Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
-                    }
-                    using (FileStream fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath +
-                        "\\Images\\" + dish.files.FileName))
-                    {
-                        dish.files.CopyTo(fileStream);
-                        fileStream.Flush();
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-            else
-            {
-
-            }
             _dishService.Update(dish);
             return Ok("Data Updated");
         }
