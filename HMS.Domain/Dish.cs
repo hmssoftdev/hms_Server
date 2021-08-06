@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,8 +23,8 @@ namespace HMS.Domain
         public string NonVegCategory { get; set; }
         public string status { get; set; }
         public string ImageUrl { get; set; }
-      
-     
+
+        public IFormFile files { get; set; }
 
     }
 }
