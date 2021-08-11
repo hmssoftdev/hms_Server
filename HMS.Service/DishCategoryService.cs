@@ -21,6 +21,7 @@ namespace HMS.Service
                                   ,[UpdatedBy]
                                   ,[Name]
                                   ,[HotelId]
+                                  ,[GSTcompliance]
                               FROM[dbo].[DishCategory]";
         string insertQuery = @"INSERT INTO [dbo].[DishCategory]
                                    ([IsActive]
@@ -29,7 +30,8 @@ namespace HMS.Service
                                    ,[UpdatedOn]
                                    ,[UpdatedBy]
                                    ,[Name]
-                                   ,[HotelId])
+                                   ,[HotelId]
+                                   ,[GSTcompliance])
                              VALUES
                                    (@IsActive
                                    ,@CreatedOn
@@ -37,7 +39,8 @@ namespace HMS.Service
                                    ,@UpdatedOn
                                    ,@UpdatedBy
                                    ,@Name
-                                   ,@HotelId)";
+                                   ,@HotelId
+                                   ,@GSTcompliance)";
         string updateQuery = @"UPDATE [dbo].[DishCategory]
                                    SET [IsActive] =@IsActive
                                       ,[CreatedOn] =@CreatedOn
@@ -46,6 +49,7 @@ namespace HMS.Service
                                       ,[UpdatedBy] =@UpdatedBy
                                       ,[Name] =@Name
                                       ,[HotelId] =@HotelId
+                                      ,[GSTcompliance]=@GSTcompliance
                                  WHERE Id=@Id";
         string deleteQuery = "Delete from DishCategory";
         public void Add(IModel model)
