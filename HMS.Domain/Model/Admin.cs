@@ -37,5 +37,7 @@ namespace HMS.Domain.Model
         public int SubscriptionStatus { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
+        public string ImageUrl { get; set; }
+
     }
 }

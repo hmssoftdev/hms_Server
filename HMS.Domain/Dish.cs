@@ -23,8 +23,7 @@ namespace HMS.Domain
         public string NonVegCategory { get; set; }
         public string status { get; set; }
         public string ImageUrl { get; set; }
-
-        public IFormFile files { get; set; }
+       public IFormFile files { get; set; }
 
     }
 }

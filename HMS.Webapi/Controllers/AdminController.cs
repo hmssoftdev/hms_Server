@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HMS.Domain;
 using HMS.Service;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,11 +14,17 @@ namespace HMS.Webapi.Controllers
     [Route("[controller]")]
     public class AdminController:BaseController
     {
+        private static IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<AdminController> _logger;
         IAdminService _AdminService;
-        public AdminController(IMapper mapper, IAdminService modelService) : base(mapper)
+        IImageService _imageService;
+
+        public AdminController(IMapper mapper, IAdminService modelService, IWebHostEnvironment webHostEnvironment,
+            IImageService imageService) : base(mapper)
         {
             _AdminService = modelService;
+            _webHostEnvironment = webHostEnvironment;
+            _imageService = imageService;
         }
 
         [HttpGet]
@@ -37,8 +44,15 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult Post(Admin admin)
+        public IActionResult Post([FromForm]Admin admin)
         {
+            if (admin.files.Length > 0)
+            {
+                if (_imageService.UploadImage(admin.files.FileName, admin.files))
+                {
+                    admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
+                }
+            }
             admin.SubscriptionStatus = 1;
             _AdminService.Add(admin);
             return Ok("Data Added");
@@ -46,6 +60,13 @@ namespace HMS.Webapi.Controllers
         [HttpPut]
         public IActionResult Put(Admin admin)
         {
+            if (admin.files.Length > 0)
+            {
+                if (_imageService.UploadImage(admin.files.FileName, admin.files))
+                {
+                    admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
+                }
+            }
             _AdminService.Update(admin);
             return Ok("Data Updated");
         }

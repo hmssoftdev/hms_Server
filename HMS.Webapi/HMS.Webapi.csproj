@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="HMS\Domain\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 

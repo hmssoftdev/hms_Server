@@ -8,4 +8,10 @@ namespace HMS.Service
     {
         public string DefaultConnection { get; set; }
     }
+
+    public class AWS
+    {
+        public string AccessId { get; set; }
+        public string AccessKey { get; set; }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -35,5 +36,9 @@ namespace HMS.Domain
         public int SubscriptionStatus { get; set; }
         public string Contact { get; set; }
         public string Email { get; set; }
+        public IFormFile files { get; set; }
+        public string ImageUrl { get; set; }
+
+
     }
 }

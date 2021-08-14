@@ -41,11 +41,10 @@ namespace HMS.Webapi
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             var connectionSettings  = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
-            
+            var aws = Configuration.GetSection("AWS").Get<AWS>();
+
             services.AddScoped<ActionFilter>();
 
-            //services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
-            //services.AddControllers(options => options.Filters.Add(new HttpResponseExceptionFilter()));
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
 
@@ -61,7 +60,10 @@ namespace HMS.Webapi
          
             services.AddSingleton<IHotelService, HotelService>();
             services.AddSingleton<IDbHelper, DbHelper>();
+            services.AddSingleton<IImageService, ImageService>();
+
             services.AddSingleton<ConnectionSettings>(connectionSettings);
+            services.AddSingleton<AWS>(aws);
 
 
             services.AddControllers()

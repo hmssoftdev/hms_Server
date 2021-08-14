@@ -18,10 +18,13 @@ namespace HMS.Webapi.Controllers
         private static IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<DishController> _logger;
         IDishService _dishService;
-        public DishController(IMapper mapper, IDishService modelService, IWebHostEnvironment webHostEnvironment) :base(mapper)
+        IImageService _imageService;
+        public DishController(IMapper mapper, IDishService modelService, IWebHostEnvironment webHostEnvironment, 
+            IImageService imageService) :base(mapper)
         {
             _dishService = modelService;
             _webHostEnvironment = webHostEnvironment;
+            _imageService = imageService;
         }
 
         [HttpGet]
@@ -44,28 +47,12 @@ namespace HMS.Webapi.Controllers
         {
             if (dish.files.Length > 0)
             {
-                try
+               if(_imageService.UploadImage(dish.files.FileName, dish.files))
                 {
-                    if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
-                    {
-                        Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
-                    }
-                    using (FileStream fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath +
-                        "\\Images\\" + dish.files.FileName))
-                    {
-                        dish.files.CopyTo(fileStream);
-                        fileStream.Flush();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    
+                    dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ dish.files.FileName}";
                 }
             }
-            else
-            {
-               
-            }
+            
             _dishService.Add(dish);
             return Ok("Data Added");
         }
@@ -73,6 +60,13 @@ namespace HMS.Webapi.Controllers
         [HttpPut]
         public IActionResult Put(Dish dish)
         {
+            if (dish.files.Length > 0)
+            {
+                if (_imageService.UploadImage(dish.files.FileName, dish.files))
+                {
+                    dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ dish.files.FileName}";
+                }
+            }
             _dishService.Update(dish);
             return Ok("Data Updated");
         }
@@ -82,5 +76,6 @@ namespace HMS.Webapi.Controllers
             _dishService.Delete(id);
             return Ok("deleted");
         }
+
     }
 }
