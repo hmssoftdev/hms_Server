@@ -11,6 +11,6 @@ namespace HMS.Domain
         public int HotelId { get; set; }
 
         public Hotel Hotel { get; set; }
-        public int GSTcompliance { get; set; }
+        public int gstCompliance { get; set; }
     }
 }
