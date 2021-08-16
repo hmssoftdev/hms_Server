@@ -45,12 +45,11 @@ namespace HMS.Webapi.Controllers
        [HttpPost]
        public IActionResult Post([FromForm] Dish dish)
         {
-            if (dish.files.Length > 0)
+            if (dish.files != null && dish.files.Length > 0)
             {
-               if(_imageService.UploadImage(dish.files.FileName, dish.files))
-                {
-                    dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ dish.files.FileName}";
-                }
+                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                _imageService.UploadImage(fileName, dish.files);
+                dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
             }
             
             _dishService.Add(dish);
@@ -58,14 +57,13 @@ namespace HMS.Webapi.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(Dish dish)
+        public IActionResult Put([FromForm]Dish dish)
         {
-            if (dish.files.Length > 0)
+            if (dish.files!=null && dish.files.Length > 0)
             {
-                if (_imageService.UploadImage(dish.files.FileName, dish.files))
-                {
-                    dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ dish.files.FileName}";
-                }
+                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                _imageService.UploadImage(fileName, dish.files);
+                dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
             }
             _dishService.Update(dish);
             return Ok("Data Updated");

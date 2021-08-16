@@ -46,26 +46,27 @@ namespace HMS.Webapi.Controllers
         [HttpPost]
         public IActionResult Post([FromForm]Admin admin)
         {
-            if (admin.files.Length > 0)
+            if (admin.files !=null && admin.files.Length > 0)
             {
-                if (_imageService.UploadImage(admin.files.FileName, admin.files))
-                {
-                    admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
-                }
+                var fileName = $"{ admin.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                 _imageService.UploadImage(fileName, admin.files);
+                admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                
             }
             admin.SubscriptionStatus = 1;
             _AdminService.Add(admin);
             return Ok("Data Added");
         }
         [HttpPut]
-        public IActionResult Put(Admin admin)
+        public IActionResult Put([FromForm]Admin admin)
         {
-            if (admin.files.Length > 0)
+            if (admin.files !=null && admin.files.Length > 0)
             {
-                if (_imageService.UploadImage(admin.files.FileName, admin.files))
-                {
-                    admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
-                }
+                var fileName = $"{ admin.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+
+                _imageService.UploadImage(admin.files.FileName, admin.files);
+                admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
+                
             }
             _AdminService.Update(admin);
             return Ok("Data Updated");
