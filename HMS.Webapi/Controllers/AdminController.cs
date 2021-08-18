@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HMS.Domain;
 using HMS.Service;
+using HMS.Webapi.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -46,12 +47,26 @@ namespace HMS.Webapi.Controllers
         [HttpPost]
         public IActionResult Post([FromForm]Admin admin)
         {
-            if (admin.files !=null && admin.files.Length > 0)
+            if (admin.RestaurentLogoFile !=null && admin.RestaurentLogoFile.Length > 0)
             {
-                var fileName = $"{ admin.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
-                 _imageService.UploadImage(fileName, admin.files);
-                admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
-                
+                var fileName = $"{ admin.RestaurentLogoFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                 _imageService.UploadImage(fileName, admin.RestaurentLogoFile);
+                admin.RestaurentLogo = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
+            }
+            if (admin.RestaurentSealFile != null && admin.RestaurentSealFile.Length > 0)
+            {
+                var fileName = $"{admin.RestaurentSealFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.RestaurentSealFile);
+                admin.RestaurentSeal = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
+            }
+            if (admin.SignatureFile != null && admin.SignatureFile.Length > 0)
+            {
+                var fileName = $"{admin.SignatureFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.SignatureFile);
+                admin.Signature =$"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
             }
             admin.SubscriptionStatus = 1;
             _AdminService.Add(admin);
@@ -60,13 +75,26 @@ namespace HMS.Webapi.Controllers
         [HttpPut]
         public IActionResult Put([FromForm]Admin admin)
         {
-            if (admin.files !=null && admin.files.Length > 0)
+            if (admin.RestaurentLogoFile != null && admin.RestaurentLogoFile.Length > 0)
             {
-                var fileName = $"{ admin.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                var fileName = $"{ admin.RestaurentLogoFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.RestaurentLogoFile);
+                admin.RestaurentLogo = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
 
-                _imageService.UploadImage(admin.files.FileName, admin.files);
-                admin.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ admin.files.FileName}";
-                
+            }
+            if (admin.RestaurentSealFile != null && admin.RestaurentSealFile.Length > 0)
+            {
+                var fileName = $"{admin.RestaurentSealFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.RestaurentSealFile);
+                admin.RestaurentSeal = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
+            }
+            if (admin.SignatureFile != null && admin.SignatureFile.Length > 0)
+            {
+                var fileName = $"{admin.SignatureFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.SignatureFile);
+                admin.Signature = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
             }
             _AdminService.Update(admin);
             return Ok("Data Updated");

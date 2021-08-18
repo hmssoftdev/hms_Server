@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HMS.Domain;
 using HMS.Service;
+using HMS.Webapi.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,7 @@ namespace HMS.Webapi.Controllers
         {
             if (dish.files != null && dish.files.Length > 0)
             {
-                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, dish.files);
                 dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
             }
@@ -61,7 +62,7 @@ namespace HMS.Webapi.Controllers
         {
             if (dish.files!=null && dish.files.Length > 0)
             {
-                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}";
+                var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, dish.files);
                 dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
             }

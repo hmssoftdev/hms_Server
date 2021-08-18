@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -38,6 +39,7 @@ namespace HMS.Domain.Model
         public string Contact { get; set; }
         public string Email { get; set; }
         public string ImageUrl { get; set; }
+       
 
     }
 }

@@ -38,6 +38,9 @@ namespace HMS.Domain
         public string Email { get; set; }
         public IFormFile files { get; set; }
         public string ImageUrl { get; set; }
+        public IFormFile RestaurentLogoFile { get; set; }
+        public IFormFile RestaurentSealFile { get; set; }
+        public IFormFile SignatureFile { get; set; }
 
 
     }

@@ -1,7 +1,7 @@
 USE [hms_db]
 GO
 
-/****** Object:  Table [dbo].[Admin]    Script Date: 14-08-2021 12:42:05 ******/
+/****** Object:  Table [dbo].[Admin]    Script Date: 16-08-2021 19:40:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -38,9 +38,9 @@ CREATE TABLE [dbo].[Admin](
 	[SubscriptionStatus] [int] NULL,
 	[Contact] [varchar](100) NULL,
 	[Email] [varchar](100) NULL,
-	[ImageUrl] [varchar](100) NULL
+	[ImageUrl] [varchar](100) NULL,
+	[RestaurentSeal] [varchar](100) NULL
 ) ON [PRIMARY]
 GO
 
 
-b

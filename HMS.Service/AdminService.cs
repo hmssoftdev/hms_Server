@@ -41,6 +41,7 @@ namespace HMS.Service
                                           ,a.[Contact]
                                           ,a.[Email]
                                           ,a.[SubscriptionStatus]
+                                          ,a.[RestaurentSeal]
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
@@ -77,7 +78,8 @@ namespace HMS.Service
                                            ,[EndDate]
                                            ,[SubscriptionStatus]
                                            ,[Contact]
-                                           ,[Email])
+                                           ,[Email]
+                                           ,[RestaurentSeal])
                                      VALUES
                                            (@IsActive
                                            ,@CreatedOn
@@ -106,7 +108,8 @@ namespace HMS.Service
                                            ,@EndDate
                                            ,@SubscriptionStatus
                                            ,@Contact
-                                           ,@Email )";
+                                           ,@Email
+                                           ,@RestaurentSeal)";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -133,6 +136,7 @@ namespace HMS.Service
                               ,[StateId]=@StateId
                               ,[Contact]=@Contact
                               ,[Email]=@Email
+                              ,[RestaurentSeal]=@RestaurentSeal
                          WHERE Id=@Id";
         string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
