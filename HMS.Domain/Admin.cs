@@ -41,6 +41,8 @@ namespace HMS.Domain
         public IFormFile RestaurentLogoFile { get; set; }
         public IFormFile RestaurentSealFile { get; set; }
         public IFormFile SignatureFile { get; set; }
+        public string UpiImage { get; set; }
+        public IFormFile UpiImageFile { get; set; }
 
 
     }

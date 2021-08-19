@@ -68,6 +68,13 @@ namespace HMS.Webapi.Controllers
                 admin.Signature =$"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
 
             }
+            if (admin.UpiImageFile != null && admin.UpiImageFile.Length > 0)
+            {
+                var fileName = $"{admin.UpiImageFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.UpiImageFile);
+                admin.UpiImage = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
+            }
             admin.SubscriptionStatus = 1;
             _AdminService.Add(admin);
             return Ok("Data Added");
@@ -94,6 +101,13 @@ namespace HMS.Webapi.Controllers
                 var fileName = $"{admin.SignatureFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.SignatureFile);
                 admin.Signature = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+
+            }
+            if (admin.UpiImageFile != null && admin.UpiImageFile.Length > 0)
+            {
+                var fileName = $"{admin.UpiImageFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
+                _imageService.UploadImage(fileName, admin.UpiImageFile);
+                admin.UpiImage = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
 
             }
             _AdminService.Update(admin);

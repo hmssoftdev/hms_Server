@@ -42,6 +42,7 @@ namespace HMS.Service
                                           ,a.[Email]
                                           ,a.[SubscriptionStatus]
                                           ,a.[RestaurentSeal]
+                                          ,a.[UpiImage]
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
@@ -79,7 +80,8 @@ namespace HMS.Service
                                            ,[SubscriptionStatus]
                                            ,[Contact]
                                            ,[Email]
-                                           ,[RestaurentSeal])
+                                           ,[RestaurentSeal]
+                                           ,[UpiImage])
                                      VALUES
                                            (@IsActive
                                            ,@CreatedOn
@@ -109,7 +111,8 @@ namespace HMS.Service
                                            ,@SubscriptionStatus
                                            ,@Contact
                                            ,@Email
-                                           ,@RestaurentSeal)";
+                                           ,@RestaurentSeal
+                                           ,@UpiImage)";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -137,7 +140,44 @@ namespace HMS.Service
                               ,[Contact]=@Contact
                               ,[Email]=@Email
                               ,[RestaurentSeal]=@RestaurentSeal
+                              ,[UpiImage]=@UpiImage
                          WHERE Id=@Id";
+        string selectByIdQuery = @"SELECT a.[Id]
+                                          ,a.[IsActive]
+                                          ,a.[CreatedOn]
+                                          ,a.[CreatedBy]
+                                          ,a.[UpdatedOn]
+                                          ,a.[UpdatedBy]
+                                          ,a.[BusinessName]
+                                          ,a.[CategoryId]
+                                          ,a.[FoodLincNum]
+                                          ,a.[Address]
+                                          ,a.[Gst]
+                                          ,a.[AccountName]
+                                          ,a.[AccountNumber]
+                                          ,a.[BankName]
+                                          ,a.[IfscCode]
+                                          ,a.[PinCode]
+                                          ,a.[RestaurentLogo]
+                                          ,a.[Signature]
+                                          ,a.[TermAndCondition]
+                                          ,a.[BankAddress]
+                                          ,a.[CodeImage]
+                                          ,a.[CodeNumber]
+                                          ,a.[CityId]
+                                          ,a.[StateId]
+                                          ,a.[Contact]
+                                          ,a.[Email]
+                                          ,a.[SubscriptionStatus]
+                                          ,a.[RestaurentSeal]
+                                          ,a.[UpiImage]
+                                          ,st.[Name] as State
+	                                      ,ct.[Name] as City
+                                          ,bc.[Name] as Category
+                                      FROM [dbo].[Admin] a
+                                         inner join StateMaster st on st.Id = a.[StateId]
+                                         inner join CityMaster ct on ct.Id = a.[CityId]
+                                         inner join BusinessCategory bc on bc.Id = a.[CategoryId] where a.id=";
         string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
         {
@@ -160,7 +200,7 @@ namespace HMS.Service
 
         public IList<Admin> GetById<Admin>(int id)
         {
-            var AdminList = dbHelper.FetchData<Admin>($"{selectQuery} where id ={id}");
+            var AdminList = dbHelper.FetchData<Admin>($"{selectByIdQuery} {id}");
             return AdminList;
         }
 

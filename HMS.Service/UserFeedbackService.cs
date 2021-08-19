@@ -59,6 +59,19 @@ namespace HMS.Service
                                       ,[TermsAccept] =@TermsAccept
                                       ,[TimeStamp]=@TimeStamp
                                  WHERE Id =@Id";
+        string selectByIdQuery = @"SELECT [Id]
+                                  ,[IsActive]
+                                  ,[CreatedOn]
+                                  ,[CreatedBy]
+                                  ,[UpdatedOn]
+                                  ,[UpdatedBy]
+                                  ,[Rating]
+                                  ,[OpinionText]
+                                  ,[ReviewTitle]
+                                  ,[TermsAccept]
+                                  ,[TimeStamp]
+                              FROM [dbo].[UserFeedback]
+                                where id = ";
         string deleteQuery = "Delete from UserFeedback";
         public void Add(IModel model)
         {
@@ -81,7 +94,7 @@ namespace HMS.Service
 
         public IList<UserFeedback> GetById<UserFeedback>(int id)
         {
-            var UserFeedbackList = dbHelper.FetchData<UserFeedback>($"{selectQuery}where id ={id}");
+            var UserFeedbackList = dbHelper.FetchData<UserFeedback>($"{selectByIdQuery}{id}");
             return UserFeedbackList;
         }
 

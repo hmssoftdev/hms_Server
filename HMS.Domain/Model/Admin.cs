@@ -39,7 +39,9 @@ namespace HMS.Domain.Model
         public string Contact { get; set; }
         public string Email { get; set; }
         public string ImageUrl { get; set; }
-       
+        public string UpiImage { get; set; }
+
+
 
     }
 }
