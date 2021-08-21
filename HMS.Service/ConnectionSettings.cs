@@ -9,6 +9,11 @@ namespace HMS.Service
         public string DefaultConnection { get; set; }
     }
 
+    public class Documents
+    {
+        public string Url { get; set; }
+    }
+
     public class AWS
     {
         public string AccessId { get; set; }

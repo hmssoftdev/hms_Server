@@ -1,3 +1,4 @@
+using Bil;
 using HMS.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,7 @@ namespace HMS.Webapi
             services.AddSingleton<IHotelService, HotelService>();
             services.AddSingleton<IDbHelper, DbHelper>();
             services.AddSingleton<IImageService, ImageService>();
+            services.AddSingleton<IInvoice, InvoiceService>();
 
             services.AddSingleton<ConnectionSettings>(connectionSettings);
             services.AddSingleton<AWS>(aws);

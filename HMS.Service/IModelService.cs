@@ -31,7 +31,11 @@ namespace HMS.Service
     {
         IList<T> GetAllState<T>();
         IList<T> GetAllCity<T>();
-    } 
+    }
+
+    public interface IInvoice {
+        void GetInvoice(Admin admin,User user);
+  }
      
 
     
