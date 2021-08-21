@@ -19,13 +19,15 @@ namespace HMS.Webapi.Controllers
         private readonly ILogger<AdminController> _logger;
         IAdminService _AdminService;
         IImageService _imageService;
+        Documents _documents;
 
         public AdminController(IMapper mapper, IAdminService modelService, IWebHostEnvironment webHostEnvironment,
-            IImageService imageService) : base(mapper)
+            IImageService imageService,Documents documents) : base(mapper)
         {
             _AdminService = modelService;
             _webHostEnvironment = webHostEnvironment;
             _imageService = imageService;
+            _documents = documents;
         }
 
         [HttpGet]
@@ -51,28 +53,28 @@ namespace HMS.Webapi.Controllers
             {
                 var fileName = $"{ admin.RestaurentLogoFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                  _imageService.UploadImage(fileName, admin.RestaurentLogoFile);
-                admin.RestaurentLogo = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.RestaurentLogo = $"{_documents.Url}{ fileName}";
 
             }
             if (admin.RestaurentSealFile != null && admin.RestaurentSealFile.Length > 0)
             {
                 var fileName = $"{admin.RestaurentSealFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.RestaurentSealFile);
-                admin.RestaurentSeal = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.RestaurentSeal = $"{_documents.Url}{ fileName}";
 
             }
             if (admin.SignatureFile != null && admin.SignatureFile.Length > 0)
             {
                 var fileName = $"{admin.SignatureFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.SignatureFile);
-                admin.Signature =$"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.Signature =$"{_documents.Url}{ fileName}";
 
             }
             if (admin.UpiImageFile != null && admin.UpiImageFile.Length > 0)
             {
                 var fileName = $"{admin.UpiImageFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.UpiImageFile);
-                admin.UpiImage = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.UpiImage = $"{_documents.Url}{fileName}";
 
             }
             admin.SubscriptionStatus = 1;
@@ -86,28 +88,28 @@ namespace HMS.Webapi.Controllers
             {
                 var fileName = $"{ admin.RestaurentLogoFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.RestaurentLogoFile);
-                admin.RestaurentLogo = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.RestaurentLogo = $"{_documents.Url}{ fileName}";
 
             }
             if (admin.RestaurentSealFile != null && admin.RestaurentSealFile.Length > 0)
             {
                 var fileName = $"{admin.RestaurentSealFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.RestaurentSealFile);
-                admin.RestaurentSeal = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.RestaurentSeal = $"{_documents.Url}{ fileName}";
 
             }
             if (admin.SignatureFile != null && admin.SignatureFile.Length > 0)
             {
                 var fileName = $"{admin.SignatureFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.SignatureFile);
-                admin.Signature = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.Signature = $"{_documents.Url}{ fileName}";
 
             }
             if (admin.UpiImageFile != null && admin.UpiImageFile.Length > 0)
             {
                 var fileName = $"{admin.UpiImageFile.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, admin.UpiImageFile);
-                admin.UpiImage = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                admin.UpiImage = $"{_documents.Url}{ fileName}";
 
             }
             _AdminService.Update(admin);

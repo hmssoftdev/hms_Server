@@ -42,6 +42,8 @@ namespace HMS.Webapi
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             var connectionSettings  = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
             var aws = Configuration.GetSection("AWS").Get<AWS>();
+            var documents = Configuration.GetSection("Documents").Get<Documents>();
+            
 
             services.AddScoped<ActionFilter>();
 
@@ -64,6 +66,8 @@ namespace HMS.Webapi
 
             services.AddSingleton<ConnectionSettings>(connectionSettings);
             services.AddSingleton<AWS>(aws);
+            services.AddSingleton<Documents>(documents);
+            
 
 
             services.AddControllers()

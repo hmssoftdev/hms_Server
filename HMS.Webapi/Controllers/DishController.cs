@@ -20,12 +20,14 @@ namespace HMS.Webapi.Controllers
         private readonly ILogger<DishController> _logger;
         IDishService _dishService;
         IImageService _imageService;
+        Documents _documents;
         public DishController(IMapper mapper, IDishService modelService, IWebHostEnvironment webHostEnvironment, 
-            IImageService imageService) :base(mapper)
+            IImageService imageService,Documents documents) :base(mapper)
         {
             _dishService = modelService;
             _webHostEnvironment = webHostEnvironment;
             _imageService = imageService;
+            _documents = documents;
         }
 
         [HttpGet]
@@ -50,7 +52,7 @@ namespace HMS.Webapi.Controllers
             {
                 var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, dish.files);
-                dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                dish.ImageUrl = $"{_documents.Url}{ fileName}";
             }
             
             _dishService.Add(dish);
@@ -64,7 +66,7 @@ namespace HMS.Webapi.Controllers
             {
                 var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
                 _imageService.UploadImage(fileName, dish.files);
-                dish.ImageUrl = $"https://hmsdocuments.s3.us-east-2.amazonaws.com/{ fileName}";
+                dish.ImageUrl = $"{_documents.Url}{ fileName}";
             }
             _dishService.Update(dish);
             return Ok("Data Updated");
