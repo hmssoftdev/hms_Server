@@ -22,14 +22,14 @@ namespace Bil
                 .Company(Address.Make("FROM", new string[] { admin.AccountName, admin.AccountName, admin.Address, admin.City, admin.PinCode}, "1471587", admin.Gst))
                 .Client(Address.Make("BILLING TO", new string[] { user.Name, user.Contact, user.Email, "", "" }))
                 .Items(new List<ItemRow> {
-                    ItemRow.Make("Mutton Korma", "Midnight red", (decimal)100, 18, (decimal)100, (decimal)118.00),
+                    ItemRow.Make("dtyd", "Midnight red", (decimal)100, 18, (decimal)100, (decimal)118.00),
                     ItemRow.Make("Chiken shawarma ", "with chees", (decimal)80, 18, (decimal)80.00, (decimal)94.40),
                     ItemRow.Make("Nan chap", "Free case (blue)", (decimal)120, 18, (decimal)120, (decimal)141.60),
 
                 })
                 .Totals(new List<TotalRow> {
                     TotalRow.Make("Sub Total", (decimal)526.66),
-                    TotalRow.Make("VAT @ 18%", (decimal)105.33),
+                    TotalRow.Make("GST @ 18%", (decimal)105.33),
                     TotalRow.Make("Total", (decimal)631.99, true),
                 })
                 .Details(new List<DetailRow> {
