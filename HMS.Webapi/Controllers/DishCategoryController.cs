@@ -18,10 +18,10 @@ namespace HMS.Webapi.Controllers
         {
             _dishCategoryService = modelService;
         }
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{userId:int}")]
+        public IActionResult Get(int userId)
         {
-            var dishCategoryList = _dishCategoryService.GetAll<DishCategory>();
+            var dishCategoryList = _dishCategoryService.GetAllByHotelId<DishCategory>(userId);
             var list = _mapper.Map<List<HMS.Domain.Model.DishCategory>>(dishCategoryList);
             return Ok(list);
         }

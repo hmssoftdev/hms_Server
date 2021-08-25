@@ -23,6 +23,17 @@ namespace HMS.Service
                                   ,[HotelId]
                                   ,[gstCompliance]
                               FROM[dbo].[DishCategory]";
+        string selectByHotelQuery = @"SELECT [Id]
+                                  ,[IsActive]
+                                  ,[CreatedOn]
+                                  ,[CreatedBy]
+                                  ,[UpdatedOn]
+                                  ,[UpdatedBy]
+                                  ,[Name]
+                                  ,[HotelId]
+                                  ,[gstCompliance]
+                              FROM[dbo].[DishCategory]
+                                   where [CreatedBy] = @CreatedBy";
         string insertQuery = @"INSERT INTO [dbo].[DishCategory]
                                    ([IsActive]
                                    ,[CreatedOn]
@@ -82,9 +93,11 @@ namespace HMS.Service
             dbHelper.Update(updateQuery, dishCategory);
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<DishCategory> GetAllByHotelId<DishCategory>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var dishCategoryList = dbHelper.FetchDataByParam<DishCategory>(selectByHotelQuery,obj);
+            return dishCategoryList;
         }
     }
 }
