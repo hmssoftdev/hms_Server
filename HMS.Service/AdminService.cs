@@ -51,6 +51,44 @@ namespace HMS.Service
                           inner join CityMaster ct on ct.Id = a.[CityId]
                              inner join BusinessCategory bc on bc.Id = a.[CategoryId]
                           order by a.UpdatedOn desc";
+        string selectByHotelQuery = @"SELECT a.[Id]
+                                          ,a.[IsActive]
+                                          ,a.[CreatedOn]
+                                          ,a.[CreatedBy]
+                                          ,a.[UpdatedOn]
+                                          ,a.[UpdatedBy]
+                                          ,a.[BusinessName]
+                                          ,a.[CategoryId]
+                                          ,a.[FoodLincNum]
+                                          ,a.[Address]
+                                          ,a.[Gst]
+                                          ,a.[AccountName]
+                                          ,a.[AccountNumber]
+                                          ,a.[BankName]
+                                          ,a.[IfscCode]
+                                          ,a.[PinCode]
+                                          ,a.[RestaurentLogo]
+                                          ,a.[Signature]
+                                          ,a.[TermAndCondition]
+                                          ,a.[BankAddress]
+                                          ,a.[CodeImage]
+                                          ,a.[CodeNumber]
+                                          ,a.[CityId]
+                                          ,a.[StateId]
+                                          ,a.[Contact]
+                                          ,a.[Email]
+                                          ,a.[SubscriptionStatus]
+                                          ,a.[RestaurentSeal]
+                                          ,a.[UpiImage]
+                                          ,st.[Name] as State
+	                                      ,ct.[Name] as City
+                                          ,bc.[Name] as Category
+                                      FROM [dbo].[Admin] a
+                                         inner join StateMaster st on st.Id = a.[StateId]
+                          inner join CityMaster ct on ct.Id = a.[CityId]
+                             inner join BusinessCategory bc on bc.Id = a.[CategoryId]
+                                  where a.[CreatedBy] = @CreatedBy
+                          order by a.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[Admin]
                                            ([IsActive]
                                            ,[CreatedOn]
@@ -217,9 +255,12 @@ namespace HMS.Service
             dbHelper.Update($"UPDATE[dbo].[Admin] SET [SubscriptionStatus] = {admin.SubscriptionStatus} WHERE ID = {admin.Id}", admin);
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<Admin> GetAllByHotelId<Admin>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var AdminList = dbHelper.FetchDataByParam<Admin>(selectByHotelQuery,obj);
+            return AdminList;
+
         }
     }
 }
