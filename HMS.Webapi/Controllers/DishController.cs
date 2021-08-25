@@ -30,10 +30,10 @@ namespace HMS.Webapi.Controllers
             _documents = documents;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{userId:int}")]
+        public IActionResult Get(int userId)
         {
-            var dishList = _dishService.GetAll<Dish>();
+            var dishList = _dishService.GetAllByHotelId<Dish>(userId);
            var list =  _mapper.Map<List< HMS.Domain.Model.Dish>>(dishList);
             return Ok(list);
         }

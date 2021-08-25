@@ -126,5 +126,10 @@ namespace HMS.Service
             dbHelper.Update(updateQuery, userConfig);
 
         }
+
+        public IList<T> GetAllByHotelId<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,9 @@ namespace HMS.Service
     public interface IModelService
     {
         IList<T> GetAll<T>();
+
+        IList<T> GetAllByHotelId<T>(int id);
+
         IList<T> GetById<T>(int id);
         void Add(IModel model);
         void Update(IModel model);

@@ -35,7 +35,30 @@ namespace HMS.Service
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId]
-                                  order by d.UpdatedOn desc";       
+                                  order by d.UpdatedOn desc";
+        string selectByHotelQuery = @"SELECT  d.[Id]
+                                      ,d.[IsActive]
+                                      ,d.[CreatedOn]
+                                      ,d.[CreatedBy]
+                                      ,d.[UpdatedOn]
+                                      ,d.[UpdatedBy]
+                                      ,d.[Name]
+                                      ,d.[Description]
+                                      ,d.[HalfPrice]
+                                      ,d.[FullPrice]
+                                      ,d.[HotelId]
+                                      ,d.[MainCategoryId]
+                                      ,d.[Quantity]
+                                      ,d.[TimeForCook]
+                                      ,d.[IsVeg]
+                                      ,d.[NonVegCategory]
+                                      ,d.[status]
+                                      ,d.[ImageUrl]
+	                                  ,dc.[Name] as DishCategory
+                                  FROM [dbo].[Dish] d
+                                  inner join DishCategory dc on dc.Id = d.[MainCategoryId]
+                                  where d.[CreatedBy] = @CreatedBy
+                                  order by d.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[Dish] 
                                                    ([IsActive]
                                                    ,[CreatedOn]
@@ -144,6 +167,11 @@ namespace HMS.Service
             dbHelper.Update(updateQuery, dish);
         }
 
-
+        public IList<Dish> GetAllByHotelId<Dish>(int id)
+        {
+            var obj = new { CreatedBy = id };
+            var dishList = dbHelper.FetchDataByParam<Dish>(selectByHotelQuery, obj);
+            return dishList;
+        }
     }
 }

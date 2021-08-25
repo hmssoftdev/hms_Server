@@ -217,7 +217,9 @@ namespace HMS.Service
             dbHelper.Update($"UPDATE[dbo].[Admin] SET [SubscriptionStatus] = {admin.SubscriptionStatus} WHERE ID = {admin.Id}", admin);
         }
 
-
-
+        public IList<T> GetAllByHotelId<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

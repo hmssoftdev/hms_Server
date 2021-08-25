@@ -120,6 +120,9 @@ namespace HMS.Service
 
         }
 
-      
+        public IList<T> GetAllByHotelId<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,6 +11,9 @@ namespace HMS.Service
     public interface IDbHelper
     {
         public IList<T> FetchData<T>(string StateSelectQuery);
+
+        public IList<T> FetchDataByParam<T>(string StateSelectQuery, object obj);
+
         public void Add<Model>(string query, Model model);
         public void Update<Model>(string query, Model model);
         public void Delete<Model>(string query, Model model);
@@ -69,6 +72,15 @@ namespace HMS.Service
             }
         }
 
-      
+        public IList<T> FetchDataByParam<T>(string StateSelectQuery, object obj)
+        {
+            var result = new List<T>();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                result = connection.Query<T>(StateSelectQuery,obj).ToList();
+            }
+            return result;
+        }
     }
 }

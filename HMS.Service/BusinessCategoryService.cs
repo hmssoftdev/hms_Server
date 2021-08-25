@@ -73,5 +73,10 @@ namespace HMS.Service
           
             dbHelper.Update(updateQuery, businessCategory);
         }
+
+        public IList<T> GetAllByHotelId<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
