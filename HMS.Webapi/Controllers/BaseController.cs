@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace HMS.Webapi.Controllers
 {
     [ApiController]
-    //[Authorize]
-    //[ActionFilter]
+    [Authorize]
+    [ActionFilter]
     [Route("[controller]")]
     public abstract class BaseController : ControllerBase
     {

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,14 +42,42 @@ namespace HMS.Webapi
             });
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            var connectionSettings  = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
+            var connectionSettings = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
             var aws = Configuration.GetSection("AWS").Get<AWS>();
             var documents = Configuration.GetSection("Documents").Get<Documents>();
-            
+
 
             services.AddScoped<ActionFilter>();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "HMS Server", Version = "v1" });
+                c.AddSecurityDefinition("Bearer",
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                        Name = "Authorization",
+                        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+                    });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+            });
+
+
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddSingleton<IDishService, DishService>();
@@ -60,7 +89,7 @@ namespace HMS.Webapi
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
-         
+
             services.AddSingleton<IHotelService, HotelService>();
             services.AddSingleton<IDbHelper, DbHelper>();
             services.AddSingleton<IImageService, ImageService>();
@@ -69,7 +98,7 @@ namespace HMS.Webapi
             services.AddSingleton<ConnectionSettings>(connectionSettings);
             services.AddSingleton<AWS>(aws);
             services.AddSingleton<Documents>(documents);
-            
+
 
 
             services.AddControllers()
