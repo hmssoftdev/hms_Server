@@ -18,10 +18,10 @@ namespace HMS.Webapi.Controllers
         {
             _UserFeedbackService = modelService;
         }
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{UserId:int}")]
+        public IActionResult Get(int UserId)
         {
-            var UserFeedbackList = _UserFeedbackService.GetAll<UserFeedback>();
+            var UserFeedbackList = _UserFeedbackService.GetAllByHotelId<UserFeedback>(UserId);
             var list = _mapper.Map<List<HMS.Domain.Model.UserFeedback>>(UserFeedbackList);
             return Ok(list);
         }

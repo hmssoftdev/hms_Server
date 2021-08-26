@@ -25,6 +25,20 @@ namespace HMS.Service
                                   ,[TimeStamp]
                               FROM [dbo].[UserFeedback]
                                 order by UpdatedOn desc";
+        string selectByHotelQuery = @"SELECT [Id]
+                                  ,[IsActive]
+                                  ,[CreatedOn]
+                                  ,[CreatedBy]
+                                  ,[UpdatedOn]
+                                  ,[UpdatedBy]
+                                  ,[Rating]
+                                  ,[OpinionText]
+                                  ,[ReviewTitle]
+                                  ,[TermsAccept]
+                                  ,[TimeStamp]
+                              FROM[dbo].[UserFeedback]
+                                  where [CreatedBy] = @CreatedBy
+                              order by UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[UserFeedback]
                                        ([IsActive]
                                        ,[CreatedOn]
@@ -105,9 +119,12 @@ namespace HMS.Service
             dbHelper.Update(updateQuery, userFeedback);
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<UserFeedback> GetAllByHotelId<UserFeedback>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var UserFeedbackList = dbHelper.FetchDataByParam<UserFeedback>(selectByHotelQuery,obj);
+            return UserFeedbackList;
+
         }
     }
 }
