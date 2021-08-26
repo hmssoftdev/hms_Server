@@ -32,6 +32,26 @@ namespace HMS.Service
                           left join StateMaster st on st.Id = u.[StateId]
                           left join CityMaster ct on ct.Id = u.[CityId]
                           order by u.UpdatedOn desc";
+        string selectByHotelQuery = @"SELECT  u.[UserName]
+                              ,u.[Email]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]
+                              ,u.[Contact]
+	                          ,st.[Name] as State
+	                          ,ct.[Name] as City
+	                          FROM [dbo].[UserConfig] u
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId]
+                           where u.[CreatedBy] = @CreatedBy
+                          order by u.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[UserConfig]
                                    ([UserName]
                                    ,[Email]
@@ -127,9 +147,11 @@ namespace HMS.Service
 
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<UserConfig> GetAllByHotelId<UserConfig>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var UserConfigList = dbHelper.FetchDataByParam<UserConfig>(selectByHotelQuery,obj);
+            return UserConfigList;
         }
     }
 }

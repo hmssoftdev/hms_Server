@@ -22,11 +22,11 @@ namespace HMS.Webapi.Controllers
 
         public object UserConfigdList { get; private set; }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{UserId:int}")]
+        public IActionResult Get(int UserId)
         {
            
-            var UserConfigList = _UserConfigService.GetAll<UserConfig>();
+            var UserConfigList = _UserConfigService.GetAllByHotelId<UserConfig>(UserId);
             var list = _mapper.Map<List<HMS.Domain.Model.UserConfig>>(UserConfigList);
             return Ok(list);
         }
