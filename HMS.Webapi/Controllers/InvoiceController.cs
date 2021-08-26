@@ -15,6 +15,7 @@ namespace HMS.Webapi.Controllers
         private IInvoice _invoiceService;
         private IAdminService _adminService;
         private IUserService _userService;
+        private IDishService _dishService;
 
 
         private readonly ILogger<InvoiceController> _logger;
@@ -22,11 +23,14 @@ namespace HMS.Webapi.Controllers
 
         
         public InvoiceController(IMapper mapper,  IInvoice invoiceService, IAdminService adminService,
-            IUserService userService):base(mapper)
+            IUserService userService, IDishService dishService):base(mapper)
         {
             _adminService = adminService;
             _userService = userService;
+            _dishService = dishService;
             _invoiceService = invoiceService;
+            
+           
             _mapper = mapper;
 
         }
@@ -35,6 +39,7 @@ namespace HMS.Webapi.Controllers
         {
             var admin = _adminService.GetById<Admin>(41);
             var user = _userService.GetById<User>(1);
+            var dish = _dishService.GetById<Dish>(1);
             _invoiceService.GetInvoice(admin.First(),user.First());
             return Ok();
         }

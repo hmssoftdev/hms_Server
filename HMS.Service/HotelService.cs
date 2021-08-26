@@ -25,6 +25,20 @@ namespace HMS.Service
                               ,[Shape]
                               ,[BarcodeTest]
                           FROM [dbo].[Hotel]";
+        string selectByHotelQuery = @"SELECT [Id]
+                              ,[IsActive]
+                              ,[CreatedOn]
+                              ,[CreatedBy]
+                              ,[UpdatedOn]
+                              ,[UpdatedBy]
+                              ,[Name]
+                              ,[Seat]
+                              ,[IsAc]
+                              ,[Shape]
+                              ,[BarcodeTest]
+                          FROM[dbo].[Hotel]
+                            where [CreatedBy] = @CreatedBy
+                           ";
         string insertQuery = @"INSERT INTO [dbo].[Hotel]
                                        ([IsActive]
                                        ,[CreatedOn]
@@ -92,9 +106,11 @@ namespace HMS.Service
             dbHelper.Update(updateQuery, hotel);
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<Hotel> GetAllByHotelId<Hotel>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var HotelList = dbHelper.FetchDataByParam<Hotel>(selectByHotelQuery, obj);
+            return HotelList;
         }
     }
 }
