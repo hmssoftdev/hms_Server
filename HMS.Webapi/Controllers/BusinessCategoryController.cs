@@ -20,10 +20,10 @@ namespace HMS.Webapi.Controllers
         {
             _BusinessCategoryService = modelService;
         }
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{UserId:int}")]
+        public IActionResult Get(int UserId)
         {
-            var BusinessCategoryList = _BusinessCategoryService.GetAll<BusinessCategory>();
+            var BusinessCategoryList = _BusinessCategoryService.GetAllByHotelId<BusinessCategory>(UserId);
             var list = _mapper.Map<List<HMS.Domain.Model.BusinessCategory>>(BusinessCategoryList);
             return Ok(list);
         }
