@@ -20,7 +20,7 @@ namespace HMS.Service
                               ,[UpdatedOn]
                               ,[UpdatedBy]
                               ,[Name]
-                              ,[Size]
+                              ,[Seat]
                               ,[IsAc]
                               ,[Shape]
                               ,[BarcodeTest]
@@ -32,7 +32,7 @@ namespace HMS.Service
                                        ,[UpdatedOn]
                                        ,[UpdatedBy]
                                        ,[Name]
-                                       ,[Size]
+                                       ,[Seat]
                                        ,[IsAc]
                                        ,[Shape]
                                        ,[BarcodeTest])
@@ -43,7 +43,7 @@ namespace HMS.Service
                                        ,@UpdatedOn
                                        ,@UpdatedBy
                                        ,@Name
-                                       ,@Size
+                                       ,@Seat
                                        ,@IsAc
                                        ,@Shape
                                        ,@BarcodeTest)";
@@ -54,7 +54,7 @@ namespace HMS.Service
                           ,[UpdatedOn] =@UpdatedOn
                           ,[UpdatedBy] =@UpdatedBy
                           ,[Name] =@Name
-                          ,[Size] =@Size
+                          ,[Seat] =@Seat
                           ,[IsAc] =@IsAc
                           ,[Shape] =@Shape
                           ,[BarcodeTest] =@arcodeTest

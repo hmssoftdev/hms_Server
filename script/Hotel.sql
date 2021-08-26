@@ -1,7 +1,7 @@
-USE [hms]
+USE [hms_db]
 GO
 
-/****** Object:  Table [dbo].[Hotel]    Script Date: 19-07-2021 16:38:32 ******/
+/****** Object:  Table [dbo].[Hotel]    Script Date: 26-08-2021 13:09:58 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[Hotel](
 	[UpdatedOn] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[Name] [varchar](100) NULL,
-	[Size] [int] NULL,
+	[Seat] [int] NULL,
 	[IsAc] [bit] NULL,
 	[Shape] [varchar](100) NULL,
 	[BarcodeTest] [varchar](100) NULL
