@@ -42,10 +42,10 @@ namespace HMS.Webapi.Controllers
         }
 
         //[Authorize]
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{UserId:int}")]
+        public IActionResult Get(int UserId)
         {
-            var UserList = _userService.GetAll<User>();
+            var UserList = _userService.GetAllByHotelId<User>(UserId);
            var list =  _mapper.Map<List< HMS.Domain.Model.User>>(UserList);
             return Ok(list);
         }

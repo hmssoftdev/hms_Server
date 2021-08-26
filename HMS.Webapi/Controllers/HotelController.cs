@@ -21,11 +21,11 @@ namespace HMS.Webapi.Controllers
             _HotelService = modelService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get/{UserId:int}")]
+        public IActionResult Get(int UserId)
         {
 
-            var HotelList = _HotelService.GetAll<Hotel>();
+            var HotelList = _HotelService.GetAllByHotelId<Hotel>(UserId);
             var list = _mapper.Map<List<HMS.Domain.Model.Hotel>>(HotelList);
             return Ok(list);
         }

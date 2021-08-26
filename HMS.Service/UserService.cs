@@ -27,6 +27,20 @@ namespace HMS.Service
                               ,[Contact]
                               ,[Password]
                           FROM [dbo].[Users]";
+        string selectByHotelQuery = @"SELECT [Id]
+                              ,[IsActive]
+                              ,[CreatedOn]
+                              ,[CreatedBy]
+                              ,[UpdatedOn]
+                              ,[UpdatedBy]
+                              ,[Name]
+                              ,[UserType]
+                              ,[UserName]
+                              ,[Email]
+                              ,[Contact]
+                              ,[Password]
+                          FROM [dbo].[Users]
+                          where [CreatedBy] = @CreatedBy";
         string ValidateUserQuery = @"SELECT [Id]
                               ,[Name]
                               ,[UserType]
@@ -120,9 +134,12 @@ namespace HMS.Service
 
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<User> GetAllByHotelId<User>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var UserList = dbHelper.FetchDataByParam<User>(selectByHotelQuery,obj);
+            return UserList;
+
         }
     }
 }
