@@ -71,7 +71,7 @@ namespace HMS.Service
                           ,[Seat] =@Seat
                           ,[IsAc] =@IsAc
                           ,[Shape] =@Shape
-                          ,[BarcodeTest] =@arcodeTest
+                          ,[BarcodeTest] =@BarcodeTest
                      WHERE Id=@Id";
         string selectByIdQuery = "";
         string deleteQuery = "Delete from Hotel";
@@ -102,7 +102,6 @@ namespace HMS.Service
         public void Update(IModel model)
         {
             var hotel = (Hotel)model;
-
             dbHelper.Update(updateQuery, hotel);
         }
 

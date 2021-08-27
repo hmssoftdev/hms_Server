@@ -43,7 +43,7 @@ namespace HMS.Webapi.Controllers
             return Ok("Data Added");
         }
         [HttpPut]
-        public IActionResult put(Hotel hotel)
+        public IActionResult Put(Hotel hotel)
         {
             _HotelService.Update(hotel);
             return Ok("Data Updated");
