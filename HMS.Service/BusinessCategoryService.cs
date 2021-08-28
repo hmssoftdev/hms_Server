@@ -20,7 +20,8 @@ namespace HMS.Service
                                   ,[UpdatedOn]
                                   ,[UpdatedBy]
                                   ,[Name]
-                              FROM [dbo].[BusinessCategory]";
+                              FROM [dbo].[BusinessCategory]
+                             where [IsActive] =True";
         string selectByHotelQuery = @"SELECT [Id]
                                   ,[IsActive]
                                   ,[CreatedOn]
