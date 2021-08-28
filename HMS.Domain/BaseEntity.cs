@@ -7,7 +7,7 @@ namespace HMS.Domain
     public class BaseEntity : IModel
     {
         public int Id { get; set; }
-        public bool IsActive { get; set; } = false;
+        public bool IsActive { get; set; } = true;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int CreatedBy { get; set; }
         public DateTime UpdatedOn { get; set; } = DateTime.Now;
