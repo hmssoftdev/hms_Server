@@ -15,5 +15,7 @@ namespace HMS.Domain.Model
         public Domain.Hotel Hotel { get; set; }
         public bool IsActive { get; set; } = false;
         public int gstCompliance { get; set; }
+        public string status { get; set; }
+
     }
 }

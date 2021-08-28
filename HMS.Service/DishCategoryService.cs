@@ -22,6 +22,7 @@ namespace HMS.Service
                                   ,[Name]
                                   ,[HotelId]
                                   ,[gstCompliance]
+                                  ,[status]
                               FROM[dbo].[DishCategory]";
         string selectByHotelQuery = @"SELECT [Id]
                                   ,[IsActive]
@@ -32,6 +33,7 @@ namespace HMS.Service
                                   ,[Name]
                                   ,[HotelId]
                                   ,[gstCompliance]
+                                  ,[status]
                               FROM[dbo].[DishCategory]
                                    where [CreatedBy] = @CreatedBy";
         string insertQuery = @"INSERT INTO [dbo].[DishCategory]
@@ -42,7 +44,8 @@ namespace HMS.Service
                                    ,[UpdatedBy]
                                    ,[Name]
                                    ,[HotelId]
-                                   ,[gstCompliance])
+                                   ,[gstCompliance]
+                                   ,[status])
                              VALUES
                                    (@IsActive
                                    ,@CreatedOn
@@ -51,7 +54,8 @@ namespace HMS.Service
                                    ,@UpdatedBy
                                    ,@Name
                                    ,@HotelId
-                                   ,@gstCompliance)";
+                                   ,@gstCompliance
+                                   ,@status)";
         string updateQuery = @"UPDATE [dbo].[DishCategory]
                                    SET [IsActive] =@IsActive
                                       ,[CreatedOn] =@CreatedOn
@@ -61,6 +65,7 @@ namespace HMS.Service
                                       ,[Name] =@Name
                                       ,[HotelId] =@HotelId
                                       ,[gstCompliance]=@gstCompliance
+                                      ,[status]=@status
                                  WHERE Id=@Id";
         string deleteQuery = "Delete from DishCategory";
         public void Add(IModel model)
