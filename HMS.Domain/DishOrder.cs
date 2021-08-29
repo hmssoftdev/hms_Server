@@ -1,4 +1,6 @@
-﻿namespace HMS.Domain
+﻿using System.Collections.Generic;
+
+namespace HMS.Domain
 {
     public class DishOrder:BaseEntity
     {
@@ -8,5 +10,8 @@
         public float ItemTotal { get; set; }
         public int AdminId { get; set; }
         public int UserId { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderStatus> OrderStatus{ get; set; }
+
     }
 }
