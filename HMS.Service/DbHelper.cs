@@ -2,6 +2,7 @@
 using HMS.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace HMS.Service
     public interface IDbHelperOrder : IDbHelper
     {
         public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery);
+        public List<DishOrder> GetOrderDetail(int OrderId);
 
     }
 
@@ -109,6 +111,27 @@ namespace HMS.Service
             return newId;
 
 
+
+        }
+
+        public List<DishOrder> GetOrderDetail(int OrderId)
+        {
+            var sql = @"Select d.*, oi.ProductId,os.status from DishOrder d 
+                            inner join  OrderItem oi on d.id = oi.OrderID
+                            inner join  orderStatus os on d.id = os.OrderID where d.id =1";
+            var dishOrders = new List<DishOrder>();
+            using (var connection =new  SqlConnection(connectionString))
+            {
+                dishOrders = connection.Query<DishOrder, OrderItem, OrderStatus, DishOrder>(sql, (order, item, status) =>
+                {
+                    order.OrderItems = new List<OrderItem> { item };
+                    order.OrderStatus = new List<OrderStatus>() { status };
+                    return order;
+                },
+                splitOn: "id,OrderID",
+                commandType: CommandType.Text).ToList();
+            }
+            return dishOrders;
 
         }
     }

@@ -79,8 +79,8 @@ namespace HMS.Service
         {
             var order = (DishOrder)model;
             order.IsActive = true;
-          
-            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
+            _dbHelper.GetOrderDetail(1);
+            //  _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
         }
 
         public void Delete(int id)
@@ -101,6 +101,8 @@ namespace HMS.Service
         public IList<T> GetById<T>(int id)
         {
             throw new NotImplementedException();
+
+            //  return  _dbHelper.GetOrderDetail(id);
         }
 
         public void Update(IModel model)
