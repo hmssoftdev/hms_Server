@@ -92,12 +92,14 @@ namespace HMS.Webapi
 
             services.AddSingleton<IHotelService, HotelService>();
             services.AddSingleton<IDbHelper, DbHelper>();
+            services.AddSingleton<IDbHelperOrder, DbHelper>();
             services.AddSingleton<IImageService, ImageService>();
             services.AddSingleton<IInvoice, InvoiceService>();
-
-            services.AddSingleton<ConnectionSettings>(connectionSettings);
-            services.AddSingleton<AWS>(aws);
-            services.AddSingleton<Documents>(documents);
+            services.AddSingleton<IOrderService, OrderService>();
+            
+            services.AddSingleton(connectionSettings);
+            services.AddSingleton(aws);
+            services.AddSingleton(documents);
 
 
 

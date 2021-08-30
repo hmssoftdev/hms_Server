@@ -23,6 +23,9 @@ namespace HMS.Service
       void  UpdateSubscriptionId(IModel model);
     } 
     public interface IDishCategoryService: IModelService { }
+
+    public interface IOrderService : IModelService { }
+
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
     public interface IHotelService : IModelService { }

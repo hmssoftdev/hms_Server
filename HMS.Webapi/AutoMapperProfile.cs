@@ -15,7 +15,10 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.UserFeedback, HMS.Domain.Model.UserFeedback>();
             CreateMap<HMS.Domain.BusinessCategory, HMS.Domain.Model.BusinessCategory>();
             CreateMap<HMS.Domain.User, HMS.Domain.Model.User>();
-         
+
+            CreateMap<HMS.Domain.DishOrder, HMS.Domain.Model.DishOrder>();
+            CreateMap<Domain.OrderItem, HMS.Domain.Model.OrderItem>();
+            CreateMap<Domain.OrderStatus, Domain.Model.OrderStatus>();
             CreateMap<HMS.Domain.Hotel, HMS.Domain.Model.Hotel>();
            
         }
