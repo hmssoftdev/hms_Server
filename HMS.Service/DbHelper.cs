@@ -13,6 +13,7 @@ namespace HMS.Service
         public IList<T> FetchData<T>(string StateSelectQuery);
 
         public IList<T> FetchDataByParam<T>(string StateSelectQuery, object obj);
+       
 
         public void Add<Model>(string query, Model model);
         public void Update<Model>(string query, Model model);
@@ -82,5 +83,8 @@ namespace HMS.Service
             }
             return result;
         }
+       
+
+       
     }
 }

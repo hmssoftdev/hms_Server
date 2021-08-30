@@ -150,7 +150,7 @@ namespace HMS.Service
         public IList<UserConfig> GetAllByHotelId<UserConfig>(int id)
         {
             var obj = new { CreatedBy = id };
-            var UserConfigList = dbHelper.FetchDataByParam<UserConfig>(selectByHotelQuery,obj);
+            var UserConfigList = dbHelper.FetchDataByParam<UserConfig>(selectByHotelQuery, obj);
             return UserConfigList;
         }
     }

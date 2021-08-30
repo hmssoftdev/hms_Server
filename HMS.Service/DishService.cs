@@ -57,7 +57,7 @@ namespace HMS.Service
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId]
-                                  where d.[CreatedBy] = @CreatedBy
+                           where d.[CreatedBy] = @CreatedBy
                                   order by d.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[Dish] 
                                                    ([IsActive]
@@ -134,7 +134,7 @@ namespace HMS.Service
                                       ,d.[ImageUrl]
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
-                                  inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.id =";
+                                  inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.Id =";
         string deleteQuery = "Delete from Dish";
 
         public void Add(IModel model)

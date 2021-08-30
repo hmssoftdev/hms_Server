@@ -87,7 +87,7 @@ namespace HMS.Service
                                          inner join StateMaster st on st.Id = a.[StateId]
                           inner join CityMaster ct on ct.Id = a.[CityId]
                              inner join BusinessCategory bc on bc.Id = a.[CategoryId]
-                                  where a.[CreatedBy] = @CreatedBy
+                               where a.[CreatedBy] = @CreatedBy
                           order by a.UpdatedOn desc";
         string insertQuery = @"INSERT INTO [dbo].[Admin]
                                            ([IsActive]
@@ -215,7 +215,7 @@ namespace HMS.Service
                                       FROM [dbo].[Admin] a
                                          inner join StateMaster st on st.Id = a.[StateId]
                                          inner join CityMaster ct on ct.Id = a.[CityId]
-                                         inner join BusinessCategory bc on bc.Id = a.[CategoryId] where a.id=";
+                                         inner join BusinessCategory bc on bc.Id = a.[CategoryId] where a.Id=";
         string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
         {
