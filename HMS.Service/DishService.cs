@@ -32,6 +32,7 @@ namespace HMS.Service
                                       ,d.[NonVegCategory]
                                       ,d.[status]
                                       ,d.[ImageUrl]
+                                      ,d.[IsFull]
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId]
@@ -54,6 +55,7 @@ namespace HMS.Service
                                       ,d.[NonVegCategory]
                                       ,d.[status]
                                       ,d.[ImageUrl]
+                                      ,d.[IsFull]
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
                                   inner join DishCategory dc on dc.Id = d.[MainCategoryId]
@@ -76,7 +78,8 @@ namespace HMS.Service
                                                    ,[IsVeg]
                                                    ,[NonVegCategory]
                                                    ,[status]
-                                                   ,[ImageUrl])
+                                                   ,[ImageUrl]
+                                                   ,[IsFull])
                                              VALUES
                                                    (@IsActive
                                                    ,@CreatedOn
@@ -94,7 +97,8 @@ namespace HMS.Service
                                                    ,@IsVeg
                                                    ,@NonVegCategory
                                                    ,@status
-                                                   ,@ImageUrl)";
+                                                   ,@ImageUrl
+                                                   ,@IsFull)";
         string updateQuery = @"UPDATE [dbo].[Dish] 
                                        SET [IsActive]=@IsActive
                                           ,[CreatedOn]=@CreatedOn
@@ -113,6 +117,7 @@ namespace HMS.Service
                                           ,[NonVegCategory]=@NonVegCategory
                                           ,[status]=@status
                                           ,[ImageUrl]=@ImageUrl
+                                          ,[IsFull]=@IsFull
                                      WHERE Id=@Id";
         string selectByIdQuery = @"SELECT  d.[Id]
                                       ,d.[IsActive]
@@ -132,9 +137,10 @@ namespace HMS.Service
                                       ,d.[NonVegCategory]
                                       ,d.[status]
                                       ,d.[ImageUrl]
+                                      ,d.IsFull
 	                                  ,dc.[Name] as DishCategory
                                   FROM [dbo].[Dish] d
-                                  inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.Id =";
+                                  inner join DishCategory dc on dc.Id = d.[MainCategoryId] where d.id =";
         string deleteQuery = "Delete from Dish";
 
         public void Add(IModel model)

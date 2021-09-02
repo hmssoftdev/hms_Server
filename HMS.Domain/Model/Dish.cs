@@ -23,6 +23,7 @@ namespace HMS.Domain.Model
         public string NonVegCategory { get; set; }
         public string status { get; set; }
         public string ImageUrl { get; set; }
+        public bool IsFull { get; set; } = true;
 
 
     }
