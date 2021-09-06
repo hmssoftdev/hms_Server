@@ -51,8 +51,8 @@ namespace HMS.Webapi.Controllers
             if (dish.files != null && dish.files.Length > 0)
             {
                 var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
-                _imageService.UploadImage(fileName, dish.files);
-                dish.ImageUrl = $"{_documents.Url}{ fileName}";
+                _imageService.UploadImage($"{dish.CreatedBy}/{fileName}", dish.files);
+                dish.ImageUrl = $"{_documents.Url}{dish.CreatedBy}/{ fileName}";
             }
             
             _dishService.Add(dish);
@@ -65,8 +65,8 @@ namespace HMS.Webapi.Controllers
             if (dish.files!=null && dish.files.Length > 0)
             {
                 var fileName = $"{ dish.files.FileName}{DateTime.Now.ToString(DateHelper.DateFormat)}";
-                _imageService.UploadImage(fileName, dish.files);
-                dish.ImageUrl = $"{_documents.Url}{ fileName}";
+                _imageService.UploadImage($"{dish.UpdatedBy}/{fileName}", dish.files);
+                dish.ImageUrl = $"{_documents.Url}{dish.UpdatedBy}/{ fileName}";
             }
             _dishService.Update(dish);
             return Ok("Data Updated");

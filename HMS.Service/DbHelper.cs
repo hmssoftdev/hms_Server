@@ -117,20 +117,32 @@ namespace HMS.Service
 
         public List<DishOrder> GetOrderDetail(int OrderId)
         {
-            var sql = @"Select d.*, oi.ProductId,os.status from DishOrder d 
+            var orderDictionary = new Dictionary<int, DishOrder>();
+
+            var sql = @"Select *  from DishOrder d 
                             inner join  OrderItem oi on d.id = oi.OrderID
                             inner join  orderStatus os on d.id = os.OrderID where d.id =1";
             var dishOrders = new List<DishOrder>();
-            using (var connection =new  SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 dishOrders = connection.Query<DishOrder, OrderItem, OrderStatus, DishOrder>(sql, (order, item, status) =>
                 {
-                    order.OrderItems = new List<OrderItem> { item };
-                    order.OrderStatus = new List<OrderStatus>() { status };
-                    return order;
+                    DishOrder dishOrder;
+                    if (!orderDictionary.TryGetValue(order.Id, out dishOrder))
+                    {
+                        dishOrder = order;
+                        dishOrder.OrderItems = new List<OrderItem> { item };
+                        dishOrder.OrderStatus = new List<OrderStatus>() { status };
+                        orderDictionary.Add(dishOrder.Id, dishOrder);
+                    }
+                    if (item.Id > 0)
+                        dishOrder.OrderItems.Add(item);
+                    if (status.Id > 0)
+                        dishOrder.OrderStatus.Add(status);
+                    return dishOrder;
                 },
-                splitOn: "id,OrderID",
-                commandType: CommandType.Text).ToList();
+                splitOn: "OrderID",
+                commandType: CommandType.Text).ToList().Distinct().ToList();
             }
             return dishOrders;
 
