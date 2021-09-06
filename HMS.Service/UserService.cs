@@ -92,7 +92,7 @@ namespace HMS.Service
                               ,[UserName]
                               ,[Email]
                               ,[Contact]                              
-                          FROM [dbo].[Users] ";
+                          FROM [dbo].[Users]";
         string deleteQuery = "Delete from Users";
 
     

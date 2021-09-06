@@ -12,7 +12,9 @@ namespace HMS.Service
                                ,[GrossTotal]
                                ,[ItemCount]
                                ,[ItemTotal]
-                               ,[AdminId]
+                               ,[AdminId]  
+                               ,[DeliveryOptionId]
+                               ,[PaymentMode]
                                ,[UserId]
                                ,[CreatedOn]
                                ,[CreatedBy]
@@ -25,6 +27,8 @@ namespace HMS.Service
                                ,@ItemCount
                                ,@ItemTotal
                                ,@AdminId
+                               ,@DeliveryOptionId
+                               ,@PaymentMode
                                ,@UserId
                                ,@CreatedOn
                                ,@CreatedBy
@@ -37,6 +41,7 @@ namespace HMS.Service
                                    ,[Price]
                                    ,[GstCompliance]
                                    ,[GstPrice]
+                                   ,[IsFull]
                                    ,[OrderID]
                                    ,[IsActive]
                                    ,[CreatedOn]
@@ -49,6 +54,7 @@ namespace HMS.Service
                                    ,@Price
                                    ,@GstCompliance
                                    ,@GstPrice
+                                   ,@IsFull
                                    ,@OrderID
                                    ,@IsActive
                                    ,@CreatedOn
@@ -57,7 +63,7 @@ namespace HMS.Service
                                    ,@UpdatedBy)";
         string orderStatusAddQuery = @"INSERT INTO [dbo].[OrderStatus]
                                        ([OrderId]
-                                       ,[Stutus]
+                                       ,[Status]
                                        ,[IsActive]
                                        ,[CreatedOn]
                                        ,[CreatedBy]
@@ -65,7 +71,7 @@ namespace HMS.Service
                                        ,[UpdatedBy])
                                  VALUES
                                        (@OrderId
-                                       ,@Stutus
+                                       ,@Status
                                        ,@IsActive
                                        ,@CreatedOn
                                        ,@CreatedBy
@@ -79,8 +85,8 @@ namespace HMS.Service
         {
             var order = (DishOrder)model;
             order.IsActive = true;
-            _dbHelper.GetOrderDetail(1);
-            //  _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
+           
+            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
         }
 
         public void Delete(int id)

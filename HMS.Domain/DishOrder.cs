@@ -10,6 +10,8 @@ namespace HMS.Domain
         public float ItemTotal { get; set; }
         public int AdminId { get; set; }
         public int UserId { get; set; }
+        public int DeliveryOptionId { get; set; }
+        public int PaymentMode { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         public List<OrderStatus> OrderStatus{ get; set; }
 

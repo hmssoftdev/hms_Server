@@ -24,9 +24,6 @@ namespace HMS.Service
         public bool UploadImage(string keyName, IFormFile file)
         {
             string bucketName = "hmsdocuments";
-            //string keyName = "yunus/Capture001.png";
-            //string filePath = @"C:\Users\jfaroom2\Pictures\Feedback\images\Capture001.png";
-            //var client = new AmazonS3Client("AKIAR26TYWGAQJQV5OPO", "ppnmsgC5vYEWPRFIpHgK43h2wuMfu2hGfPRygrbv", Amazon.RegionEndpoint.USEast2);
             var client = new AmazonS3Client(_aws.AccessId, _aws.AccessKey, Amazon.RegionEndpoint.USEast2);
             using (var newMemoryStream = new MemoryStream())
             {
