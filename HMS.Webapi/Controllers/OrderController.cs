@@ -18,6 +18,13 @@ namespace HMS.Webapi.Controllers
         {
             _orderService = orderService;
         }
+        [HttpGet("Get/{userId:int}")]
+        public IActionResult Get(int userId)
+        {
+            var orderList = _orderService.GetAllByHotelId<DishOrder>(userId);
+            var list = _mapper.Map<List<HMS.Domain.Model.DishOrder>>(orderList);
+            return Ok(list);
+        }
         [HttpPost]
         public IActionResult Post(DishOrder dishOrder)
         {

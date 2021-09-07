@@ -1,11 +1,11 @@
 
 {
-    "region" : "us-east-2",
+    "region" : "us-east-1",
     "configuration" : "Debug",
     "framework"     : "netcoreapp3.1",
     "self-contained" : false,
-    "application"    : "WebApplication121",
-    "environment"    : "WebApplication121-dev",
+    "application"    : "HMSWebapi",
+    "environment"    : "HMSWebapi-dev",
     "enable-xray"    : false,
     "enhanced-health-type" : "basic",
     "additional-options"   : "",

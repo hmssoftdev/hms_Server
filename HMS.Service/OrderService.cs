@@ -77,6 +77,23 @@ namespace HMS.Service
                                        ,@CreatedBy
                                        ,@UpdatedOn
                                        ,@UpdatedBy)";
+        string selectByHotelQuery = @"SELECT [Id]
+                                      ,[DeliveryTotal]
+                                      ,[GrossTotal]
+                                      ,[ItemCount]
+                                      ,[ItemTotal]
+                                      ,[AdminId]
+                                      ,[DeliveryOptionId]
+                                      ,[PaymentMode]
+                                      ,[UserId]
+                                      ,[CreatedOn]
+                                      ,[CreatedBy]
+                                      ,[UpdatedOn]
+                                      ,[UpdatedBy]
+                                      ,[IsActive]
+                                  FROM [dbo].[DishOrder]
+                                    where [CreatedBy] =@CreatedBy
+                                       order by UpdatedOn desc";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -99,9 +116,11 @@ namespace HMS.Service
             throw new NotImplementedException();
         }
 
-        public IList<T> GetAllByHotelId<T>(int id)
+        public IList<DishOrder> GetAllByHotelId<DishOrder>(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { CreatedBy = id };
+            var orderList = _dbHelper.FetchDataByParam<DishOrder>(selectByHotelQuery, obj);
+            return orderList;
         }
 
         public IList<T> GetById<T>(int id)
@@ -115,5 +134,6 @@ namespace HMS.Service
         {
             throw new NotImplementedException();
         }
+       
     }
 }
