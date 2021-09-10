@@ -11,6 +11,7 @@
         public int UserId { get; set; }
         public int DeliveryOptionId { get; set; }
         public int PaymentMode { get; set; }
-       
+        public string UserName { get; set; }
+        public string UserMobileNumber { get; set; }
     }
 }

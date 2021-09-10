@@ -77,23 +77,26 @@ namespace HMS.Service
                                        ,@CreatedBy
                                        ,@UpdatedOn
                                        ,@UpdatedBy)";
-        string selectByHotelQuery = @"SELECT [Id]
-                                      ,[DeliveryTotal]
-                                      ,[GrossTotal]
-                                      ,[ItemCount]
-                                      ,[ItemTotal]
-                                      ,[AdminId]
-                                      ,[DeliveryOptionId]
-                                      ,[PaymentMode]
-                                      ,[UserId]
-                                      ,[CreatedOn]
-                                      ,[CreatedBy]
-                                      ,[UpdatedOn]
-                                      ,[UpdatedBy]
-                                      ,[IsActive]
-                                  FROM [dbo].[DishOrder]
-                                    where [CreatedBy] =@CreatedBy
-                                       order by UpdatedOn desc";
+        string selectByHotelQuery = @"SELECT o.[Id]
+                                      ,o.[DeliveryTotal]
+                                      ,o.[GrossTotal]
+                                      ,o.[ItemCount]
+                                      ,o.[ItemTotal]
+                                      ,o.[AdminId]
+                                      ,o.[DeliveryOptionId]
+                                      ,o.[PaymentMode]
+                                      ,o.[UserId]
+                                      ,o.[CreatedOn]
+                                      ,o.[CreatedBy]
+                                      ,o.[UpdatedOn]
+                                      ,o.[UpdatedBy]
+                                      ,o.[IsActive]
+									  ,us.[Name] as UserName
+									  ,us.[Contact] as UserMobileNumber
+                                  FROM [dbo].[DishOrder] o
+								  inner join Users us on Us.Id=o.id
+                                    where o.[CreatedBy] =@CreatedBy
+								order by UpdatedOn desc";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
