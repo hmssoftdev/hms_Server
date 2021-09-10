@@ -24,7 +24,10 @@ namespace HMS.Service
     } 
     public interface IDishCategoryService: IModelService { }
 
-    public interface IOrderService : IModelService { }
+    public interface IOrderService : IModelService {
+        public void AddStatus(OrderStatus status);
+    }
+
 
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }

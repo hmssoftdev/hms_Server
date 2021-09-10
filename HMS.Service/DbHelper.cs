@@ -24,6 +24,7 @@ namespace HMS.Service
     {
         public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery);
         public List<DishOrder> GetOrderDetail(int OrderId);
+        
 
     }
 

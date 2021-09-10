@@ -32,6 +32,12 @@ namespace HMS.Webapi.Controllers
             _orderService.Add(dishOrder);
             return Ok();
         }
+        [HttpPost("Post/{AddStatus}")]
+        public IActionResult Post (OrderStatus status)
+        {
+            _orderService.AddStatus(status);
+            return Ok();
+        }
 
     }
 }

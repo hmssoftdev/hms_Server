@@ -93,6 +93,9 @@ namespace HMS.Service
                                       ,o.[IsActive]
 									  ,us.[Name] as UserName
 									  ,us.[Contact] as UserMobileNumber
+									  ,(SELECT Top 1 
+									  [Status]
+  FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
 								  inner join Users us on Us.Id=o.id
                                     where o.[CreatedBy] =@CreatedBy
@@ -108,7 +111,11 @@ namespace HMS.Service
            
             _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
         }
-
+        public void AddStatus(OrderStatus status)
+        {
+            status.IsActive = true;
+            _dbHelper.Add(orderStatusAddQuery, status);
+        }
         public void Delete(int id)
         {
             throw new NotImplementedException();
