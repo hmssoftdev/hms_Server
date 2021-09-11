@@ -25,6 +25,13 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.DishOrder>>(orderList);
             return Ok(list);
         }
+        [HttpGet("Get/status/{OrderId:int}")]
+        public IActionResult GetStatusByOrderId(int OrderId)
+        {
+            var statusList = _orderService.GetStatusByOrderId(OrderId);
+            var list = _mapper.Map<List<HMS.Domain.Model.OrderStatus>>(statusList);
+            return Ok(list);
+        }
         [HttpPost]
         public IActionResult Post(DishOrder dishOrder)
         {

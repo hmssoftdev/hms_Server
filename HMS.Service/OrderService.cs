@@ -91,15 +91,24 @@ namespace HMS.Service
                                       ,o.[UpdatedOn]
                                       ,o.[UpdatedBy]
                                       ,o.[IsActive]
-									  ,us.[Name] as UserName
+									  ,us.UserName as UserName
 									  ,us.[Contact] as UserMobileNumber
 									  ,(SELECT Top 1 
 									  [Status]
   FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
-								  inner join Users us on Us.Id=o.id
-                                    where o.[CreatedBy] =@CreatedBy
+								  inner join Userconfig us on Us.Id=o.userId
+                                    where o.[CreatedBy] =@CreatedBy and 
+									cast(o.[CreatedOn] as Date) = cast(getdate() as Date)
 								order by UpdatedOn desc";
+        string selectStatusByOrderIdQuery = @"select Id,
+                                        OrderId,
+                                        Status,
+                                        IsActive,
+                                        CreatedOn,
+                                        CreatedBy,
+                                        UpdatedOn,
+                                        UpdatedBy from OrderStatus where OrderId = @id order by UpdatedOn asc";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -136,14 +145,18 @@ namespace HMS.Service
         public IList<T> GetById<T>(int id)
         {
             throw new NotImplementedException();
+        }
 
-            //  return  _dbHelper.GetOrderDetail(id);
+        public List<OrderStatus> GetStatusByOrderId(int OrderId)
+        {
+            var obj = new { id = OrderId};
+            var orderstatus = _dbHelper.FetchDataByParam<OrderStatus>(selectStatusByOrderIdQuery, obj);
+            return (List<OrderStatus>)orderstatus;
         }
 
         public void Update(IModel model)
         {
             throw new NotImplementedException();
         }
-       
     }
 }

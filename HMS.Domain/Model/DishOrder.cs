@@ -13,5 +13,7 @@
         public int PaymentMode { get; set; }
         public string UserName { get; set; }
         public string UserMobileNumber { get; set; }
+        public int Status { get; set; }
+
     }
 }
