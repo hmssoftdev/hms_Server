@@ -12,6 +12,10 @@ namespace HMS.Domain
         public string Email { get; set; }
         public string Contact { get; set; }
         public string Password { get; set; }
+        public string Address { get; set; }
+        public int CityId { get; set; }
+        public int StateId { get; set; }
+        public string PinCode { get; set; }
 
     }
 }

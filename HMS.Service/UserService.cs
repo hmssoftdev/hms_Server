@@ -14,33 +14,49 @@ namespace HMS.Service
         {
             this.dbHelper = dbHelper;
         }
-        string selectQuery = @"SELECT [Id]
-                              ,[IsActive]
-                              ,[CreatedOn]
-                              ,[CreatedBy]
-                              ,[UpdatedOn]
-                              ,[UpdatedBy]
-                              ,[Name]
-                              ,[UserType]
-                              ,[UserName]
-                              ,[Email]
-                              ,[Contact]
-                              ,[Password]
-                          FROM [dbo].[Users]";
-        string selectByHotelQuery = @"SELECT [Id]
-                              ,[IsActive]
-                              ,[CreatedOn]
-                              ,[CreatedBy]
-                              ,[UpdatedOn]
-                              ,[UpdatedBy]
-                              ,[Name]
-                              ,[UserType]
-                              ,[UserName]
-                              ,[Email]
-                              ,[Contact]
-                              ,[Password]
-                          FROM [dbo].[Users]
-                          where [CreatedBy] = @CreatedBy";
+        string selectQuery = @"SELECT u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]
+                              ,u.[Name]
+                              ,u.[UserType]
+                              ,u.[UserName]
+                              ,u.[Email]
+                              ,u.[Contact]
+                              ,u.[Password]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,st.[Name] as State
+	                          ,ct.[Name] as City
+                          FROM [dbo].[Users] u
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId]";
+        string selectByHotelQuery = @"SELECT u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]
+                              ,u.[Name]
+                              ,u.[UserType]
+                              ,u.[UserName]
+                              ,u.[Email]
+                              ,u.[Contact]
+                              ,u.[Password]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,st.[Name] as State
+	                          ,ct.[Name] as City
+                          FROM [dbo].[Users] u
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId]
+                          where u.[CreatedBy] = @CreatedBy";
         string ValidateUserQuery = @"SELECT [Id]
                               ,[Name]
                               ,[UserType]
@@ -59,7 +75,11 @@ namespace HMS.Service
                                ,[UserName]
                                ,[Email]
                                ,[Contact]
-                               ,[Password])
+                               ,[Password]
+                               ,[Address]
+                              ,[CityId]
+                              ,[StateId]
+                              ,[PinCode])
                          VALUES
                                (@IsActive
                                ,@CreatedOn
@@ -71,7 +91,11 @@ namespace HMS.Service
                                ,@UserName
                                ,@Email
                                ,@Contact
-                               ,@Password)";
+                               ,@Password
+                               ,@Address
+                              ,@CityId
+                              ,@StateId
+                              ,@PinCode)";
         string updateQuery = @"UPDATE [dbo].[Users]
                                SET [IsActive] =  @IsActive 
                                   ,[CreatedOn] = @CreatedOn
@@ -84,15 +108,28 @@ namespace HMS.Service
                                   ,[Email] =     @Email
                                   ,[Contact] =    @Contact
                                   ,[Password] =  @Password 
+                                  ,[Address]=@Address
+                                  ,[CityId]=@CityId
+                                  ,[StateId]=@StateId
+                                  ,[PinCode]=@PinCode
                              WHERE id = @id";
-        string selectByIdQuery = @"SELECT [Id]
-                              ,[IsActive]
-                              ,[Name]
-                              ,[UserType]
-                              ,[UserName]
-                              ,[Email]
-                              ,[Contact]                              
-                          FROM [dbo].[Users]";
+        string selectByIdQuery = @"SELECT u.[Id]
+                              ,u.[IsActive]
+                              ,u.[Name]
+                              ,u.[UserType]
+                              ,u.[UserName]
+                              ,u.[Email]
+                              ,u.[Contact] 
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,st.[Name] as State
+	                          ,ct.[Name] as City
+                          FROM [dbo].[Users] u
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId]
+                           where u.Id=";
         string deleteQuery = "Delete from Users";
 
     

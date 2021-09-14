@@ -92,13 +92,13 @@ namespace HMS.Service
                                       ,o.[UpdatedOn]
                                       ,o.[UpdatedBy]
                                       ,o.[IsActive]
-									  ,us.UserName as UserName
-									  ,us.[Contact] as UserMobileNumber
+									  ,u.[UserName] as UserName
+									  ,u.[Contact] as UserMobileNumber
 									  ,(SELECT Top 1 
 									  [Status]
   FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
-								  inner join Userconfig us on Us.Id=o.userId
+								  inner join Users u on u.Id=o.userId
                                     where o.[CreatedBy] =@CreatedBy and 
 									cast(o.[CreatedOn] as Date) = cast(getdate() as Date)
 								order by UpdatedOn desc";
