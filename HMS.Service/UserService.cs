@@ -159,7 +159,7 @@ namespace HMS.Service
        
         public IList<User> GetById<User>(int id)
         {
-            var UserList = dbHelper.FetchData<User>($"{selectByIdQuery} where  id =  {id}");
+            var UserList = dbHelper.FetchData<User>($"{selectByIdQuery} {id}");
             return UserList;
         }
 
