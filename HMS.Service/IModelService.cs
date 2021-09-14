@@ -27,6 +27,7 @@ namespace HMS.Service
     public interface IOrderService : IModelService {
         public void AddStatus(OrderStatus status);
         public List<OrderStatus> GetStatusByOrderId(int OrderId);
+        public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
     }
 
 

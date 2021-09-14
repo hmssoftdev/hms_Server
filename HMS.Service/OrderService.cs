@@ -1,6 +1,7 @@
 ﻿using HMS.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HMS.Service
 {
@@ -109,6 +110,10 @@ namespace HMS.Service
                                         CreatedBy,
                                         UpdatedOn,
                                         UpdatedBy from OrderStatus where OrderId = @id order by UpdatedOn asc";
+        string selectOrderItemByOrderIdQuery = @"select o.*, d.Name DishName from 
+                                                orderItem o
+                                                inner join dish d on o.ProductId = d.Id
+                                                where orderid = @id";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -153,6 +158,13 @@ namespace HMS.Service
             var orderstatus = _dbHelper.FetchDataByParam<OrderStatus>(selectStatusByOrderIdQuery, obj);
             return (List<OrderStatus>)orderstatus;
         }
+
+        public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId)
+        {
+            var obj = new { id = OrderId };
+            var orderItem = _dbHelper.FetchDataByParam<Domain.Model.OrderItem>(selectOrderItemByOrderIdQuery, obj);
+            return orderItem.ToList();
+        } 
 
         public void Update(IModel model)
         {
