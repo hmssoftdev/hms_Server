@@ -142,7 +142,7 @@ namespace HMS.Service
         }
         public User ValidateUser(string userName, string pwd)
         {
-            var users = dbHelper.FetchData<User>($"{ValidateUserQuery} where UserName='{userName}' and Password = '{pwd}'");
+            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (UserName='{userName}'or Email='{userName}'or Contact='{userName}') and Password = '{pwd}'");
             return users.FirstOrDefault();
         }
 
