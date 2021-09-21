@@ -114,6 +114,44 @@ namespace HMS.Service
                                                 orderItem o
                                                 inner join dish d on o.ProductId = d.Id
                                                 where orderid = @id";
+        string orderUpdateQuery = @"UPDATE [dbo].[DishOrder]
+                               SET [DeliveryTotal] =@DeliveryTotal
+                                  ,[GrossTotal] = @GrossTotal
+                                  ,[ItemCount] = @ItemCount
+                                  ,[ItemTotal] =@ItemTotal
+                                  ,[AdminId] = @AdminId
+                                  ,[DeliveryOptionId] =@DeliveryOptionId
+                                  ,[PaymentMode] =@PaymentMode
+                                  ,[UserId] =@UserId
+                                  ,[CreatedOn] =@CreatedOn
+                                  ,[CreatedBy] =@CreatedBy
+                                  ,[UpdatedOn] =@UpdatedOn
+                                  ,[UpdatedBy] =@UpdatedBy
+                                  ,[IsActive] =@IsActive
+                             WHERE Id=@Id";
+        string orderItemUpdateQuery = @"UPDATE [dbo].[OrderItem]
+                                   SET[Quantity] =@Quantity
+                                      ,[ProductId] =@ProductId
+                                      ,[Price] = @Price
+                                      ,[GstCompliance] =@GstCompliance
+                                      ,[GstPrice] =@GstPrice
+                                      ,[IsFull] = @IsFull
+                                      ,[OrderID] = @OrderID
+                                      ,[IsActive] = @IsActive
+                                      ,[CreatedOn] =@CreatedOn
+                                      ,[CreatedBy] =@CreatedBy
+                                      ,[UpdatedOn] =@UpdatedOn
+                                      ,[UpdatedBy] =@UpdatedBy
+                                WHERE Id=@Id";
+        string orderStatusUpdateQuery =@"UPDATE [dbo].[OrderStatus]
+                           SET[OrderId] =@OrderId
+                              ,[Status] =@Status
+                              ,[IsActive] =@IsActive
+                              ,[CreatedOn] =@CreatedOn
+                              ,[CreatedBy] = @CreatedBy
+                              ,[UpdatedOn] =@UpdatedOn
+                              ,[UpdatedBy] =@UpdatedBy
+                        WHERE Id=@Id";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -168,7 +206,8 @@ namespace HMS.Service
 
         public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var order = (DishOrder)model;
+            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery);
         }
     }
 }

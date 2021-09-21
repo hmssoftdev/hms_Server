@@ -52,6 +52,12 @@ namespace HMS.Webapi.Controllers
             _orderService.AddStatus(status);
             return Ok();
         }
+        [HttpPut]
+        public IActionResult Put(DishOrder dishOrder)
+        {
+            _orderService.Update(dishOrder);
+            return Ok();
+        }
 
     }
 }
