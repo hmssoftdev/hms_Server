@@ -21,7 +21,10 @@ namespace HMS.Service
                                ,[CreatedBy]
                                ,[UpdatedOn]
                                ,[UpdatedBy]
-                               ,[IsActive])
+                               ,[IsActive]
+                              ,[DiscountInPercent]
+                              ,[DiscountInRupees]
+                              ,[AdditionalAmount])
                          VALUES
                                (@DeliveryTotal
                                ,@GrossTotal
@@ -35,7 +38,10 @@ namespace HMS.Service
                                ,@CreatedBy
                                ,@UpdatedOn
                                ,@UpdatedBy
-                               ,@IsActive)";
+                               ,@IsActive
+                               ,@DiscountInPercent
+                               ,@DiscountInRupees
+                               ,@AdditionalAmount)";
         string orderItemAddQuery = @"INSERT INTO [dbo].[OrderItem]
                                    ([Quantity]
                                    ,[ProductId]
@@ -92,6 +98,9 @@ namespace HMS.Service
                                       ,o.[UpdatedOn]
                                       ,o.[UpdatedBy]
                                       ,o.[IsActive]
+                                      ,o.[DiscountInPercent]
+                                      ,o.[DiscountInRupees]
+                                      ,o.[AdditionalAmount]
 									  ,u.[UserName] as UserName
 									  ,u.[Contact] as UserMobileNumber
 									  ,(SELECT Top 1 
@@ -128,6 +137,9 @@ namespace HMS.Service
                                   ,[UpdatedOn] =@UpdatedOn
                                   ,[UpdatedBy] =@UpdatedBy
                                   ,[IsActive] =@IsActive
+                                  ,[DiscountInPercent] =@DiscountInPercent
+                                  ,[DiscountInRupees] =@DiscountInRupees
+                                  ,[AdditionalAmount] =@AdditionalAmount
                              WHERE Id=@Id";
         string orderItemUpdateQuery = @"UPDATE [dbo].[OrderItem]
                                    SET[Quantity] =@Quantity

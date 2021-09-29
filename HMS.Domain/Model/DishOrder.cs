@@ -14,6 +14,9 @@
         public string UserName { get; set; }
         public string UserMobileNumber { get; set; }
         public int Status { get; set; }
+        public float DiscountInPercent { get; set; }
+        public float DiscountInRupees { get; set; }
+        public float AdditionalAmount { get; set; }
 
     }
 }
