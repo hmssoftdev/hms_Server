@@ -59,7 +59,8 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
-        //[Authorize]
+        [Authorize]
+        [ActionFilter]
         [HttpPost]
        public IActionResult Post(User user)
         {
@@ -67,13 +68,24 @@ namespace HMS.Webapi.Controllers
             return Ok("Data Added");
         }
 
-        //[Authorize]
+        [HttpPost("PostAnonymusUser")]
+        public IActionResult PostAnonymousUser(User user)
+        {
+            _userService.Add(user);
+            return Ok("Data Added");
+        }
+
+
+        [Authorize]
+        [ActionFilter]
         [HttpPut]
         public IActionResult Put(User user)
         {
             _userService.Update(user);
             return Ok("Data Updated");
         }
+        
+        
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
