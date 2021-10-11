@@ -33,10 +33,13 @@ namespace HMS.Service
 
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
-    public interface IHotelService : IModelService { }
-   
+    public interface IHotelService : IModelService
+    {
+        void UpdateBookedSeat(IModel model);
+    }
     public interface IUserService : IModelService {
        User ValidateUser(string userName, string pwd);
+        User ValidateUser(int id);
     }
     public interface IMasterService
     {

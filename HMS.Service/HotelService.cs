@@ -24,6 +24,7 @@ namespace HMS.Service
                               ,[IsAc]
                               ,[Shape]
                               ,[BarcodeTest]
+                              ,[IsBooked] 
                           FROM [dbo].[Hotel]";
         string selectByHotelQuery = @"SELECT [Id]
                               ,[IsActive]
@@ -36,6 +37,7 @@ namespace HMS.Service
                               ,[IsAc]
                               ,[Shape]
                               ,[BarcodeTest]
+                              ,[IsBooked]
                           FROM[dbo].[Hotel]
                             where [CreatedBy] = @CreatedBy
                            ";
@@ -49,7 +51,8 @@ namespace HMS.Service
                                        ,[Seat]
                                        ,[IsAc]
                                        ,[Shape]
-                                       ,[BarcodeTest])
+                                       ,[BarcodeTest]
+                                       ,[IsBooked])
                                  VALUES
                                        (@IsActive
                                        ,@CreatedOn
@@ -60,7 +63,8 @@ namespace HMS.Service
                                        ,@Seat
                                        ,@IsAc
                                        ,@Shape
-                                       ,@BarcodeTest)";
+                                       ,@BarcodeTest
+                                       ,@IsBooked)";
         string updateQuery = @"UPDATE [dbo].[Hotel]
                        SET [IsActive] =@IsActive
                           ,[CreatedOn] =@CreatedOn
@@ -72,9 +76,18 @@ namespace HMS.Service
                           ,[IsAc] =@IsAc
                           ,[Shape] =@Shape
                           ,[BarcodeTest] =@BarcodeTest
+                          ,[IsBooked] =@IsBooked
                      WHERE Id=@Id";
         string selectByIdQuery = "";
         string deleteQuery = "Delete from Hotel";
+        string selectUpdateQuery = @"UPDATE [dbo].[Hotel]
+                       SET [IsActive] =@IsActive
+                          ,[CreatedOn] =@CreatedOn
+                          ,[CreatedBy] =@CreatedBy
+                          ,[UpdatedOn] =@UpdatedOn
+                          ,[UpdatedBy] =@UpdatedBy
+                          ,[IsBooked] =@IsBooked
+                     WHERE Id=@Id";
         public void Add(IModel model)
         {
             var hotel = (Hotel)model;
@@ -104,12 +117,22 @@ namespace HMS.Service
             var hotel = (Hotel)model;
             dbHelper.Update(updateQuery, hotel);
         }
-
+        //public void UpdateBooked(IModel model)
+        //{
+        //    var hotel = (Hotel)model;
+        //    dbHelper.Update(selectUpdateQuery, hotel);
+        //}
         public IList<Hotel> GetAllByHotelId<Hotel>(int id)
         {
             var obj = new { CreatedBy = id };
             var HotelList = dbHelper.FetchDataByParam<Hotel>(selectByHotelQuery, obj);
             return HotelList;
+        }
+
+        public void UpdateBookedSeat(IModel model)
+        {
+            var hotel = (Hotel)model;
+            dbHelper.Update(selectUpdateQuery, hotel);
         }
     }
 }

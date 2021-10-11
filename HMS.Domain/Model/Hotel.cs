@@ -12,5 +12,6 @@ namespace HMS.Domain.Model
         public bool IsAc { get; set; }
         public string Shape { get; set; }
         public string BarcodeTest { get; set; }
+        public bool IsBooked { get; set; }
     }
 }
