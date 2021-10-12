@@ -48,6 +48,12 @@ namespace HMS.Webapi.Controllers
             _HotelService.Update(hotel);
             return Ok("Data Updated");
         }
+        [HttpPut("updateSeat")]
+        public IActionResult UpdateSeat(Hotel hotel)
+        {
+            _HotelService.UpdateSeatId(hotel);
+            return Ok("Data Updated");
+        }
         [HttpPut("Booked")]
         public IActionResult UpdateBooked(Hotel hotel)
         {

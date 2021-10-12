@@ -36,6 +36,8 @@ namespace HMS.Service
     public interface IHotelService : IModelService
     {
         void UpdateBookedSeat(IModel model);
+        void UpdateSeatId(IModel model);
+
     }
     public interface IUserService : IModelService {
        User ValidateUser(string userName, string pwd);

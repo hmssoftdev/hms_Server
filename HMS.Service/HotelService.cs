@@ -134,5 +134,10 @@ namespace HMS.Service
             var hotel = (Hotel)model;
             dbHelper.Update(selectUpdateQuery, hotel);
         }
+        public void UpdateSeatId(IModel model)
+        {
+            var hotel = (Hotel)model;
+            dbHelper.Update($"UPDATE [dbo].[Hotel] SET [IsBooked] = {hotel.IsBooked} WHERE ID = {hotel.Id}", hotel);
+        }
     }
 }
