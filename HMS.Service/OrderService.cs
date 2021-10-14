@@ -54,7 +54,9 @@ namespace HMS.Service
                                    ,[CreatedOn]
                                    ,[CreatedBy]
                                    ,[UpdatedOn]
-                                   ,[UpdatedBy])
+                                   ,[UpdatedBy]
+                                   ,[GstTotal]
+                                   ,[KotPrinted])
                              VALUES
                                    (@Quantity
                                    ,@ProductId
@@ -67,7 +69,9 @@ namespace HMS.Service
                                    ,@CreatedOn
                                    ,@CreatedBy
                                    ,@UpdatedOn
-                                   ,@UpdatedBy)";
+                                   ,@UpdatedBy
+                                   ,@GstTotal
+                                   ,@KotPrinted)";
         string orderStatusAddQuery = @"INSERT INTO [dbo].[OrderStatus]
                                        ([OrderId]
                                        ,[Status]
@@ -154,6 +158,8 @@ namespace HMS.Service
                                       ,[CreatedBy] =@CreatedBy
                                       ,[UpdatedOn] =@UpdatedOn
                                       ,[UpdatedBy] =@UpdatedBy
+                                      ,[GstTotal] =@GstTotal
+                                      ,[KotPrinted] =@KotPrinted
                                 WHERE Id=@Id";
         string orderStatusUpdateQuery =@"UPDATE [dbo].[OrderStatus]
                            SET[OrderId] =@OrderId

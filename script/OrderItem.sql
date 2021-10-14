@@ -1,7 +1,7 @@
 USE [hms_db]
 GO
 
-/****** Object:  Table [dbo].[OrderItem]    Script Date: 06-09-2021 15:33:46 ******/
+/****** Object:  Table [dbo].[OrderItem]    Script Date: 14-10-2021 02:32:55 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -21,7 +21,9 @@ CREATE TABLE [dbo].[OrderItem](
 	[CreatedOn] [datetime] NULL,
 	[CreatedBy] [int] NULL,
 	[UpdatedOn] [datetime] NULL,
-	[UpdatedBy] [int] NULL
+	[UpdatedBy] [int] NULL,
+	[GstTotal] [numeric](18, 0) NULL,
+	[KotPrinted] [bit] NULL
 ) ON [PRIMARY]
 GO
 
