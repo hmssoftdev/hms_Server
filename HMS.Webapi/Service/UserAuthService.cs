@@ -13,6 +13,7 @@ namespace HMS.Webapi {
 public interface IUserAuthService
 {
     AuthenticateResponse Authenticate(AuthenticateRequest model);
+    AuthenticateResponse AuthenticateAdmin(int id);
     IEnumerable<User> GetAll();
     User GetById(int id);
 }
@@ -45,8 +46,20 @@ public class UserAuthService : IUserAuthService
 
         return new AuthenticateResponse(user, token);
     }
+        public AuthenticateResponse AuthenticateAdmin(int id)
+        {
 
-    public IEnumerable<User> GetAll()
+            var user = _userService.ValidateUser(id);
+
+            // return null if user not found
+            if (user == null) return null;
+
+            // authentication successful so generate jwt token
+            var token = generateJwtToken(user);
+
+            return new AuthenticateResponse(user, token);
+        }
+        public IEnumerable<User> GetAll()
     {
         return _users;
     }
