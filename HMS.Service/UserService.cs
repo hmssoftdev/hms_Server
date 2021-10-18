@@ -147,6 +147,11 @@ namespace HMS.Service
             return users.FirstOrDefault();
         }
 
+        public User ValidateUser(int id)
+        {
+            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
+            return users.FirstOrDefault();
+        }
         public void Delete(int id)
         {
             dbHelper.Delete($"{deleteQuery} where id ={id}", new User { Id = id });

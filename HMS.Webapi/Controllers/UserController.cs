@@ -61,6 +61,19 @@ namespace HMS.Webapi.Controllers
 
         [Authorize]
         [ActionFilter]
+        [HttpPost("authenticateAdmin")]
+        public IActionResult AuthenticateAdmin(int id)
+        {
+            var response = _userAuthService.AuthenticateAdmin(id);
+
+            if (response == null)
+                return BadRequest(new { message = "Admin Id is incorrect" });
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [ActionFilter]
         [HttpPost]
        public IActionResult Post(User user)
         {
