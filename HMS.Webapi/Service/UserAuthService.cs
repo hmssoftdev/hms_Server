@@ -16,7 +16,8 @@ public interface IUserAuthService
     AuthenticateResponse AuthenticateAdmin(int id);
     IEnumerable<User> GetAll();
     User GetById(int id);
-}
+       
+    }
 
 public class UserAuthService : IUserAuthService
     {

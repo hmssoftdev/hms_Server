@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HMS.Service
+
+namespace HMS.Service 
 {
     public class UserService : IUserService
     {
@@ -182,6 +183,13 @@ namespace HMS.Service
             var UserList = dbHelper.FetchDataByParam<User>(selectByHotelQuery,obj);
             return UserList;
 
+        }
+
+        public User ValidateUser(int id)
+        {
+           //var obj = new { CreatedBy = id };
+            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
+            return users.FirstOrDefault();
         }
     }
 }
