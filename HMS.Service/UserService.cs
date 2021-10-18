@@ -148,7 +148,7 @@ namespace HMS.Service
 
         public User ValidateUser(int id)
         {
-            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
+            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}')");
             return users.FirstOrDefault();
         }
         public void Delete(int id)
