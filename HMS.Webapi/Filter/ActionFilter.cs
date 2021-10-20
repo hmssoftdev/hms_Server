@@ -19,9 +19,12 @@ namespace HMS.Webapi
                  context.HttpContext.Request.Method == "PUT")
             {
                 var user = (User)context.HttpContext.Items["User"];
-               var model =  (IModel) context.ActionArguments.First().Value;
-                model.CreatedBy = user.Id;
-                model.UpdatedBy = user.Id;
+                if (context.ActionArguments.First().Value is IModel)
+                {
+                    var model = (IModel)context.ActionArguments.First().Value;
+                    model.CreatedBy = user.Id;
+                    model.UpdatedBy = user.Id;
+                }
             }
             // our code before action executes
         }

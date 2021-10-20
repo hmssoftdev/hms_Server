@@ -61,7 +61,7 @@ namespace HMS.Webapi.Controllers
 
         [Authorize]
         [ActionFilter]
-        [HttpPost("authenticateAdmin")]
+        [HttpPost("authenticateAdmin/{id:int}")]
         public IActionResult AuthenticateAdmin(int id)
         {
             var response = _userAuthService.AuthenticateAdmin(id);
