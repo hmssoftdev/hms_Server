@@ -105,17 +105,17 @@ namespace HMS.Webapi.Controllers
             _userService.Delete(id);
             return Ok("deleted");
         }
-        [Authorize]
-        [ActionFilter]
-        [HttpPost("AuthenticateAdmin")]
-        public IActionResult AuthenticateAdmin(int id)
-        {
-            var response = _userAuthService.AuthenticateAdmin(id);
+        //[Authorize]
+        //[ActionFilter]
+        //[HttpPost("AuthenticateAdmin")]
+        //public IActionResult AuthenticateAdmin(int id)
+        //{
+        //    var response = _userAuthService.AuthenticateAdmin(id);
 
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+        //    if (response == null)
+        //        return BadRequest(new { message = "Username or password is incorrect" });
 
-            return Ok(response);
-        }
+        //    return Ok(response);
+        //}
     }
 }

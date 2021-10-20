@@ -185,11 +185,11 @@ namespace HMS.Service
 
         }
 
-        public User ValidateUser(int id)
-        {
-           //var obj = new { CreatedBy = id };
-            var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
-            return users.FirstOrDefault();
-        }
+        //public User ValidateUser(int id)
+        //{
+        //   //var obj = new { CreatedBy = id };
+        //    var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
+        //    return users.FirstOrDefault();
+        //}
     }
 }
