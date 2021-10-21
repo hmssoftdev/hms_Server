@@ -26,6 +26,8 @@ namespace HMS.Service
 
     public interface IOrderService : IModelService {
         public void AddStatus(OrderStatus status);
+        public void Add(OrderItem item);
+        public void Update(OrderItem item);
         public List<OrderStatus> GetStatusByOrderId(int OrderId);
         public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
     }
@@ -35,6 +37,7 @@ namespace HMS.Service
     public interface IBusinessCategoryService : IModelService { }
     public interface IHotelTableService : IModelService
     {
+       // void Update(Hotel hotel);
         void UpdateBookedSeat(IModel model);
         void UpdateSeatId(IModel model);
 
