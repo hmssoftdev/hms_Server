@@ -58,6 +58,17 @@ namespace HMS.Webapi.Controllers
             _orderService.Update(dishOrder);
             return Ok();
         }
-
+        [HttpPost("Addorder")]
+        public IActionResult Post (OrderItem item)
+        {
+            _orderService.Add(item);
+            return Ok("Item Added");
+        }
+        [HttpPut("OrderUpdate")]
+        public IActionResult Update (OrderItem item)
+        {
+            _orderService.Update(item);
+            return Ok("item updated");
+        }
     }
 }

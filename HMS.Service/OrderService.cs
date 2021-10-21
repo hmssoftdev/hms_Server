@@ -186,6 +186,7 @@ namespace HMS.Service
             status.IsActive = true;
             _dbHelper.Add(orderStatusAddQuery, status);
         }
+       
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -226,6 +227,17 @@ namespace HMS.Service
         {
             var order = (DishOrder)model;
             _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery);
+        }
+        public void Add(OrderItem item)
+        {
+            item.IsActive = true;
+            _dbHelper.Add(orderItemAddQuery, item);
+        }
+
+        public void Update(OrderItem item)
+        {
+            
+            _dbHelper.Update(orderItemUpdateQuery, item);
         }
     }
 }
