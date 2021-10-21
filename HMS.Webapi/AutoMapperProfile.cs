@@ -19,7 +19,7 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.DishOrder, HMS.Domain.Model.DishOrder>();
             CreateMap<Domain.OrderItem, HMS.Domain.Model.OrderItem>();
             CreateMap<Domain.OrderStatus, Domain.Model.OrderStatus>();
-            CreateMap<HMS.Domain.Hotel, HMS.Domain.Model.Hotel>();
+            CreateMap<HMS.Domain.HotelTable, HMS.Domain.Model.HotelTable>();
            
         }
     }

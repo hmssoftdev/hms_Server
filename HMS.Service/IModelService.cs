@@ -33,7 +33,7 @@ namespace HMS.Service
 
     public interface IUserFeedbackService : IModelService { }
     public interface IBusinessCategoryService : IModelService { }
-    public interface IHotelService : IModelService
+    public interface IHotelTableService : IModelService
     {
         void UpdateBookedSeat(IModel model);
         void UpdateSeatId(IModel model);

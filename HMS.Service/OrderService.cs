@@ -88,6 +88,21 @@ namespace HMS.Service
                                        ,@CreatedBy
                                        ,@UpdatedOn
                                        ,@UpdatedBy)";
+        string orderTableAddQuery =@"INSERT INTO [dbo].[OrderTable]
+                           ([OrderId]
+                           ,[TableId]
+                           ,[CreatedBy]
+                           ,[UpdatedBy]
+                           ,[CreatedOn]
+                           ,[UpdatedOn])
+                     VALUES
+                           (@OrderId
+                           ,@TableId
+                           ,@CreatedBy
+                           ,@UpdatedBy
+                           ,@CreatedOn
+                           ,@UpdatedOn)
+                ";
         string selectByHotelQuery = @"SELECT o.[Id]
                                       ,o.[DeliveryTotal]
                                       ,o.[GrossTotal]
@@ -179,7 +194,7 @@ namespace HMS.Service
             var order = (DishOrder)model;
             order.IsActive = true;
            
-            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
+            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
         }
         public void AddStatus(OrderStatus status)
         {
@@ -225,7 +240,7 @@ namespace HMS.Service
         public void Update(IModel model)
         {
             var order = (DishOrder)model;
-            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery);
+            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery,"");
         }
     }
 }

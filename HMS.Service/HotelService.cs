@@ -5,11 +5,11 @@ using System.Text;
 
 namespace HMS.Service
 {
-    public class HotelService : IHotelService
+    public class HotelTableService : IHotelTableService
     {
         IDbHelper dbHelper;
 
-        public HotelService(IDbHelper dbHelper)
+        public HotelTableService(IDbHelper dbHelper)
         {
             this.dbHelper = dbHelper;
         }
@@ -25,7 +25,7 @@ namespace HMS.Service
                               ,[Shape]
                               ,[BarcodeTest]
                               ,[IsBooked] 
-                          FROM [dbo].[Hotel]";
+                          FROM [dbo].[HotelTable]";
         string selectByHotelQuery = @"SELECT [Id]
                               ,[IsActive]
                               ,[CreatedOn]
@@ -38,10 +38,10 @@ namespace HMS.Service
                               ,[Shape]
                               ,[BarcodeTest]
                               ,[IsBooked]
-                          FROM[dbo].[Hotel]
+                          FROM[dbo].[HotelTable]
                             where [CreatedBy] = @CreatedBy
                            ";
-        string insertQuery = @"INSERT INTO [dbo].[Hotel]
+        string insertQuery = @"INSERT INTO [dbo].[HotelTable]
                                        ([IsActive]
                                        ,[CreatedOn]
                                        ,[CreatedBy]
@@ -65,7 +65,7 @@ namespace HMS.Service
                                        ,@Shape
                                        ,@BarcodeTest
                                        ,@IsBooked)";
-        string updateQuery = @"UPDATE [dbo].[Hotel]
+        string updateQuery = @"UPDATE [dbo].[HotelTable]
                        SET [IsActive] =@IsActive
                           ,[CreatedOn] =@CreatedOn
                           ,[CreatedBy] =@CreatedBy
@@ -80,7 +80,7 @@ namespace HMS.Service
                      WHERE Id=@Id";
         string selectByIdQuery = "";
         string deleteQuery = "Delete from Hotel";
-        string selectUpdateQuery = @"UPDATE [dbo].[Hotel]
+        string selectUpdateQuery = @"UPDATE [dbo].[HotelTable]
                        SET [IsActive] =@IsActive
                           ,[CreatedOn] =@CreatedOn
                           ,[CreatedBy] =@CreatedBy
@@ -90,19 +90,19 @@ namespace HMS.Service
                      WHERE Id=@Id";
         public void Add(IModel model)
         {
-            var hotel = (Hotel)model;
+            var hotel = (HotelTable)model;
             hotel.IsActive = true;
             dbHelper.Add(insertQuery, hotel);
         }
 
         public void Delete(int id)
         {
-            dbHelper.Delete($"{deleteQuery} where id ={id}", new Hotel { Id = id });
+            dbHelper.Delete($"{deleteQuery} where id ={id}", new HotelTable { Id = id });
         }
 
-        public IList<Hotel> GetAll<Hotel>()
+        public IList<HotelTable> GetAll<HotelTable>()
         {
-            var HotelList = dbHelper.FetchData<Hotel>($"{selectQuery}");
+            var HotelList = dbHelper.FetchData<HotelTable>($"{selectQuery}");
             return HotelList;
         }
 
@@ -114,7 +114,7 @@ namespace HMS.Service
 
         public void Update(IModel model)
         {
-            var hotel = (Hotel)model;
+            var hotel = (HotelTable)model;
             dbHelper.Update(updateQuery, hotel);
         }
         //public void UpdateBooked(IModel model)
@@ -122,22 +122,22 @@ namespace HMS.Service
         //    var hotel = (Hotel)model;
         //    dbHelper.Update(selectUpdateQuery, hotel);
         //}
-        public IList<Hotel> GetAllByHotelId<Hotel>(int id)
+        public IList<HotelTable> GetAllByHotelId<HotelTable>(int id)
         {
             var obj = new { CreatedBy = id };
-            var HotelList = dbHelper.FetchDataByParam<Hotel>(selectByHotelQuery, obj);
+            var HotelList = dbHelper.FetchDataByParam<HotelTable>(selectByHotelQuery, obj);
             return HotelList;
         }
 
         public void UpdateBookedSeat(IModel model)
         {
-            var hotel = (Hotel)model;
+            var hotel = (HotelTable)model;
             dbHelper.Update(selectUpdateQuery, hotel);
         }
         public void UpdateSeatId(IModel model)
         {
-            var hotel = (Hotel)model;
-            dbHelper.Update($"UPDATE [dbo].[Hotel] SET [IsBooked] = {hotel.IsBooked} WHERE ID = {hotel.Id}", hotel);
+            var hotel = (HotelTable)model;
+            dbHelper.Update($"UPDATE [dbo].[HotelTable] SET [IsBooked] = {(hotel.IsBooked? 1 : 0)} WHERE ID = {hotel.Id}", hotel);
         }
     }
 }

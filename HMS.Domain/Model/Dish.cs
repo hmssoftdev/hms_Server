@@ -13,7 +13,7 @@ namespace HMS.Domain.Model
         public int HalfPrice { get; set; }
         public int FullPrice { get; set; }
         public int HotelId { get; set; }
-        public Domain.Hotel Hotel { get; set; }
+     //   public Domain.Hotel Hotel { get; set; }
         public int MainCategoryId { get; set; }
         public string DishCategory { get; set; }
 
