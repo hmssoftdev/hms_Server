@@ -70,5 +70,11 @@ namespace HMS.Webapi.Controllers
             _orderService.Update(item);
             return Ok("item updated");
         }
+        [HttpPut("paymentmodeupdate")]
+        public IActionResult Update(DishOrder dishorder)
+        {
+            _orderService.UpdatePayementModeId(dishorder);
+            return Ok("payment mode updated");
+        }
     }
 }

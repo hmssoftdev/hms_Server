@@ -88,6 +88,21 @@ namespace HMS.Service
                                        ,@CreatedBy
                                        ,@UpdatedOn
                                        ,@UpdatedBy)";
+        string orderTableAddQuery =@"INSERT INTO [dbo].[OrderTable]
+                           ([OrderId]
+                           ,[TableId]
+                           ,[CreatedBy]
+                           ,[UpdatedBy]
+                           ,[CreatedOn]
+                           ,[UpdatedOn])
+                     VALUES
+                           (@OrderId
+                           ,@TableId
+                           ,@CreatedBy
+                           ,@UpdatedBy
+                           ,@CreatedOn
+                           ,@UpdatedOn)
+                ";
         string selectByHotelQuery = @"SELECT o.[Id]
                                       ,o.[DeliveryTotal]
                                       ,o.[GrossTotal]
@@ -127,6 +142,7 @@ namespace HMS.Service
                                                 orderItem o
                                                 inner join dish d on o.ProductId = d.Id
                                                 where orderid = @id";
+        string selectOrderItem ="";
         string orderUpdateQuery = @"UPDATE [dbo].[DishOrder]
                                SET [DeliveryTotal] =@DeliveryTotal
                                   ,[GrossTotal] = @GrossTotal
@@ -170,6 +186,29 @@ namespace HMS.Service
                               ,[UpdatedOn] =@UpdatedOn
                               ,[UpdatedBy] =@UpdatedBy
                         WHERE Id=@Id";
+        string orderIdPaymentModeQuery = @"UPDATE [dbo].[OrderItem]
+                               SET [OrderID] = @OrderID
+     
+                             WHERE OrderId=@orderid";
+        string orderPaymentModeUpdateQuery = @"UPDATE [dbo].[DishOrder]
+                               SET [DeliveryTotal] =@DeliveryTotal
+                                  ,[GrossTotal] = @GrossTotal
+                                  ,[ItemCount] = @ItemCount
+                                  ,[ItemTotal] =@ItemTotal
+                                  ,[AdminId] = @AdminId
+                                  ,[DeliveryOptionId] =@DeliveryOptionId
+                                  ,[PaymentMode] =@PaymentMode
+                                  ,[UserId] =@UserId
+                                  ,[CreatedOn] =@CreatedOn
+                                  ,[CreatedBy] =@CreatedBy
+                                  ,[UpdatedOn] =@UpdatedOn
+                                  ,[UpdatedBy] =@UpdatedBy
+                                  ,[IsActive] =@IsActive
+                                  ,[DiscountInPercent] =@DiscountInPercent
+                                  ,[DiscountInRupees] =@DiscountInRupees
+                                  ,[AdditionalAmount] =@AdditionalAmount
+                             WHERE Id=@Id";
+        
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -179,7 +218,7 @@ namespace HMS.Service
             var order = (DishOrder)model;
             order.IsActive = true;
            
-            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery);
+            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
         }
         public void AddStatus(OrderStatus status)
         {
@@ -204,9 +243,10 @@ namespace HMS.Service
             return orderList;
         }
 
-        public IList<T> GetById<T>(int id)
+        public IList<OrderItem> GetById<OrderItem>(int id)
         {
-            throw new NotImplementedException();
+            var orderList = _dbHelper.FetchData<OrderItem>($"{selectOrderItemByOrderIdQuery} {id}");
+            return orderList;
         }
 
         public List<OrderStatus> GetStatusByOrderId(int OrderId)
@@ -226,8 +266,9 @@ namespace HMS.Service
         public void Update(IModel model)
         {
             var order = (DishOrder)model;
-            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery);
+            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery,"");
         }
+      
         public void Add(OrderItem item)
         {
             item.IsActive = true;
@@ -238,6 +279,13 @@ namespace HMS.Service
         {
             
             _dbHelper.Update(orderItemUpdateQuery, item);
+        }
+
+        public void UpdatePayementModeId(IModel model)
+        {
+            var order = (DishOrder)model;
+            _dbHelper.Update(orderPaymentModeUpdateQuery, order);
+            //_dbHelper.Update($"UPDATE.[DishOrder] ={order.PaymentMode} WHERE ID ={orderIdPaymentModeQuery}",order);
         }
     }
 }

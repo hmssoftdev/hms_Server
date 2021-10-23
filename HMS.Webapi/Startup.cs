@@ -90,7 +90,7 @@ namespace HMS.Webapi
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
 
-            services.AddSingleton<IHotelService, HotelService>();
+            services.AddSingleton<IHotelTableService, HotelTableService>();
             services.AddSingleton<IDbHelper, DbHelper>();
             services.AddSingleton<IDbHelperOrder, DbHelper>();
             services.AddSingleton<IImageService, ImageService>();

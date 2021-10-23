@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HMS.Domain
 {
-  public  class Hotel:BaseEntity
+  public  class HotelTable : BaseEntity
     {
         public string Name { get; set; }
         public int Seat { get; set; }

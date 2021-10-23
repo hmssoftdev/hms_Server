@@ -15,8 +15,8 @@ namespace HMS.Webapi.Controllers
     {
 
         private readonly ILogger<HotelController> _logger;
-        IHotelService _HotelService;
-        public HotelController(IMapper mapper, IHotelService modelService) : base(mapper)
+        IHotelTableService _HotelService;
+        public HotelController(IMapper mapper, IHotelTableService modelService) : base(mapper)
         {
             _HotelService = modelService;
         }
@@ -25,37 +25,37 @@ namespace HMS.Webapi.Controllers
         public IActionResult Get(int UserId)
         {
 
-            var HotelList = _HotelService.GetAllByHotelId<Hotel>(UserId);
-            var list = _mapper.Map<List<HMS.Domain.Model.Hotel>>(HotelList);
+            var HotelList = _HotelService.GetAllByHotelId<HotelTable>(UserId);
+            var list = _mapper.Map<List<HMS.Domain.Model.HotelTable>>(HotelList);
             return Ok(list);
         }
         [HttpGet("GetById/{id:int}")]
         public IActionResult GetById(int id)
         {
-            var HotelList = _HotelService.GetById<Hotel>(id);
-            var list = _mapper.Map<List<HMS.Domain.Model.Hotel>>(HotelList);
+            var HotelList = _HotelService.GetById<HotelTable>(id);
+            var list = _mapper.Map<List<HMS.Domain.Model.HotelTable>>(HotelList);
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult post(Hotel hotel)
+        public IActionResult post(HotelTable hotel)
         {
             _HotelService.Add(hotel);
             return Ok("Data Added");
         }
         [HttpPut]
-        public IActionResult Put(Hotel hotel)
+        public IActionResult Put(HotelTable hotel)
         {
             _HotelService.Update(hotel);
             return Ok("Data Updated");
         }
         [HttpPut("updateSeat")]
-        public IActionResult updateSeat(Hotel hotel)
+        public IActionResult UpdateSeat(HotelTable hotel)
         {
             _HotelService.UpdateSeatId(hotel);
             return Ok("Data Updated");
         }
         [HttpPut("Booked")]
-        public IActionResult UpdateBooked(Hotel hotel)
+        public IActionResult UpdateBooked(HotelTable hotel)
         {
             _HotelService.UpdateBookedSeat(hotel);
             return Ok("Data Updated");

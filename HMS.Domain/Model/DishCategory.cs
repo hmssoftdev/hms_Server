@@ -12,7 +12,7 @@ namespace HMS.Domain.Model
 
         public int HotelId { get; set; }
 
-        public Domain.Hotel Hotel { get; set; }
+    //    public Domain.Hotel Hotel { get; set; }
         public bool IsActive { get; set; } = false;
         public int gstCompliance { get; set; }
         public string status { get; set; }

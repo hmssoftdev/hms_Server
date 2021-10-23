@@ -22,7 +22,7 @@ namespace HMS.Service
     }
     public interface IDbHelperOrder : IDbHelper
     {
-        public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery);
+        public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery, string orderTableAddQuery);
         public List<DishOrder> GetOrderDetail(int OrderId);
         
 
@@ -88,7 +88,7 @@ namespace HMS.Service
             return result;
         }
 
-        public int OrderTransaction(DishOrder order, string parentQuery,string itemQuery, string statusQuery )
+        public int OrderTransaction(DishOrder order, string parentQuery,string itemQuery, string statusQuery, string orderTableAddQuery )
         {
             int newId;
             using var connection = new SqlConnection(connectionString);
@@ -109,6 +109,11 @@ namespace HMS.Service
                 var affectedRows = connection.Execute(statusQuery, x, transaction);
             });
 
+            order.TableIds.ForEach(x =>
+            {
+                var TableOrder = new OrderTable { CreatedBy = order.CreatedBy, OrderId = newId, TableId = x, IsActive = true };
+                var affectedRows = connection.Execute(orderTableAddQuery, TableOrder, transaction);
+            });
             transaction.Commit();
             return newId;
 

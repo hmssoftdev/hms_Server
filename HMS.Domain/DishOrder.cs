@@ -20,6 +20,7 @@ namespace HMS.Domain
         public float AdditionalAmount { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         public List<OrderStatus> OrderStatus{ get; set; }
+        public List<int> TableIds { get; set; }
 
     }
 }
