@@ -185,6 +185,10 @@ namespace HMS.Service
                               ,[UpdatedOn] =@UpdatedOn
                               ,[UpdatedBy] =@UpdatedBy
                         WHERE Id=@Id";
+        string releaseHotelTableQuery = @"update HotelTable set IsBooked = 0 
+                                        from HotelTable ht inner join 
+                                        OrderTable Ot on ht.Id = Ot.TableId
+                                        where Ot.OrderId = @OrderId";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -253,6 +257,12 @@ namespace HMS.Service
         {
             
             _dbHelper.Update(orderItemUpdateQuery, item);
+        }
+
+        public void ReleaseTable(int id )
+        {
+            var obj = new { OrderId = id };
+            _dbHelper.Update(releaseHotelTableQuery, obj);
         }
     }
 }

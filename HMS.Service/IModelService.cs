@@ -30,6 +30,7 @@ namespace HMS.Service
         public void Update(OrderItem item);
         public List<OrderStatus> GetStatusByOrderId(int OrderId);
         public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
+        public void ReleaseTable(int OrderId);
     }
 
 

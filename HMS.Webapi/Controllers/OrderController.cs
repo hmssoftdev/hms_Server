@@ -70,5 +70,12 @@ namespace HMS.Webapi.Controllers
             _orderService.Update(item);
             return Ok("item updated");
         }
+
+        [HttpPut("Put/ReleaseTable")]
+        public IActionResult ReleaseOrderTable(int id)
+        {
+            _orderService.ReleaseTable(id);
+            return Ok();
+        }
     }
 }
