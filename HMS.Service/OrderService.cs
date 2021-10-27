@@ -186,29 +186,10 @@ namespace HMS.Service
                               ,[UpdatedOn] =@UpdatedOn
                               ,[UpdatedBy] =@UpdatedBy
                         WHERE Id=@Id";
-        string orderIdPaymentModeQuery = @"UPDATE [dbo].[OrderItem]
-                               SET [OrderID] = @OrderID
-     
-                             WHERE OrderId=@orderid";
-        string orderPaymentModeUpdateQuery = @"UPDATE [dbo].[DishOrder]
-                               SET [DeliveryTotal] =@DeliveryTotal
-                                  ,[GrossTotal] = @GrossTotal
-                                  ,[ItemCount] = @ItemCount
-                                  ,[ItemTotal] =@ItemTotal
-                                  ,[AdminId] = @AdminId
-                                  ,[DeliveryOptionId] =@DeliveryOptionId
-                                  ,[PaymentMode] =@PaymentMode
-                                  ,[UserId] =@UserId
-                                  ,[CreatedOn] =@CreatedOn
-                                  ,[CreatedBy] =@CreatedBy
-                                  ,[UpdatedOn] =@UpdatedOn
-                                  ,[UpdatedBy] =@UpdatedBy
-                                  ,[IsActive] =@IsActive
-                                  ,[DiscountInPercent] =@DiscountInPercent
-                                  ,[DiscountInRupees] =@DiscountInRupees
-                                  ,[AdditionalAmount] =@AdditionalAmount
-                             WHERE Id=@Id";
-        
+        string releaseHotelTableQuery = @"update HotelTable set IsBooked = 0 
+                                        from HotelTable ht inner join 
+                                        OrderTable Ot on ht.Id = Ot.TableId
+                                        where Ot.OrderId = @OrderId";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -281,11 +262,15 @@ namespace HMS.Service
             _dbHelper.Update(orderItemUpdateQuery, item);
         }
 
+        public void ReleaseTable(int id )
+        {
+            var obj = new { OrderId = id };
+            _dbHelper.Update(releaseHotelTableQuery, obj);
+        }
+
         public void UpdatePayementModeId(IModel model)
         {
-            var order = (DishOrder)model;
-            _dbHelper.Update(orderPaymentModeUpdateQuery, order);
-            //_dbHelper.Update($"UPDATE.[DishOrder] ={order.PaymentMode} WHERE ID ={orderIdPaymentModeQuery}",order);
+            throw new NotImplementedException();
         }
     }
 }

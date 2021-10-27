@@ -31,6 +31,7 @@ namespace HMS.Service
         void UpdatePayementModeId(IModel model);
         public List<OrderStatus> GetStatusByOrderId(int OrderId);
         public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
+        public void ReleaseTable(int OrderId);
     }
 
 

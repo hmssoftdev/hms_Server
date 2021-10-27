@@ -70,11 +70,12 @@ namespace HMS.Webapi.Controllers
             _orderService.Update(item);
             return Ok("item updated");
         }
-        [HttpPut("paymentmodeupdate")]
-        public IActionResult Update(DishOrder dishorder)
+
+        [HttpPut("Put/ReleaseTable")]
+        public IActionResult ReleaseOrderTable(int id)
         {
-            _orderService.UpdatePayementModeId(dishorder);
-            return Ok("payment mode updated");
+            _orderService.ReleaseTable(id);
+            return Ok();
         }
     }
 }
