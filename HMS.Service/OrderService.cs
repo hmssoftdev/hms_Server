@@ -190,6 +190,10 @@ namespace HMS.Service
                                         from HotelTable ht inner join 
                                         OrderTable Ot on ht.Id = Ot.TableId
                                         where Ot.OrderId = @OrderId";
+        string paymentModeUpdateQuery = @"UPDATE [dbo].[DishOrder]
+                                   SET [PaymentMode] =@PaymentMode
+                                      ,[UserId] =@UserId
+                                 WHERE UserId=@userid";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -267,10 +271,18 @@ namespace HMS.Service
             var obj = new { OrderId = id };
             _dbHelper.Update(releaseHotelTableQuery, obj);
         }
+        public void UpdatePayementModeId(int id)
+        {
+            var obj = new { OrderId = id };
+            _dbHelper.Update(paymentModeUpdateQuery, obj);
+            //_dbHelper.Update($"UPDATE[dbo].[DishOrder] SET[PaymentMode] = { order.PaymentMode} WHERE ID = {order.UserId}", obj);
+        }
 
         public void UpdatePayementModeId(IModel model)
         {
-            throw new NotImplementedException();
+            var order = (DishOrder)model;
+           // _dbHelper.Update(paymentModeUpdateQuery, order);
+            _dbHelper.Update($"UPDATE[dbo].[DishOrder] SET[PaymentMode] = { order.PaymentMode} WHERE ID = {order.Id}", order);
         }
     }
 }
