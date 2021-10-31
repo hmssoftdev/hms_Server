@@ -43,8 +43,8 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(DishOrder dishOrder)
         {
             
-            _orderService.Add(dishOrder);
-            return Ok();
+           var id =  _orderService.AddDataAndReturnId(dishOrder);
+            return Ok(new { OrderId = id });
         }
         [HttpPost("Post/{AddStatus}")]
         public IActionResult Post (OrderStatus status)
@@ -77,5 +77,14 @@ namespace HMS.Webapi.Controllers
             _orderService.ReleaseTable(id);
             return Ok();
         }
+
+        [HttpGet("Get/orderByTableId/{id:int}")]
+        public IActionResult GetOrderByTableId(int id)
+        {
+            var order = _orderService.GetOrderByTableId(id);
+            return Ok(order);
+        }
+
+        
     }
 }

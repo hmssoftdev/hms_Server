@@ -23,7 +23,7 @@ namespace HMS.Service
     public interface IDbHelperOrder : IDbHelper
     {
         public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery, string orderTableAddQuery);
-        public List<DishOrder> GetOrderDetail(int OrderId);
+        public DishOrder GetOrderDetail(int OrderId);
         
 
     }
@@ -121,13 +121,25 @@ namespace HMS.Service
 
         }
 
-        public List<DishOrder> GetOrderDetail(int OrderId)
+
+        // get order detail from the table id 
+        //Select top 1 do.* from DishOrder do
+        //inner join orderTable ot
+        //on ot.OrderId = do.id
+        //where ot.TableId = 22
+        //order by ot.id desc
+        //
+        // fetch dish id from the order menu
+        // fetch dish from the list
+        // return values
+
+        public DishOrder GetOrderDetail(int OrderId)
         {
             var orderDictionary = new Dictionary<int, DishOrder>();
 
             var sql = @"Select *  from DishOrder d 
                             inner join  OrderItem oi on d.id = oi.OrderID
-                            inner join  orderStatus os on d.id = os.OrderID where d.id =1";
+                            inner join  orderStatus os on d.id = os.OrderID where d.id =121";
             var dishOrders = new List<DishOrder>();
             using (var connection = new SqlConnection(connectionString))
             {
@@ -150,7 +162,7 @@ namespace HMS.Service
                 splitOn: "OrderID",
                 commandType: CommandType.Text).ToList().Distinct().ToList();
             }
-            return dishOrders;
+            return dishOrders.FirstOrDefault();
 
         }
     }

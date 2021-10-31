@@ -27,10 +27,13 @@ namespace HMS.Service
     public interface IOrderService : IModelService {
         public void AddStatus(OrderStatus status);
         public void Add(OrderItem item);
+        public int AddDataAndReturnId(IModel model);
+
         public void Update(OrderItem item);
         public List<OrderStatus> GetStatusByOrderId(int OrderId);
         public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
         public void ReleaseTable(int OrderId);
+        public DishOrder GetOrderByTableId(int tableid);
     }
 
 

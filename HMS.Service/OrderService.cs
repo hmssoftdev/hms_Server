@@ -198,7 +198,14 @@ namespace HMS.Service
             var order = (DishOrder)model;
             order.IsActive = true;
            
-            _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
+           var dbId = _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
+        }
+
+        public int AddDataAndReturnId(IModel model)
+        {
+            var order = (DishOrder)model;
+            order.IsActive = true;
+            return _dbHelper.OrderTransaction(order, orderAddQuery, orderItemAddQuery, orderStatusAddQuery, orderTableAddQuery);
         }
         public void AddStatus(OrderStatus status)
         {
@@ -263,6 +270,11 @@ namespace HMS.Service
         {
             var obj = new { OrderId = id };
             _dbHelper.Update(releaseHotelTableQuery, obj);
+        }
+
+        public DishOrder GetOrderByTableId (int tableId)
+        {
+           return _dbHelper.GetOrderDetail(tableId);
         }
     }
 }
