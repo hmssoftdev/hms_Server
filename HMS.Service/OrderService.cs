@@ -142,6 +142,7 @@ namespace HMS.Service
                                                 orderItem o
                                                 inner join dish d on o.ProductId = d.Id
                                                 where orderid = @id";
+        string selectOrderItem ="";
         string orderUpdateQuery = @"UPDATE [dbo].[DishOrder]
                                SET [DeliveryTotal] =@DeliveryTotal
                                   ,[GrossTotal] = @GrossTotal
@@ -189,6 +190,10 @@ namespace HMS.Service
                                         from HotelTable ht inner join 
                                         OrderTable Ot on ht.Id = Ot.TableId
                                         where Ot.OrderId = @OrderId";
+        string paymentModeUpdateQuery = @"UPDATE [dbo].[DishOrder]
+                                   SET [PaymentMode] =@PaymentMode
+                                      ,[UserId] =@UserId
+                                 WHERE UserId=@userid";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -230,9 +235,10 @@ namespace HMS.Service
             return orderList;
         }
 
-        public IList<T> GetById<T>(int id)
+        public IList<OrderItem> GetById<OrderItem>(int id)
         {
-            throw new NotImplementedException();
+            var orderList = _dbHelper.FetchData<OrderItem>($"{selectOrderItemByOrderIdQuery} {id}");
+            return orderList;
         }
 
         public List<OrderStatus> GetStatusByOrderId(int OrderId)
@@ -254,6 +260,7 @@ namespace HMS.Service
             var order = (DishOrder)model;
             _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery,"");
         }
+      
         public void Add(OrderItem item)
         {
             item.IsActive = true;
@@ -270,6 +277,19 @@ namespace HMS.Service
         {
             var obj = new { OrderId = id };
             _dbHelper.Update(releaseHotelTableQuery, obj);
+        }
+        public void UpdatePayementModeId(int id)
+        {
+            var obj = new { OrderId = id };
+            _dbHelper.Update(paymentModeUpdateQuery, obj);
+            //_dbHelper.Update($"UPDATE[dbo].[DishOrder] SET[PaymentMode] = { order.PaymentMode} WHERE ID = {order.UserId}", obj);
+        }
+
+        public void UpdatePayementModeId(IModel model)
+        {
+            var order = (DishOrder)model;
+           // _dbHelper.Update(paymentModeUpdateQuery, order);
+            _dbHelper.Update($"UPDATE[dbo].[DishOrder] SET[PaymentMode] = { order.PaymentMode} WHERE ID = {order.Id}", order);
         }
 
         public DishOrder GetOrderByTableId (int tableId)
