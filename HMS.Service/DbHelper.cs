@@ -23,9 +23,7 @@ namespace HMS.Service
     public interface IDbHelperOrder : IDbHelper
     {
         public int OrderTransaction(DishOrder order, string parentQuery, string itemQuery, string statusQuery, string orderTableAddQuery);
-        public DishOrder GetOrderDetail(int OrderId);
-        
-
+        public DishOrder GetOrderDetailFromTableId(int tableId);
     }
 
     public class DbHelper : IDbHelper, IDbHelperOrder
@@ -54,10 +52,8 @@ namespace HMS.Service
 
         public void Add<Model>(string query, Model model)
         {
-            using (var db = new SqlConnection(connectionString))
-            {
-                var result = db.Execute(query, model);
-            }
+            using var db = new SqlConnection(connectionString);
+            var result = db.Execute(query, model);
         }
 
         public void Update<Model>(string query, Model model)
@@ -67,7 +63,6 @@ namespace HMS.Service
                 var result = db.Execute(query, model);
             }
         }
-
 
         public void Delete<Model>(string query, Model model)
         {
@@ -133,37 +128,23 @@ namespace HMS.Service
         // fetch dish from the list
         // return values
 
-        public DishOrder GetOrderDetail(int OrderId)
+        public DishOrder GetOrderDetailFromTableId(int tableId)
         {
-            var orderDictionary = new Dictionary<int, DishOrder>();
+            var orderSqlObj = new { tableId = tableId };
+            var orderSql = @"Select top 1 do.* from DishOrder do
+                            inner join orderTable ot
+                            inner join HotelTable ht on ht.id = ot.TableId
+                            on ot.OrderId = do.id 
+                            where ot.TableId = @tableId 
+                            order by ot.id desc";
 
-            var sql = @"Select *  from DishOrder d 
-                            inner join  OrderItem oi on d.id = oi.OrderID
-                            inner join  orderStatus os on d.id = os.OrderID where d.id =121";
-            var dishOrders = new List<DishOrder>();
-            using (var connection = new SqlConnection(connectionString))
-            {
-                dishOrders = connection.Query<DishOrder, OrderItem, OrderStatus, DishOrder>(sql, (order, item, status) =>
-                {
-                    DishOrder dishOrder;
-                    if (!orderDictionary.TryGetValue(order.Id, out dishOrder))
-                    {
-                        dishOrder = order;
-                        dishOrder.OrderItems = new List<OrderItem> { item };
-                        dishOrder.OrderStatus = new List<OrderStatus>() { status };
-                        orderDictionary.Add(dishOrder.Id, dishOrder);
-                    }
-                    if (item.Id > 0)
-                        dishOrder.OrderItems.Add(item);
-                    if (status.Id > 0)
-                        dishOrder.OrderStatus.Add(status);
-                    return dishOrder;
-                },
-                splitOn: "OrderID",
-                commandType: CommandType.Text).ToList().Distinct().ToList();
-            }
-            return dishOrders.FirstOrDefault();
-
+            var orderItemSql = "select * from OrderItem where OrderID = @orderId";
+            using SqlConnection connection = new SqlConnection(connectionString);
+            var order = connection.QueryFirstOrDefault<DishOrder>(orderSql,orderSqlObj);
+            var orderItemSqlObj = new { orderId = order.Id };
+            var items = connection.Query<OrderItem>(orderItemSql, orderItemSqlObj).ToList();
+            order.OrderItems = items;
+            return order;
         }
     }
 }

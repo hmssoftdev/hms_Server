@@ -294,7 +294,7 @@ namespace HMS.Service
 
         public DishOrder GetOrderByTableId (int tableId)
         {
-           return _dbHelper.GetOrderDetail(tableId);
+           return _dbHelper.GetOrderDetailFromTableId(tableId);
         }
     }
 }
