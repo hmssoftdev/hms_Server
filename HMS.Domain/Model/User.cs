@@ -16,6 +16,8 @@ namespace HMS.Domain.Model
         public string Address { get; set; }
         public int CityId { get; set; }
         public int StateId { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
         public string PinCode { get; set; }
 
     }

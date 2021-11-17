@@ -131,19 +131,33 @@ namespace HMS.Service
         public DishOrder GetOrderDetailFromTableId(int tableId)
         {
             var orderSqlObj = new { tableId = tableId };
-            var orderSql = @"Select top 1 do.* from DishOrder do
+            var orderSql = @"Select top 1 do.* , u.Name ,u.Contact  from DishOrder do
                             inner join orderTable ot
                             inner join HotelTable ht on ht.id = ot.TableId
                             on ot.OrderId = do.id 
+							left join dbo.Users u on do.userId= u.id
                             where ot.TableId = @tableId 
                             order by ot.id desc";
-
-            var orderItemSql = "select * from OrderItem where OrderID = @orderId";
             using SqlConnection connection = new SqlConnection(connectionString);
-            var order = connection.QueryFirstOrDefault<DishOrder>(orderSql,orderSqlObj);
-            var orderItemSqlObj = new { orderId = order.Id };
-            var items = connection.Query<OrderItem>(orderItemSql, orderItemSqlObj).ToList();
-            order.OrderItems = items;
+            var order = connection.QueryFirstOrDefault<DishOrder>(orderSql, orderSqlObj);
+            {
+                var orderItemSql = "select * from OrderItem where OrderID = @orderId";
+                var orderItemSqlObj = new { orderId = order.Id };
+                var items = connection.Query<OrderItem>(orderItemSql, orderItemSqlObj).ToList();
+                order.OrderItems = items;
+            }
+            {
+                var orderStatusSql = "select * from OrderStatus where OrderID = @orderId";
+                var orderItemSqlObj = new { orderId = order.Id };
+                var status = connection.Query<OrderStatus>(orderStatusSql, orderItemSqlObj).ToList();
+                order.OrderStatus = status;
+            }
+            {
+                var orderTableSql = "select TableId from ordertable where OrderId = @orderId";
+                var orderItemSqlObj = new { orderId = order.Id };
+                var tableIds = connection.Query<int>(orderTableSql, orderItemSqlObj).ToList();
+                order.TableIds = tableIds;
+            }
             return order;
         }
     }
