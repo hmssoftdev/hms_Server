@@ -141,7 +141,7 @@ namespace HMS.Service
             using SqlConnection connection = new SqlConnection(connectionString);
             var order = connection.QueryFirstOrDefault<DishOrder>(orderSql, orderSqlObj);
             {
-                var orderItemSql = "select * from OrderItem where OrderID = @orderId";
+                var orderItemSql = "select d.Name, oi.* from OrderItem oi inner join Dish d on oi.ProductId = d.Id where OrderID = @orderId";
                 var orderItemSqlObj = new { orderId = order.Id };
                 var items = connection.Query<OrderItem>(orderItemSql, orderItemSqlObj).ToList();
                 order.OrderItems = items;

@@ -50,6 +50,10 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post (OrderStatus status)
         {
             _orderService.AddStatus(status);
+            if (status.Status == 4) // complete later on will change the logic
+            {
+                _orderService.ReleaseTable(status.OrderId);
+            }
             return Ok();
         }
         [HttpPut]

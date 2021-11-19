@@ -10,6 +10,7 @@
         public float GstPrice { get; set; }
         public int OrderID { get; set; }
         public string DishName { get; set; }
+        public string Name { get; set; }
         public bool IsFull { get; set; }
         public int GstTotal { get; set; }
         public bool KotPrinted { get; set; }
