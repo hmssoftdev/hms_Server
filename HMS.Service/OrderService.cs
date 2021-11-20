@@ -128,7 +128,7 @@ namespace HMS.Service
                                   FROM [dbo].[DishOrder] o
 								  inner join Users u on u.Id=o.userId
                                     where o.[CreatedBy] =@CreatedBy and 
-									cast(o.[CreatedOn] as Date) = cast(getdate() as Date)
+									cast(o.[CreatedOn] as Date) = @CreatedOn
 								order by UpdatedOn desc";
         string selectStatusByOrderIdQuery = @"select Id,
                                         OrderId,
@@ -230,7 +230,7 @@ namespace HMS.Service
 
         public IList<DishOrder> GetAllByHotelId<DishOrder>(int id)
         {
-            var obj = new { CreatedBy = id };
+            var obj = new { CreatedBy = id, CreatedOn = DateTime.UtcNow.AddHours(5).AddMinutes(30).ToString("yyyy-MM-dd") };
             var orderList = _dbHelper.FetchDataByParam<DishOrder>(selectByHotelQuery, obj);
             return orderList;
         }
