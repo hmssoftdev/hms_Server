@@ -21,6 +21,6 @@ namespace HMS.Domain
         public List<OrderItem> OrderItems { get; set; }
         public List<OrderStatus> OrderStatus{ get; set; }
         public List<int> TableIds { get; set; }
-
+        public int GstTotal { get; set; }
     }
 }

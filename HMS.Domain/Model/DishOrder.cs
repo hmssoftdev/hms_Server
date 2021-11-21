@@ -17,6 +17,7 @@
         public float DiscountInPercent { get; set; }
         public float DiscountInRupees { get; set; }
         public float AdditionalAmount { get; set; }
+        public int GstTotal { get; set; }
 
     }
 }

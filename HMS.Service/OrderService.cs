@@ -24,7 +24,8 @@ namespace HMS.Service
                                ,[IsActive]
                               ,[DiscountInPercent]
                               ,[DiscountInRupees]
-                              ,[AdditionalAmount])
+                              ,[AdditionalAmount]
+                              ,[GstTotal])
                          VALUES
                                (@DeliveryTotal
                                ,@GrossTotal
@@ -41,7 +42,8 @@ namespace HMS.Service
                                ,@IsActive
                                ,@DiscountInPercent
                                ,@DiscountInRupees
-                               ,@AdditionalAmount)";
+                               ,@AdditionalAmount
+                               ,@GstTotal)";
         string orderItemAddQuery = @"INSERT INTO [dbo].[OrderItem]
                                    ([Quantity]
                                    ,[ProductId]
@@ -120,6 +122,7 @@ namespace HMS.Service
                                       ,o.[DiscountInPercent]
                                       ,o.[DiscountInRupees]
                                       ,o.[AdditionalAmount]
+                                      ,o.[GstTotal]  
 									  ,u.[UserName] as UserName
 									  ,u.[Contact] as UserMobileNumber
 									  ,(SELECT Top 1 
@@ -160,6 +163,7 @@ namespace HMS.Service
                                   ,[DiscountInPercent] =@DiscountInPercent
                                   ,[DiscountInRupees] =@DiscountInRupees
                                   ,[AdditionalAmount] =@AdditionalAmount
+                                  ,[GstTotal] = @GstTotal  
                              WHERE Id=@Id";
         string orderItemUpdateQuery = @"UPDATE [dbo].[OrderItem]
                                    SET[Quantity] =@Quantity

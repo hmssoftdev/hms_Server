@@ -116,18 +116,6 @@ namespace HMS.Service
 
         }
 
-
-        // get order detail from the table id 
-        //Select top 1 do.* from DishOrder do
-        //inner join orderTable ot
-        //on ot.OrderId = do.id
-        //where ot.TableId = 22
-        //order by ot.id desc
-        //
-        // fetch dish id from the order menu
-        // fetch dish from the list
-        // return values
-
         public DishOrder GetOrderDetailFromTableId(int tableId)
         {
             var orderSqlObj = new { tableId = tableId };
