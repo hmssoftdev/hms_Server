@@ -50,6 +50,7 @@ namespace HMS.Service
     public interface IUserService : IModelService {
        User ValidateUser(string userName, string pwd);
         User ValidateUser(int id);
+        IList<User> GetAllAdmin<User>();
     }
     public interface IMasterService
     {

@@ -58,6 +58,27 @@ namespace HMS.Service
                           left join StateMaster st on st.Id = u.[StateId]
                           left join CityMaster ct on ct.Id = u.[CityId]
                           where u.[CreatedBy] = @CreatedBy";
+        string selectAllAdmin = @"SELECT u.[Id]
+                              ,u.[IsActive]
+                              ,u.[CreatedOn]
+                              ,u.[CreatedBy]
+                              ,u.[UpdatedOn]
+                              ,u.[UpdatedBy]
+                              ,u.[Name]
+                              ,u.[UserType]
+                              ,u.[UserName]
+                              ,u.[Email]
+                              ,u.[Contact]
+                              ,u.[Password]
+                              ,u.[Address]
+                              ,u.[CityId]
+                              ,u.[StateId]
+                              ,u.[PinCode]
+                              ,st.[Name] as State
+	                          ,ct.[Name] as City
+                          FROM [dbo].[Users] u
+                          left join StateMaster st on st.Id = u.[StateId]
+                          left join CityMaster ct on ct.Id = u.[CityId] where UserType=2";
         string ValidateUserQuery = @"SELECT [Id]
                               ,[Name]
                               ,[UserType]
@@ -185,6 +206,13 @@ namespace HMS.Service
 
         }
 
+        public IList<User> GetAllAdmin<User>()
+        {
+            var UserList = dbHelper.FetchData<User>(selectAllAdmin);
+            return UserList;
+
+        }
+        
         //public User ValidateUser(int id)
         //{
         //   //var obj = new { CreatedBy = id };

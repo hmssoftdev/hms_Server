@@ -41,7 +41,7 @@ namespace HMS.Domain.Model
         public string ImageUrl { get; set; }
         public string UpiImage { get; set; }
 
-
+        public int UserId { get; set; }
 
     }
 }

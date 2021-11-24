@@ -81,7 +81,7 @@ namespace HMS.Webapi.Controllers
             return Ok("Data Added");
         }
 
-        [HttpPost("PostAnonymusUser")]
+        [HttpPost("PostAnonymousUser")]
         public IActionResult PostAnonymousUser(User user)
         {
             _userService.Add(user);
@@ -97,8 +97,19 @@ namespace HMS.Webapi.Controllers
             _userService.Update(user);
             return Ok("Data Updated");
         }
-        
-        
+
+
+        [Authorize]
+        [ActionFilter]
+        [HttpGet("GetAllAdmin")]
+        public IActionResult GetAllAdmin()
+        {
+            var UserList = _userService.GetAllAdmin<User>();
+            var list = _mapper.Map<List<HMS.Domain.Model.User>>(UserList);
+            return Ok(list);
+        }
+
+
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {

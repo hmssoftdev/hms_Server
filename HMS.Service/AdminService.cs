@@ -46,6 +46,7 @@ namespace HMS.Service
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
+                                          ,a.UserId   
                                       FROM [dbo].[Admin] a
                                          inner join StateMaster st on st.Id = a.[StateId]
                           inner join CityMaster ct on ct.Id = a.[CityId]
@@ -83,6 +84,7 @@ namespace HMS.Service
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
+                                          ,a.[UserId]
                                       FROM [dbo].[Admin] a
                                          inner join StateMaster st on st.Id = a.[StateId]
                           inner join CityMaster ct on ct.Id = a.[CityId]
@@ -119,7 +121,8 @@ namespace HMS.Service
                                            ,[Contact]
                                            ,[Email]
                                            ,[RestaurentSeal]
-                                           ,[UpiImage])
+                                           ,[UpiImage]
+                                           ,[UserId])
                                      VALUES
                                            (@IsActive
                                            ,@CreatedOn
@@ -150,7 +153,8 @@ namespace HMS.Service
                                            ,@Contact
                                            ,@Email
                                            ,@RestaurentSeal
-                                           ,@UpiImage)";
+                                           ,@UpiImage
+                                           ,@UserId)";
         string updateQuery = @"UPDATE [dbo].[Admin]
                            SET [IsActive] =@IsActive
                               ,[CreatedOn] =@CreatedOn
@@ -179,6 +183,7 @@ namespace HMS.Service
                               ,[Email]=@Email
                               ,[RestaurentSeal]=@RestaurentSeal
                               ,[UpiImage]=@UpiImage
+                              ,[UserId] = @UserId  
                          WHERE Id=@Id";
         string selectByIdQuery = @"SELECT a.[Id]
                                           ,a.[IsActive]
@@ -212,6 +217,7 @@ namespace HMS.Service
                                           ,st.[Name] as State
 	                                      ,ct.[Name] as City
                                           ,bc.[Name] as Category
+                                          ,a.[UserId]
                                       FROM [dbo].[Admin] a
                                          inner join StateMaster st on st.Id = a.[StateId]
                                          inner join CityMaster ct on ct.Id = a.[CityId]
