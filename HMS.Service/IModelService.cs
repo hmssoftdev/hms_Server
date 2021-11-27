@@ -21,6 +21,7 @@ namespace HMS.Service
     public interface IUserConfigService: IModelService { } 
     public interface IAdminService: IModelService {
       void  UpdateSubscriptionId(IModel model);
+       Admin GetByUserId(int userId);
     } 
     public interface IDishCategoryService: IModelService { }
 

@@ -1,6 +1,7 @@
 ﻿using HMS.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HMS.Service
@@ -223,6 +224,45 @@ namespace HMS.Service
                                          inner join CityMaster ct on ct.Id = a.[CityId]
                                          left join BusinessCategory bc on bc.Id = a.[CategoryId]
                                           where a.Id=";
+
+        string selectByUserIdQuery = @"SELECT a.[Id]
+                                          ,a.[IsActive]
+                                          ,a.[CreatedOn]
+                                          ,a.[CreatedBy]
+                                          ,a.[UpdatedOn]
+                                          ,a.[UpdatedBy]
+                                          ,a.[BusinessName]
+                                          ,a.[CategoryId]
+                                          ,a.[FoodLincNum]
+                                          ,a.[Address]
+                                          ,a.[Gst]
+                                          ,a.[AccountName]
+                                          ,a.[AccountNumber]
+                                          ,a.[BankName]
+                                          ,a.[IfscCode]
+                                          ,a.[PinCode]
+                                          ,a.[RestaurentLogo]
+                                          ,a.[Signature]
+                                          ,a.[TermAndCondition]
+                                          ,a.[BankAddress]
+                                          ,a.[CodeImage]
+                                          ,a.[CodeNumber]
+                                          ,a.[CityId]
+                                          ,a.[StateId]
+                                          ,a.[Contact]
+                                          ,a.[Email]
+                                          ,a.[SubscriptionStatus]
+                                          ,a.[RestaurentSeal]
+                                          ,a.[UpiImage]
+                                          ,st.[Name] as State
+	                                      ,ct.[Name] as City
+                                          ,bc.[Name] as Category
+                                          ,a.[UserId]
+                                      FROM [dbo].[Admin] a
+                                         inner join StateMaster st on st.Id = a.[StateId]
+                                         inner join CityMaster ct on ct.Id = a.[CityId]
+                                         left join BusinessCategory bc on bc.Id = a.[CategoryId]
+                                          where a.UserId=@UserId";
         string deleteQuery = "Delete from Admin ";
         public void Add(IModel model)
         {
@@ -268,6 +308,13 @@ namespace HMS.Service
             var AdminList = dbHelper.FetchDataByParam<Admin>(selectByHotelQuery,obj);
             return AdminList;
 
+        }
+
+        public Admin GetByUserId(int userId)
+        {
+            var obj = new { UserId = userId };
+            var AdminList = dbHelper.FetchDataByParam<Admin>(selectByUserIdQuery,obj);
+            return AdminList.FirstOrDefault();
         }
     }
 }

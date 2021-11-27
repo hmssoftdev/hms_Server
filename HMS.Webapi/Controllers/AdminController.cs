@@ -46,6 +46,16 @@ namespace HMS.Webapi.Controllers
             var list = _mapper.Map<List<HMS.Domain.Model.Admin>>(AdminList);
             return Ok(list);
         }
+
+        [HttpGet("GetByUserId/{id:int}")]
+        public IActionResult GetByUserId(int id)
+        {
+            var adminDb = _AdminService.GetByUserId(id);
+            var admin = _mapper.Map<HMS.Domain.Model.Admin>(adminDb);
+            return Ok(admin);
+        }
+
+
         [HttpPost]
         public IActionResult Post([FromForm]Admin admin)
         {
