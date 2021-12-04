@@ -79,7 +79,7 @@ namespace HMS.Service
                           ,[IsBooked] =@IsBooked
                      WHERE Id=@Id";
         string selectByIdQuery = "";
-        string deleteQuery = "Delete from Hotel";
+        string deleteQuery = "Delete from HotelTable";
         string selectUpdateQuery = @"UPDATE [dbo].[HotelTable]
                        SET [IsActive] =@IsActive
                           ,[CreatedOn] =@CreatedOn
@@ -97,7 +97,7 @@ namespace HMS.Service
 
         public void Delete(int id)
         {
-            dbHelper.Delete($"{deleteQuery} where id ={id}", new HotelTable { Id = id });
+            dbHelper.Delete($"{deleteQuery} where Id =@Id", new { Id = id });
         }
 
         public IList<HotelTable> GetAll<HotelTable>()
