@@ -36,20 +36,20 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(UserFeedback userFeedback)
         {
             _UserFeedbackService.Add(userFeedback);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
         [HttpPut]
         public IActionResult Put(UserFeedback userFeedback)
         {
             _UserFeedbackService.Update(userFeedback);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _UserFeedbackService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
     }
 }

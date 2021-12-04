@@ -31,19 +31,19 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(BusinessCategory businessCategory)
         {
             _BusinessCategoryService.Add(businessCategory);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
         [HttpPut]
         public IActionResult Put(BusinessCategory businessCategory)
         {
             _BusinessCategoryService.Update(businessCategory);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _BusinessCategoryService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
     }
 }

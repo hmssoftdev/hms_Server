@@ -56,7 +56,7 @@ namespace HMS.Webapi.Controllers
             }
             
             _dishService.Add(dish);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
 
         [HttpPut]
@@ -69,13 +69,13 @@ namespace HMS.Webapi.Controllers
                 dish.ImageUrl = $"{_documents.Url}{dish.UpdatedBy}/{ fileName}";
             }
             _dishService.Update(dish);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _dishService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
 
     }

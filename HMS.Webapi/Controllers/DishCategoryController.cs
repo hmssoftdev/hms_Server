@@ -29,19 +29,19 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(DishCategory dishCategory)
         {
             _dishCategoryService.Add(dishCategory);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
         [HttpPut]
         public IActionResult Put(DishCategory dishCategory)
         {
             _dishCategoryService.Update(dishCategory);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _dishCategoryService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
 
     }

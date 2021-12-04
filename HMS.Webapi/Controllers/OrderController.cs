@@ -66,13 +66,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post (OrderItem item)
         {
             _orderService.Add(item);
-            return Ok("Item Added");
+            return Ok(new { Result = "Item Added" });
         }
         [HttpPut("OrderUpdate")]
         public IActionResult Update (OrderItem item)
         {
             _orderService.Update(item);
-            return Ok("item updated");
+            return Ok(new { Result = "item updated" });
         }
 
         [HttpPut("Put/ReleaseTable")]
@@ -85,7 +85,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult UpdatePaymentMode(DishOrder order)
         {
             _orderService.UpdatePayementModeId(order);
-            return Ok("Updated Payment Mode");
+            return Ok(new { Result = "Updated Payment Mode" });
         }
 
         [HttpGet("Get/orderByTableId/{id:int}")]

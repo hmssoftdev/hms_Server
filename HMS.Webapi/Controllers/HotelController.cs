@@ -40,31 +40,31 @@ namespace HMS.Webapi.Controllers
         public IActionResult post(HotelTable hotel)
         {
             _HotelService.Add(hotel);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
         [HttpPut]
         public IActionResult Put(HotelTable hotel)
         {
             _HotelService.Update(hotel);
-            return Ok("Data Updated");
+            return Ok(new { Result= "Data Updated" });
         }
         [HttpPut("updateSeat")]
         public IActionResult UpdateSeat(HotelTable hotel)
         {
             _HotelService.UpdateSeatId(hotel);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpPut("Booked")]
         public IActionResult UpdateBooked(HotelTable hotel)
         {
             _HotelService.UpdateBookedSeat(hotel);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _HotelService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
     }
 }

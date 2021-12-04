@@ -41,7 +41,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult Post(UserConfig userConfig)
         {
             _UserConfigService.Add(userConfig);
-            return Ok("Data Added");
+            return Ok(new { Result = "Data Added" });
         }
 
 
@@ -49,13 +49,13 @@ namespace HMS.Webapi.Controllers
         public IActionResult Put(UserConfig userConfig)
         {
             _UserConfigService.Update(userConfig);
-            return Ok("Data Updated");
+            return Ok(new { Result = "Data Updated" });
         }
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
             _UserConfigService.Delete(id);
-            return Ok("deleted");
+            return Ok(new { Result = "deleted" });
         }
     }
 }
