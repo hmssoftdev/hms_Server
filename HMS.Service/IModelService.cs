@@ -36,6 +36,7 @@ namespace HMS.Service
         public List<Domain.Model.OrderItem> GetOrderItemByOrderId(int OrderId);
         public void ReleaseTable(int OrderId);
         public DishOrder GetOrderByTableId(int tableid);
+        IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id, string maxDate, string minDate);
     }
 
 
@@ -53,6 +54,7 @@ namespace HMS.Service
         User ValidateUser(int id);
         IList<User> GetAllAdmin<User>();
         bool UpdatePassword(string oldPwd, string newPwd,int userId);
+        string ForgotPassword(int userId);
     }
     public interface IMasterService
     {

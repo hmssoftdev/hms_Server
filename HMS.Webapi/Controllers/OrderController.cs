@@ -95,6 +95,15 @@ namespace HMS.Webapi.Controllers
             return Ok(order);
         }
 
-        
+
+        [HttpGet("GetOrderByDateRange")]
+        public IActionResult GetOrderByDateRange(int userId, string maxDate, string minDate)
+        {
+            var orderList = _orderService.GetAllByHotelQueryAndDateRange<DishOrder>(userId, maxDate,minDate);
+            var list = _mapper.Map<List<HMS.Domain.Model.DishOrder>>(orderList);
+            return Ok(list);
+        }
+
+
     }
 }

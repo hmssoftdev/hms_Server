@@ -143,78 +143,15 @@ namespace HMS.Webapi.Controllers
         }
 
         [HttpPut("ForgetPassword")]
-        public IActionResult ForgetPassword()
+        public IActionResult ForgetPassword(int userId)
         {
-            //_emailService.Send("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
-            //             < p > Thanks for registering! </ p >"
-            //                );
-            //SmtpClient smtpClient = new SmtpClient();
-            //MailMessage message = new MailMessage();
-            //try
-
-            //{
-
-            //    // Prepare two email addresses
-
-            //    MailAddress fromAddress = new MailAddress("fyowes99@gmail.com", "Feedback");
-            //    MailAddress toAddress = new MailAddress("fy5mubashir@gmail.com", "You");
-
-            //    // Prepare the mail message
-
-            //    message.From = fromAddress;
-            //    message.To.Add(toAddress);
-            //    message.Subject = "Feedback";
-            //    message.Body ="Test";
-            //    // Set server details
-            //    smtpClient.Host = "relay-hosting.secureserver.net";
-
-
-            //    smtpClient.Send(message);
-            //}
-
-            //catch (Exception ex)
-            //{
-
-            //    // Display error message
-
-            //   // statusLabel.Text = "Coudn't send the message!";
-            //}
-
-        
-
-            //SmtpClient smtp = new SmtpClient
-            //{
-            //    //The address of the SMTP server (I'll take mailbox 126 as an example, which can be set according to the specific mailbox you use)
-            //    Host = "smtp.126.com",
-            //    UseDefaultCredentials = true,
-            //    DeliveryMethod = SmtpDeliveryMethod.Network,
-            //    //Enter the user name and password of your sending SMTP server here
-            //    Credentials = new NetworkCredential("fyowes99@gmail.com", "SKowais@786")
-            //};
-            ////Set default sending information
-            //Email.DefaultSender = new SmtpSender(smtp);
-            //var email = Email
-            //  //Sender
-            //  .From("fyowes99@gmail.com")
-            //  //Addressee
-            //  .To("fy5mubashir@gmail.com")
-            //  //Message title
-            //  .Subject("message title")
-            //  //Email content
-            //  .Body("email content");
-            ////Determine whether the transmission is successful according to the transmission result
-            //var result = email.Send();
-            ////Or send it asynchronously
-            ////await email.SendAsync();
-            //if (result.Successful)
-            //{
-            //    //Send success logic
-            //}
-            //else
-            //{
-            //    //If the sending fails, you can pass the result.ErrorMessages View failure reasons
-            //}
-            return Ok();
+            var result = _userService.ForgotPassword(userId);
+            if(result.Length > 0)
+            _emailService.SendForgotPassword("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
+                         < p > new password -- {result}  Thanks for registering! </ p > "
+                            );    
+            
+            return Ok(new { Result = true });
         }
     }
 }

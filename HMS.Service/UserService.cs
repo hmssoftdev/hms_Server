@@ -229,6 +229,17 @@ namespace HMS.Service
             return true;
         }
 
+        public string ForgotPassword(int userId)
+        {
+            Random random = new Random();
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()0123456789";
+            var password =  new string(Enumerable.Repeat(chars, 8)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+            var updateObject = new User { Id = userId, Password = password };
+            dbHelper.Update(updatePasswordQuery, updateObject);
+            return password;
+        }
+
         //public User ValidateUser(int id)
         //{
         //   //var obj = new { CreatedBy = id };

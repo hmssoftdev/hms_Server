@@ -133,6 +133,35 @@ namespace HMS.Service
                                     where o.[CreatedBy] =@CreatedBy and 
 									cast(o.[CreatedOn] as Date) = @CreatedOn
 								order by UpdatedOn desc";
+
+        string selectByHotelQueryAndDateRange = @"SELECT o.[Id]
+                                      ,o.[DeliveryTotal]
+                                      ,o.[GrossTotal]
+                                      ,o.[ItemCount]
+                                      ,o.[ItemTotal]
+                                      ,o.[AdminId]
+                                      ,o.[DeliveryOptionId]
+                                      ,o.[PaymentMode]
+                                      ,o.[UserId]
+                                      ,o.[CreatedOn]
+                                      ,o.[CreatedBy]
+                                       ,o.[UpdatedOn]
+                                      ,o.[UpdatedBy]
+                                      ,o.[IsActive]
+                                      ,o.[DiscountInPercent]
+                                      ,o.[DiscountInRupees]
+                                      ,o.[AdditionalAmount]
+                                      ,o.[GstTotal]  
+									  ,u.[UserName] as UserName
+									  ,u.[Contact] as UserMobileNumber
+									  ,(SELECT Top 1 
+									  [Status]
+  FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
+                                  FROM [dbo].[DishOrder] o
+								  inner join Users u on u.Id=o.userId
+                                    where o.[CreatedBy] =@CreatedBy and 
+									cast(o.[CreatedOn] as Date) between @Min and @Max
+								order by UpdatedOn desc";
         string selectStatusByOrderIdQuery = @"select Id,
                                         OrderId,
                                         Status,
@@ -299,6 +328,13 @@ namespace HMS.Service
         public DishOrder GetOrderByTableId (int tableId)
         {
            return _dbHelper.GetOrderDetailFromTableId(tableId);
+        }
+
+        public IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id , string maxDate, string minDate )
+        {
+            var obj = new { CreatedBy = id, Max = maxDate, Min = minDate }; // DateTime.UtcNow.AddHours(5).AddMinutes(30).ToString("yyyy-MM-dd") };
+            var orderList = _dbHelper.FetchDataByParam<DishOrder>(selectByHotelQueryAndDateRange, obj);
+            return orderList;
         }
     }
 }
