@@ -145,9 +145,9 @@ namespace HMS.Webapi.Controllers
         [HttpPut("ForgetPassword")]
         public IActionResult ForgetPassword()
         {
-            _emailService.Send("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
-                         < p > Thanks for registering! </ p >"
-                            );
+            //_emailService.Send("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
+            //             < p > Thanks for registering! </ p >"
+            //                );
             //SmtpClient smtpClient = new SmtpClient();
             //MailMessage message = new MailMessage();
             //try

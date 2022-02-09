@@ -225,7 +225,7 @@ namespace HMS.Service
                 return false;
 
             var updateObject = new User { Id = userId, Password = newPwd };
-            dbHelper.Update(updateQuery, updateObject);
+            dbHelper.Update(updatePasswordQuery, updateObject);
             return true;
         }
 
