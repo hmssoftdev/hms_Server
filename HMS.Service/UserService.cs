@@ -135,6 +135,9 @@ namespace HMS.Service
                                   ,[StateId]=@StateId
                                   ,[PinCode]=@PinCode
                              WHERE id = @id";
+        string updatePasswordQuery = @"UPDATE [dbo].[Users]
+                                    SET [Password] =  @Password                                  
+                                    WHERE id = @id";
         string selectByIdQuery = @"SELECT u.[Id]
                               ,u.[IsActive]
                               ,u.[Name]
@@ -212,7 +215,20 @@ namespace HMS.Service
             return UserList;
 
         }
-        
+
+        public bool UpdatePassword(string oldPwd, string newPwd , int userId)
+        {
+            var obj = new { Id = userId, password = oldPwd };
+            var users = dbHelper.FetchDataByParam<User>($"{ValidateUserQuery}  where  Id=@Id and Password = @password ",obj);
+            var user =  users.FirstOrDefault();
+            if (user == null)
+                return false;
+
+            var updateObject = new User { Id = userId, Password = newPwd };
+            dbHelper.Update(updateQuery, updateObject);
+            return true;
+        }
+
         //public User ValidateUser(int id)
         //{
         //   //var obj = new { CreatedBy = id };

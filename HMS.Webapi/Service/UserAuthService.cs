@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using WebApi.Helpers;
+using AppSettings = WebApi.Helpers.AppSettings;
+
 namespace HMS.Webapi { 
 public interface IUserAuthService
 {

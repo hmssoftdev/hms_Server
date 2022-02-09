@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using WebApi.Helpers;
+using AppSettings = WebApi.Helpers.AppSettings;
 
 namespace HMS.Webapi
 {
@@ -42,6 +43,7 @@ namespace HMS.Webapi
             });
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            var appsetting = Configuration.GetSection("AppSettings").Get<HMS.Service.AppSettings>();
             var connectionSettings = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
             var aws = Configuration.GetSection("AWS").Get<AWS>();
             var documents = Configuration.GetSection("Documents").Get<Documents>();
@@ -89,7 +91,8 @@ namespace HMS.Webapi
             services.AddSingleton<IBusinessCategoryService, BusinessCategoryService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
-
+            services.AddSingleton<IEmailService, EmailService>();
+            
             services.AddSingleton<IHotelTableService, HotelTableService>();
             services.AddSingleton<IDbHelper, DbHelper>();
             services.AddSingleton<IDbHelperOrder, DbHelper>();
@@ -100,7 +103,7 @@ namespace HMS.Webapi
             services.AddSingleton(connectionSettings);
             services.AddSingleton(aws);
             services.AddSingleton(documents);
-
+            services.AddSingleton(appsetting);
 
 
             services.AddControllers()
