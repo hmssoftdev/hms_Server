@@ -138,6 +138,9 @@ namespace HMS.Service
         string updatePasswordQuery = @"UPDATE [dbo].[Users]
                                     SET [Password] =  @Password                                  
                                     WHERE id = @id";
+        string forgatePasswordQuery = @"UPDATE [dbo].[Users]
+                                    SET [Password] =  @Password                                  
+                                    WHERE[Email] = @Email";
         string selectByIdQuery = @"SELECT u.[Id]
                               ,u.[IsActive]
                               ,u.[Name]
@@ -156,7 +159,6 @@ namespace HMS.Service
                           left join CityMaster ct on ct.Id = u.[CityId]
                            where u.Id=";
         string deleteQuery = "Delete from Users";
-
     
 
         public void Add(IModel model)
@@ -229,14 +231,14 @@ namespace HMS.Service
             return true;
         }
 
-        public string ForgotPassword(int userId)
+        public string ForgotPassword(string email)
         {
             Random random = new Random();
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()0123456789";
             var password =  new string(Enumerable.Repeat(chars, 8)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
-            var updateObject = new User { Id = userId, Password = password };
-            dbHelper.Update(updatePasswordQuery, updateObject);
+            var updateObject = new User { Email = email, Password = password };
+            dbHelper.Update(forgatePasswordQuery, updateObject);
             return password;
         }
 

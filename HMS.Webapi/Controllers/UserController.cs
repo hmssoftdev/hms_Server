@@ -143,9 +143,9 @@ namespace HMS.Webapi.Controllers
         }
 
         [HttpPut("ForgetPassword")]
-        public IActionResult ForgetPassword(int userId)
+        public IActionResult ForgetPassword(string email)
         {
-            var result = _userService.ForgotPassword(userId);
+            var result = _userService.ForgotPassword(email);
             if(result.Length > 0)
             _emailService.SendForgotPassword("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
                          < p > new password -- {result}  Thanks for registering! </ p > "
