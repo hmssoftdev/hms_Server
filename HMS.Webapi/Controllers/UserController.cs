@@ -4,10 +4,12 @@ using FluentEmail.Smtp;
 using HMS.Domain;
 using HMS.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -25,15 +27,16 @@ namespace HMS.Webapi.Controllers
         private readonly ILogger<UserController> _logger;
         public readonly IMapper _mapper;
         public readonly IEmailService _emailService;
+        private IWebHostEnvironment _hostEnvironment;
 
         IUserService _userService;
-        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService , IEmailService emailService)
+        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService , IEmailService emailService,  IWebHostEnvironment hostEnvironment)
         {
             _userService = modelService;
             _userAuthService = userAuthService;
             _mapper = mapper;
             _emailService = emailService;
-
+            _hostEnvironment = hostEnvironment;
         }
         
         [HttpPost("authenticate")]
@@ -145,11 +148,18 @@ namespace HMS.Webapi.Controllers
         [HttpPut("ForgetPassword")]
         public IActionResult ForgetPassword(string email)
         {
-            var result = _userService.ForgotPassword(email);
+            string encodedEmail = WebUtility.HtmlEncode(email);
+            var result = _userService.ForgotPassword(encodedEmail);
             if(result.Length > 0)
-            _emailService.SendForgotPassword("fy5mubashir@gmail.com", "Dummy", $@"<h4>Verify Email</h4>
-                         < p > new password -- {result}  Thanks for registering! </ p > "
-                            );    
+            {
+                //string path = Path.Combine(_hostEnvironment.WebRootPath, "template.html");
+                //StreamReader str = new StreamReader($@"D:\HMS\HMS_Server\HMS_Server\HMS.Webapi\bin\Debug\netcoreapp3.1\EmailTemplate\template.html");
+                //string mailText = str.ReadToEnd();
+                //String 
+                //MailText = MailText.Replace("[newusername]", txtUserName.Text.Trim())7
+                _emailService.SendForgotPassword("fy5mubashir@gmail.com", "Dummy", $@"Test mail -- {result}");
+            }
+            
             
             return Ok(new { Result = true });
         }
