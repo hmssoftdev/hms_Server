@@ -72,6 +72,8 @@ namespace HMS.Service
         
     }
 
+    public interface IUserSettingService : IModelService { }
+
 
 
 }

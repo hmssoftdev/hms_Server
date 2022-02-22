@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HMS.Service
 {
-    public class UserSettingService : IModelService
+    public class UserSettingService : IUserSettingService
     {
         IDbHelper dbHelper;
 
@@ -67,7 +67,8 @@ namespace HMS.Service
 
         public void Update(IModel model)
         {
-            throw new NotImplementedException();
+            var userSettings = (UserSettings)model;
+            dbHelper.Update<UserSettings>(updateQuery, userSettings);
         }
     }
 }

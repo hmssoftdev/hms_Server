@@ -99,7 +99,8 @@ namespace HMS.Webapi
             services.AddSingleton<IImageService, ImageService>();
             services.AddSingleton<IInvoice, InvoiceService>();
             services.AddSingleton<IOrderService, OrderService>();
-            
+            services.AddSingleton<IUserSettingService, UserSettingService>();
+
             services.AddSingleton(connectionSettings);
             services.AddSingleton(aws);
             services.AddSingleton(documents);
