@@ -137,7 +137,43 @@ namespace HMS.Service
         public void UpdateSeatId(IModel model)
         {
             var hotel = (HotelTable)model;
-            dbHelper.Update($"UPDATE [dbo].[HotelTable] SET [IsBooked] = {(hotel.IsBooked? 1 : 0)} WHERE ID = {hotel.Id}", hotel);
+            dbHelper.Update($"UPDATE [dbo].[HotelTable] SET [IsBooked] = {(hotel.IsBooked ? 1 : 0)} WHERE ID = {hotel.Id}", hotel);
+            if (hotel.IsBooked)
+                return;
+
+            var obj = new { TableId = hotel.Id };
+            var getOrderIdQuery = "Select TOP 1 OrderId from OrderTable where TableId =@TableId order by createdon desc";
+            var orderTables = dbHelper.FetchDataByParam<OrderTable>(getOrderIdQuery, obj);
+            if (orderTables.Count == 0)
+                return;
+            
+            var orderStatusQuery = $"select top 1 * from [OrderStatus] where orderId ={orderTables[0].OrderId} order by id desc; ";
+            var status = dbHelper.FetchData<OrderStatus>(orderStatusQuery);
+            if (status.Count == 0)
+                return;
+            if (status[0].Status == 10 || status[0].Status == 4)
+                return;
+
+            var orderStatusAddQuery = $@"INSERT INTO [dbo].[OrderStatus]
+                                       ([OrderId]
+                                       ,[Status]
+                                       ,[IsActive]
+                                       ,[CreatedOn]
+                                       ,[CreatedBy]
+                                       ,[UpdatedOn]
+                                       ,[UpdatedBy])
+                                 VALUES
+                                       (@OrderId
+                                       ,@Status
+                                       ,@IsActive
+                                       ,@CreatedOn
+                                       ,@CreatedBy
+                                       ,@UpdatedOn
+                                       ,@UpdatedBy)";
+
+
+            OrderStatus orderStatus = new OrderStatus { OrderId = orderTables[0].OrderId, Status = 10 }; // 10 == Cancelled
+            dbHelper.Add(orderStatusAddQuery, orderStatus);                                                                                             
         }
 
         //public void Update(Hotel hotel)
