@@ -96,6 +96,7 @@ namespace HMS.Service
             order.OrderItems.ForEach(x =>
             {
                 x.OrderID = newId;
+		x.KotPrinted = true;
                 int affectedRows = connection.Execute(sql: itemQuery, x, transaction);
             });
             order.OrderStatus.ForEach(x =>
