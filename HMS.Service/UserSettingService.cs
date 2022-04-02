@@ -17,7 +17,8 @@ namespace HMS.Service
                         BillWithCustomer,
                         BillWithLOGO,
                         BillWithSign,
-                        BillWithSeal from Usersettings where UserId = @UserId";
+                        BillWithSeal, 
+                        Language from Usersettings where UserId = @UserId";
         string updateQuery = @"update UserSettings set
                                 Theme = @Theme,
                                 MenuDisplay = @MenuDisplay,
@@ -25,9 +26,10 @@ namespace HMS.Service
                                 BillWithCustomer = @BillWithCustomer,
                                 BillWithLOGO =@BillWithLOGO,
                                 BillWithSign =@BillWithSign,
+                                Language =@Language,
                                 BillWithSeal = @BillWithSeal where UserId = @UserId";
-        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId)
-                               values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId )";
+        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId,Language)
+                               values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId,@Language )";
         public UserSettingService(IDbHelper dbHelper)
         {
             this.dbHelper = dbHelper;

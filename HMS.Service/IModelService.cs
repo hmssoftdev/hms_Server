@@ -54,7 +54,9 @@ namespace HMS.Service
         User ValidateUser(int id);
         IList<User> GetAllAdmin<User>();
         bool UpdatePassword(string oldPwd, string newPwd,int userId);
-        string ForgotPassword(string email);
+        string ForgotPassword(string email, string url);
+        string ResetPassword(string email, string pwd);
+
     }
     public interface IMasterService
     {
@@ -68,8 +70,10 @@ namespace HMS.Service
 
     public interface IEmailService
     {
-        void SendForgotPassword(string to, string subject, string html, string from = null);
-        
+        void SendForgotPassword(User user);
+        void SendNewUser(User user);
+
+
     }
 
     public interface IUserSettingService : IModelService { }

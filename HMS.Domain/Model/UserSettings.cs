@@ -15,5 +15,7 @@ namespace HMS.Domain.Model
         public int BillWithLOGO { get; set; }
         public int BillWithSign { get; set; }
         public int BillWithSeal { get; set; }
+
+        public string Language { get; set; }
     }
 }

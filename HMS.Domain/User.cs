@@ -19,5 +19,6 @@ namespace HMS.Domain
         public string State { get; set; }
         public string PinCode { get; set; }
 
+        public string ResetPasswordLink { get; set; }
     }
 }

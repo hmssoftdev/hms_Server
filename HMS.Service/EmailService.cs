@@ -1,9 +1,12 @@
-﻿using MailKit.Net.Smtp;
+﻿using HMS.Domain;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text;
 
 namespace HMS.Service
@@ -11,16 +14,32 @@ namespace HMS.Service
     public class EmailService : IEmailService
     {
         private readonly AppSettings _appSettings;
-       
-        public EmailService(AppSettings appSettings)
+        MailTemplate _mailTemplate;
+
+        public EmailService(AppSettings appSettings,  MailTemplate mailTemplate)
         {
             _appSettings = appSettings;
+            _mailTemplate = mailTemplate;
+
         }
 
-        public void SendForgotPassword(string to, string subject, string html, string from = null)
+        public void SendForgotPassword(User user)
         {
-            Send( to, subject, html, from = null);
+            using WebClient client = new WebClient();
+            string mailText = client.DownloadString($"{_mailTemplate.Url}ResetPassword.html");
+            mailText = mailText.Replace("[PasswordLnk]", user.ResetPasswordLink);
+            Send( user.Email, "Reset Your FY5 Password", mailText, _appSettings.EmailFrom);
         }
+
+        public void SendNewUser(User user)
+        {
+            using WebClient client = new WebClient();
+            string mailText = client.DownloadString($"{_mailTemplate.Url}newUser.html");
+            mailText = mailText.Replace("[userName]", user.Name);
+
+            Send(user.Email, "Your FY5 Account has been Created Succesfully", mailText, _appSettings.EmailFrom);
+        }
+        
         private void Send(string to, string subject, string html, string from = null)
         {
             // create message

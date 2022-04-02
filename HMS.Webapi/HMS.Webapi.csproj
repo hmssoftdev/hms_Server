@@ -23,7 +23,14 @@
   <ItemGroup>
     <Folder Include="HMS\Domain\" />
     <Folder Include="Data\" />
+    <Folder Include="EmailTemplate\" />
     <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EmailTemplate\template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 

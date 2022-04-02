@@ -47,6 +47,7 @@ namespace HMS.Webapi
             var connectionSettings = Configuration.GetSection("ConnectionSettings").Get<ConnectionSettings>();
             var aws = Configuration.GetSection("AWS").Get<AWS>();
             var documents = Configuration.GetSection("Documents").Get<Documents>();
+            var emailTemplate = Configuration.GetSection("MailTemplate").Get<MailTemplate>();
 
 
             services.AddScoped<ActionFilter>();
@@ -81,7 +82,7 @@ namespace HMS.Webapi
 
 
             services.AddAutoMapper(typeof(Startup));
-
+            services.AddSingleton<ICryptoHelperService, CryptoHelperService>();
             services.AddSingleton<IDishService, DishService>();
             services.AddSingleton<IUserConfigService, UserConfigService>();
             services.AddSingleton<IAdminService, AdminService>();
@@ -92,7 +93,6 @@ namespace HMS.Webapi
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IUserAuthService, UserAuthService>();
             services.AddSingleton<IEmailService, EmailService>();
-            
             services.AddSingleton<IHotelTableService, HotelTableService>();
             services.AddSingleton<IDbHelper, DbHelper>();
             services.AddSingleton<IDbHelperOrder, DbHelper>();
@@ -101,12 +101,13 @@ namespace HMS.Webapi
             services.AddSingleton<IOrderService, OrderService>();
             services.AddSingleton<IUserSettingService, UserSettingService>();
 
+            
             services.AddSingleton(connectionSettings);
             services.AddSingleton(aws);
             services.AddSingleton(documents);
             services.AddSingleton(appsetting);
-
-
+            services.AddSingleton(emailTemplate);
+            
             services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {

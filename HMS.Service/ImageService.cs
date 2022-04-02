@@ -16,15 +16,17 @@ namespace HMS.Service
     public class ImageService : IImageService
     {
         AWS _aws;
-        public ImageService(AWS aws)
+        ICryptoHelperService _cryptoHelperService;
+        public ImageService(AWS aws , ICryptoHelperService cryptoHelperService)
         {
             _aws = aws;
+            _cryptoHelperService = cryptoHelperService;
         }
 
         public bool UploadImage(string keyName, IFormFile file)
         {
             string bucketName = "hmsdocuments";
-            var client = new AmazonS3Client(_aws.AccessId, _aws.AccessKey, Amazon.RegionEndpoint.USEast2);
+            var client = new AmazonS3Client(_cryptoHelperService.Decrypt(_aws.AccessId), _cryptoHelperService.Decrypt(_aws.AccessKey), Amazon.RegionEndpoint.USEast2);
             using (var newMemoryStream = new MemoryStream())
             {
                 file.CopyTo(newMemoryStream);

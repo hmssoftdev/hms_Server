@@ -28,4 +28,9 @@ namespace HMS.Service
         public string SmtpUser { get; set; }
         public string SmtpPass { get; set; }
     }
+
+    public class MailTemplate
+    {
+        public string Url { get; set; }
+    }
 }

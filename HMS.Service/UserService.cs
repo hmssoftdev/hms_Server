@@ -10,10 +10,11 @@ namespace HMS.Service
     public class UserService : IUserService
     {
         IDbHelper dbHelper;
-
-        public UserService(IDbHelper dbHelper)
+        ICryptoHelperService _cryptoHelperService;
+        public UserService(IDbHelper dbHelper , ICryptoHelperService cryptoHelperService)
         {
             this.dbHelper = dbHelper;
+            _cryptoHelperService = cryptoHelperService;
         }
         string selectQuery = @"SELECT u.[Id]
                               ,u.[IsActive]
@@ -139,7 +140,7 @@ namespace HMS.Service
                                     SET [Password] =  @Password                                  
                                     WHERE id = @id";
         string forgatePasswordQuery = @"UPDATE [dbo].[Users]
-                                    SET [Password] =  @Password                                  
+                                    SET [resetPasswordLink] =  @resetPasswordLink                                  
                                     WHERE[Email] = @Email";
         string selectByIdQuery = @"SELECT u.[Id]
                               ,u.[IsActive]
@@ -231,15 +232,13 @@ namespace HMS.Service
             return true;
         }
 
-        public string ForgotPassword(string email)
+        public string ForgotPassword(string email, string url)
         {
-            Random random = new Random();
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()0123456789";
-            var password =  new string(Enumerable.Repeat(chars, 8)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-            var updateObject = new User { Email = email, Password = password };
+            var link = $"{email}/{DateTime.UtcNow.AddHours(24)}";
+            link =$"{url}/resetPassword?param={_cryptoHelperService.encrypt(link)}";
+            var updateObject = new User { Email = email, ResetPasswordLink = link };
             dbHelper.Update(forgatePasswordQuery, updateObject);
-            return password;
+            return link;
         }
 
         //public User ValidateUser(int id)

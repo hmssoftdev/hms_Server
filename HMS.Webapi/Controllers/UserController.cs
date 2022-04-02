@@ -22,26 +22,30 @@ namespace HMS.Webapi.Controllers
     public class UserController : ControllerBase
     {
         private IUserAuthService _userAuthService;
+        ICryptoHelperService _cryptoHelperService;
 
 
         private readonly ILogger<UserController> _logger;
         public readonly IMapper _mapper;
         public readonly IEmailService _emailService;
         private IWebHostEnvironment _hostEnvironment;
-
         IUserService _userService;
-        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService , IEmailService emailService,  IWebHostEnvironment hostEnvironment)
+        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService , IEmailService emailService,
+            IWebHostEnvironment hostEnvironment, ICryptoHelperService cryptoHelper)
         {
             _userService = modelService;
             _userAuthService = userAuthService;
             _mapper = mapper;
             _emailService = emailService;
             _hostEnvironment = hostEnvironment;
+            _cryptoHelperService = cryptoHelper;
+
         }
-        
+
         [HttpPost("authenticate")]
         public IActionResult Authenticate(AuthenticateRequest model)
         {
+            model.Password = _cryptoHelperService.encrypt(model.Password);
             var response = _userAuthService.Authenticate(model);
 
             if (response == null)
@@ -86,6 +90,8 @@ namespace HMS.Webapi.Controllers
         [HttpPost]
        public IActionResult Post(User user)
         {
+            user.Password = _cryptoHelperService.encrypt(user.Password);
+            _emailService.SendNewUser(user);
             _userService.Add(user);
             return Ok(new { Result = "Data Added" });
         }
@@ -93,6 +99,8 @@ namespace HMS.Webapi.Controllers
         [HttpPost("PostAnonymousUser")]
         public IActionResult PostAnonymousUser(User user)
         {
+            user.Password = _cryptoHelperService.encrypt(user.Password);
+            _emailService.SendNewUser(user);
             _userService.Add(user);
             return Ok(new { Result = "Data Added" });
         }
@@ -141,27 +149,43 @@ namespace HMS.Webapi.Controllers
         [HttpPut("updatePassword")]
         public IActionResult UpdatePassword(string oldPwd, string newPwd, int userId)
         {
+            oldPwd = _cryptoHelperService.encrypt(oldPwd);
+            newPwd = _cryptoHelperService.encrypt(newPwd);
             var result = _userService.UpdatePassword(oldPwd, newPwd, userId);
             return Ok(new { Result = result });
         }
 
         [HttpPut("ForgetPassword")]
-        public IActionResult ForgetPassword(string email)
+        public IActionResult ForgetPassword(string email, string url)
         {
             string encodedEmail = WebUtility.HtmlEncode(email);
-            var result = _userService.ForgotPassword(encodedEmail);
+            string encodedUrl = WebUtility.HtmlEncode(url);
+            var result = _userService.ForgotPassword(encodedEmail,url);
             if(result.Length > 0)
             {
-                //string path = Path.Combine(_hostEnvironment.WebRootPath, "template.html");
-                //StreamReader str = new StreamReader($@"D:\HMS\HMS_Server\HMS_Server\HMS.Webapi\bin\Debug\netcoreapp3.1\EmailTemplate\template.html");
-                //string mailText = str.ReadToEnd();
-                //String 
-                //MailText = MailText.Replace("[newusername]", txtUserName.Text.Trim())7
-                _emailService.SendForgotPassword("fy5mubashir@gmail.com", "Dummy", $@"Test mail -- {result}");
-            }
-            
-            
+                _emailService.SendForgotPassword(new User { Email = email, ResetPasswordLink = result });
+            }            
             return Ok(new { Result = true });
         }
+
+        [HttpPut("ResetPassword")]
+        public IActionResult ResetPassword(string password, string resetPasswordParam)
+        {
+            string encodedresetPasswordParam = WebUtility.HtmlEncode(resetPasswordParam);
+            string encodedpassword = WebUtility.HtmlEncode(password);
+
+            var paramArray = _cryptoHelperService.Decrypt(encodedpassword).Split('/');
+            var email = paramArray[0];
+            var date = DateTime.Parse(paramArray[1]);
+            var result = (date.CompareTo(DateTime.UtcNow));
+            if (result > 0)
+                return Ok(new { Result = "Link expired" });
+
+
+            // update password
+            return Ok(new { Result = true });
+
+        }
+
     }
 }
