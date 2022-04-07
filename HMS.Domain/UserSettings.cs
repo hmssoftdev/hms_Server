@@ -15,5 +15,8 @@ namespace HMS.Domain
         public int BillWithSign { get; set; }
         public int BillWithSeal { get; set; }
         public string Language { get; set; }
+        public int ActiveOrderFlow { get; set; }
+        public int DirectKOTBillPrint { get; set; }
+        public int BillPrintAndKOT { get; set; }
     }
 }

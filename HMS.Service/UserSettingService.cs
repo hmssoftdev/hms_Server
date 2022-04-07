@@ -17,8 +17,11 @@ namespace HMS.Service
                         BillWithCustomer,
                         BillWithLOGO,
                         BillWithSign,
-                        BillWithSeal, 
-                        Language from Usersettings where UserId = @UserId";
+                        BillWithSeal,
+                        Language,
+                        ActiveOrderFlow,
+                        DirectKOTBillPrint,
+                        BillPrintAndKOT from Usersettings where UserId = @UserId";
         string updateQuery = @"update UserSettings set
                                 Theme = @Theme,
                                 MenuDisplay = @MenuDisplay,
@@ -26,10 +29,14 @@ namespace HMS.Service
                                 BillWithCustomer = @BillWithCustomer,
                                 BillWithLOGO =@BillWithLOGO,
                                 BillWithSign =@BillWithSign,
-                                Language =@Language,
-                                BillWithSeal = @BillWithSeal where UserId = @UserId";
-        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId,Language)
-                               values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId,@Language )";
+                                BillWithSeal = @BillWithSeal,
+                                Language = @Language,
+                                ActiveOrderFlow = @ActiveOrderFlow,
+                                DirectKOTBillPrint = @DirectKOTBillPrint,
+                                BillPrintAndKOT =@BillPrintAndKOT
+                                where UserId = @UserId";
+        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId,Language,ActiveOrderFlow,DirectKOTBillPrint,BillPrintAndKOT)
+                               values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId,@Language,@ActiveOrderFlow,@DirectKOTBillPrint,@BillPrintAndKOT )";
         public UserSettingService(IDbHelper dbHelper)
         {
             this.dbHelper = dbHelper;
