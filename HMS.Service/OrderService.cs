@@ -130,7 +130,7 @@ namespace HMS.Service
   FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
 								  inner join Users u on u.Id=o.userId
-                                    where o.[CreatedBy] =@CreatedBy and 
+                                    where o.[CreatedBy] =@CreatedBy and and o.IsActive = 1 
 									cast(o.[CreatedOn] as Date) = @CreatedOn
 								order by UpdatedOn desc";
 
@@ -159,7 +159,7 @@ namespace HMS.Service
   FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
 								  inner join Users u on u.Id=o.userId
-                                    where o.[CreatedBy] =@CreatedBy and 
+                                    where o.[CreatedBy] =@CreatedBy and o.IsActive = 1 and 
 									cast(o.[CreatedOn] as Date) between @Min and @Max
 								order by UpdatedOn desc";
         string selectStatusByOrderIdQuery = @"select Id,
@@ -227,6 +227,7 @@ namespace HMS.Service
                                    SET [PaymentMode] =@PaymentMode
                                       ,[UserId] =@UserId
                                  WHERE UserId=@userid";
+        string orderDeleteQuery = "Update DishOrder set IsActive= 0 where id = @id";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -253,7 +254,8 @@ namespace HMS.Service
        
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var obj = new { id = id };
+            _dbHelper.Delete(orderDeleteQuery, obj);
         }
 
         public IList<T> GetAll<T>()

@@ -104,6 +104,13 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
 
+        [HttpDelete("{id:int}")]
+        public IActionResult OrderDelete(int id)
+        {
+            _orderService.Delete(id);
+            return Ok(new { Result = "Order Deleted" });
+        }
+
 
     }
 }

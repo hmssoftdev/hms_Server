@@ -241,6 +241,11 @@ namespace HMS.Service
             return link;
         }
 
+        public string ResetPassword(string email, string pwd)
+        {
+            throw new NotImplementedException();
+        }
+
         //public User ValidateUser(int id)
         //{
         //   //var obj = new { CreatedBy = id };
