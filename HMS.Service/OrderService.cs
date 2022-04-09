@@ -228,6 +228,12 @@ namespace HMS.Service
                                       ,[UserId] =@UserId
                                  WHERE UserId=@userid";
         string orderDeleteQuery = "Update DishOrder set IsActive= 0 where id = @id";
+
+        string OrderSummryQuery = @"SELECT sum(o.GrossTotal) TotalAmount,count( o.[DeliveryOptionId]) TotalBill ,DeliveryOptionId  FROM [dbo].[DishOrder] o
+                                    where o.[CreatedBy] =@userId and o.IsActive = 1 and 
+                                    cast(o.[CreatedOn] as Date) between @Min and @Max
+                                    group by o.[DeliveryOptionId]";
+
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -336,6 +342,22 @@ namespace HMS.Service
         {
             var obj = new { CreatedBy = id, Max = maxDate, Min = minDate }; // DateTime.UtcNow.AddHours(5).AddMinutes(30).ToString("yyyy-MM-dd") };
             var orderList = _dbHelper.FetchDataByParam<DishOrder>(selectByHotelQueryAndDateRange, obj);
+            return orderList;
+        }
+
+        public IList<OrderSummary> GetOrderSummaryByDateRange(int id, string maxDate, string minDate)
+        {
+            var obj = new { userId = id, Max = maxDate, Min = minDate }; 
+            var orderList = _dbHelper.FetchDataByParam<OrderSummary>(OrderSummryQuery, obj);
+            if (orderList.Any())
+            {
+                orderList.Add(new OrderSummary
+                {
+                    DeliveryOptionId = 0,
+                    TotalAmount = orderList.Sum(i => i.TotalAmount),
+                    TotalBill = orderList.Sum(i => i.TotalBill)
+                });
+            }
             return orderList;
         }
     }

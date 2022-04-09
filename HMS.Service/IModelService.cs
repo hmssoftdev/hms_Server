@@ -37,6 +37,8 @@ namespace HMS.Service
         public void ReleaseTable(int OrderId);
         public DishOrder GetOrderByTableId(int tableid);
         IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id, string maxDate, string minDate);
+
+        IList<OrderSummary> GetOrderSummaryByDateRange(int id, string maxDate, string minDate);
     }
 
 

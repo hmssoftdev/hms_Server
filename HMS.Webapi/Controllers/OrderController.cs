@@ -111,6 +111,12 @@ namespace HMS.Webapi.Controllers
             return Ok(new { Result = "Order Deleted" });
         }
 
+        [HttpGet("BillSummary")]
+        public IActionResult GetOrderSummaryByDateRange(int id ,string maxDate, string minDate)
+        {
+            var summary = _orderService.GetOrderSummaryByDateRange(id, maxDate, minDate);
 
+            return Ok(summary);
+        }
     }
 }

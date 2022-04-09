@@ -100,7 +100,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult PostAnonymousUser(User user)
         {
             user.Password = _cryptoHelperService.encrypt(user.Password);
-           // _emailService.SendNewUser(user);
+            _emailService.SendNewUser(user);
             _userService.Add(user);
             return Ok(new { Result = "Data Added" });
         }
