@@ -8,7 +8,6 @@ namespace HMS.Service
     public class UserSettingService : IUserSettingService
     {
         IDbHelper dbHelper;
-
         string selectById = @"Select Id,
                         UserId,
                         Theme,
@@ -21,7 +20,10 @@ namespace HMS.Service
                         Language,
                         ActiveOrderFlow,
                         DirectKOTBillPrint,
-                        BillPrintAndKOT from Usersettings where UserId = @UserId";
+                        BillPrintAndKOT,
+                        BillPrintAndKOTDining, 
+                        BillPrintAndKOTHomeDelivery ,
+                        BillPrintAndKOTTakeAway      from Usersettings where UserId = @UserId";
         string updateQuery = @"update UserSettings set
                                 Theme = @Theme,
                                 MenuDisplay = @MenuDisplay,
@@ -33,10 +35,14 @@ namespace HMS.Service
                                 Language = @Language,
                                 ActiveOrderFlow = @ActiveOrderFlow,
                                 DirectKOTBillPrint = @DirectKOTBillPrint,
-                                BillPrintAndKOT =@BillPrintAndKOT
+                                BillPrintAndKOT =@BillPrintAndKOT,
+                                BillPrintAndKOTDining = @BillPrintAndKOTDining, 
+                                BillPrintAndKOTHomeDelivery = @BillPrintAndKOTHomeDelivery ,
+                                BillPrintAndKOTTakeAway    =@BillPrintAndKOTTakeAway  
                                 where UserId = @UserId";
-        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId,Language,ActiveOrderFlow,DirectKOTBillPrint,BillPrintAndKOT)
-                               values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId,@Language,@ActiveOrderFlow,@DirectKOTBillPrint,@BillPrintAndKOT )";
+        string insertQuery = @"insert into UserSettings (Theme ,MenuDisplay ,BillWithGST,BillWithCustomer  ,BillWithLOGO,BillWithSign,BillWithSeal,UserId,Language,ActiveOrderFlow,DirectKOTBillPrint,BillPrintAndKOT,                        BillPrintAndKOTDining,BillPrintAndKOTHomeDelivery ,BillPrintAndKOTTakeAway )values (@Theme,@MenuDisplay,@BillWithGST,@BillWithCustomer,@BillWithLOGO,@BillWithSign,@BillWithSeal,@UserId,@Language,@ActiveOrderFlow,@DirectKOTBillPrint,@BillPrintAndKOT,
+            @BillPrintAndKOTDining,@BillPrintAndKOTHomeDelivery ,@BillPrintAndKOTTakeAway )";
+
         public UserSettingService(IDbHelper dbHelper)
         {
             this.dbHelper = dbHelper;

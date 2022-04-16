@@ -187,5 +187,14 @@ namespace HMS.Webapi.Controllers
 
         }
 
+        [HttpPut("ForgetPasswordReset")]
+        public IActionResult ForgetPasswordReset(string encryptedLink, string passwrod)
+        {
+            string link = WebUtility.HtmlEncode(encryptedLink);
+            string password = WebUtility.HtmlEncode(passwrod);
+            var result = _userService.ForgetPasswordReset(link, passwrod);
+            return Ok(new { Result = result });
+        }
+
     }
 }

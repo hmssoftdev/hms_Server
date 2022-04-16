@@ -160,7 +160,9 @@ namespace HMS.Service
                           left join CityMaster ct on ct.Id = u.[CityId]
                            where u.Id=";
         string deleteQuery = "Delete from Users";
-    
+        string forgatePasswordResetQuery = @"UPDATE [dbo].[Users]
+                                    SET [Password] =  @Password                                  
+                                    WHERE[Email] = @Email";
 
         public void Add(IModel model)
         {
@@ -245,7 +247,21 @@ namespace HMS.Service
         {
             throw new NotImplementedException();
         }
+        public bool ForgetPasswordReset(string encryptedLink, string passwrod)
+        {
+            string detail = _cryptoHelperService.Decrypt(encryptedLink);
+            var detailArr = detail.Split(new[] { '/' }, 2);
+            var email = detailArr[0];
+            var date = DateTime.Parse(detailArr[1]);
+            var result = date.CompareTo(DateTime.UtcNow);
+            if (result < 0)
+                return false;
 
+            var pwd = _cryptoHelperService.Decrypt(passwrod);
+            var updateObject = new User { Email = email, Password = pwd };
+            dbHelper.Update(forgatePasswordResetQuery, updateObject);
+            return true;
+        }
         //public User ValidateUser(int id)
         //{
         //   //var obj = new { CreatedBy = id };

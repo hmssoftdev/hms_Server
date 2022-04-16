@@ -52,12 +52,13 @@ namespace HMS.Service
 
     }
     public interface IUserService : IModelService {
-       User ValidateUser(string userName, string pwd);
+        User ValidateUser(string userName, string pwd);
         User ValidateUser(int id);
         IList<User> GetAllAdmin<User>();
-        bool UpdatePassword(string oldPwd, string newPwd,int userId);
+        bool UpdatePassword(string oldPwd, string newPwd, int userId);
         string ForgotPassword(string email, string url);
         string ResetPassword(string email, string pwd);
+        bool ForgetPasswordReset(string encryptedLink, string passwrod);
 
     }
     public interface IMasterService
