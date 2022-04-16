@@ -15,12 +15,12 @@ namespace HMS.Service
     {
         private readonly AppSettings _appSettings;
         MailTemplate _mailTemplate;
-
-        public EmailService(AppSettings appSettings,  MailTemplate mailTemplate)
+        ICryptoHelperService _cryptoHelperService;
+        public EmailService(AppSettings appSettings,  MailTemplate mailTemplate, ICryptoHelperService cryptoHelperService)
         {
             _appSettings = appSettings;
             _mailTemplate = mailTemplate;
-
+            _cryptoHelperService = cryptoHelperService;
         }
 
         public void SendForgotPassword(User user)
@@ -52,7 +52,7 @@ namespace HMS.Service
             // send email
             using var smtp = new SmtpClient();
             smtp.Connect(_appSettings.SmtpHost, _appSettings.SmtpPort, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_appSettings.SmtpUser, _appSettings.SmtpPass);
+            smtp.Authenticate(_cryptoHelperService.Decrypt(_appSettings.SmtpUser), _cryptoHelperService.Decrypt(_appSettings.SmtpPass));
             smtp.Send(email);
             smtp.Disconnect(true);
         }
