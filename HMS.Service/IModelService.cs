@@ -75,7 +75,7 @@ namespace HMS.Service
     public interface IEmailService
     {
         void SendForgotPassword(User user);
-        void SendNewUser(User user);
+        void SendNewUser(User user, string email);
 
 
     }

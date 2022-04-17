@@ -90,20 +90,23 @@ namespace HMS.Webapi.Controllers
         [HttpPost]
        public IActionResult Post(User user)
         {
+            var clientRequest = HttpContext.Request.Headers["Referer"];
             user.Password = _cryptoHelperService.encrypt(user.Password);
-            _emailService.SendNewUser(user);
+            _emailService.SendNewUser(user,"");
             _userService.Add(user);
             return Ok(new { Result = "Data Added" });
         }
 
         [HttpPost("PostAnonymousUser")]
-        public IActionResult PostAnonymousUser(User user)
+        public IActionResult PostAnonymousUser(User user , string url)
         {
-           if( !_userService.CheckUserEmailAndMobile(user))
+            //http://hmsangularbucket.s3-website.us-east-2.amazonaws.com
+            string encodedUrl = WebUtility.HtmlEncode(url);
+            if ( !_userService.CheckUserEmailAndMobile(user))
                 return Ok(new { Result = "User email or Mobile number already in used." });
             user.Password = _cryptoHelperService.encrypt(user.Password);
             _userService.Add(user);
-            _emailService.SendNewUser(user);
+            _emailService.SendNewUser(user,url);
             return Ok(new { Result = "Data Added" });
         }
 

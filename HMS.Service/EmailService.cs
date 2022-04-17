@@ -31,12 +31,13 @@ namespace HMS.Service
             Send( user.Email, "Reset Your FY5 Password", mailText, _appSettings.EmailFrom);
         }
 
-        public void SendNewUser(User user)
+        public void SendNewUser(User user,string url)
         {
             using WebClient client = new WebClient();
             string mailText = client.DownloadString($"{_mailTemplate.Url}newUser.html");
-            mailText = mailText.Replace("[userName]", user.Name);
-
+            mailText = mailText.Replace("[Name]", user.Name);
+            mailText = mailText.Replace("[UserName]", user.UserName);
+            mailText = mailText.Replace("[EmailUrl]", $"{url}/emailVarification?id={user.Email}");
             Send(user.Email, "Your FY5 Account has been Created Succesfully", mailText, _appSettings.EmailFrom);
         }
         
