@@ -124,7 +124,8 @@ namespace HMS.Service
                                       ,o.[DiscountInPercent]
                                       ,o.[DiscountInRupees]
                                       ,o.[AdditionalAmount]
-                                      ,o.[GstTotal]  
+                                      ,o.[GstTotal] 
+                                      ,o.[InvoiceNumber]  
 									  ,u.[UserName] as UserName
 									  ,u.[Contact] as UserMobileNumber
 									  ,(SELECT Top 1 
@@ -153,6 +154,7 @@ namespace HMS.Service
                                       ,o.[DiscountInPercent]
                                       ,o.[DiscountInRupees]
                                       ,o.[AdditionalAmount]
+                                      ,o.[InvoiceNumber]
                                       ,o.[GstTotal]  
 									  ,u.[UserName] as UserName
 									  ,u.[Contact] as UserMobileNumber
