@@ -19,6 +19,8 @@ namespace HMS.Domain.Model
         public string City { get; set; }
         public string State { get; set; }
         public string PinCode { get; set; }
+        public string IsEmailVerified { get; set; }
+
 
     }
 }

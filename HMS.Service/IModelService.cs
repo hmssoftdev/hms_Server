@@ -54,6 +54,8 @@ namespace HMS.Service
     public interface IUserService : IModelService {
         User ValidateUser(string userName, string pwd);
         User ValidateUser(int id);
+
+        int VerifyEmail(string email);
         IList<User> GetAllAdmin<User>();
         bool UpdatePassword(string oldPwd, string newPwd, int userId);
         string ForgotPassword(string email, string url);

@@ -11,7 +11,7 @@ namespace HMS.Service
     {
         IDbHelper dbHelper;
         ICryptoHelperService _cryptoHelperService;
-        public UserService(IDbHelper dbHelper , ICryptoHelperService cryptoHelperService)
+        public UserService(IDbHelper dbHelper, ICryptoHelperService cryptoHelperService)
         {
             this.dbHelper = dbHelper;
             _cryptoHelperService = cryptoHelperService;
@@ -164,7 +164,7 @@ namespace HMS.Service
                                     SET [Password] =  @Password                                  
                                     WHERE[Email] = @Email";
         string CheckUserEmailAndMobileQuery = @"select * from users where Email= @Email OR Contact=@Contact ";
-
+        string VerifyEmailQuery = @"update users set IsEmailVerified = 1 where email = @Email";
         public void Add(IModel model)
         {
             var user = (User)model;
@@ -192,7 +192,7 @@ namespace HMS.Service
             var UserList = dbHelper.FetchData<User>($"{selectQuery}");
             return UserList;
         }
-       
+
         public IList<User> GetById<User>(int id)
         {
             var UserList = dbHelper.FetchData<User>($"{selectByIdQuery} {id}");
@@ -202,7 +202,7 @@ namespace HMS.Service
         public void Update(IModel model)
         {
             var user = (User)model;
-            
+
             dbHelper.Update(updateQuery, user);
 
         }
@@ -210,7 +210,7 @@ namespace HMS.Service
         public IList<User> GetAllByHotelId<User>(int id)
         {
             var obj = new { CreatedBy = id };
-            var UserList = dbHelper.FetchDataByParam<User>(selectByHotelQuery,obj);
+            var UserList = dbHelper.FetchDataByParam<User>(selectByHotelQuery, obj);
             return UserList;
 
         }
@@ -222,11 +222,11 @@ namespace HMS.Service
 
         }
 
-        public bool UpdatePassword(string oldPwd, string newPwd , int userId)
+        public bool UpdatePassword(string oldPwd, string newPwd, int userId)
         {
             var obj = new { Id = userId, password = oldPwd };
-            var users = dbHelper.FetchDataByParam<User>($"{ValidateUserQuery}  where  Id=@Id and Password = @password ",obj);
-            var user =  users.FirstOrDefault();
+            var users = dbHelper.FetchDataByParam<User>($"{ValidateUserQuery}  where  Id=@Id and Password = @password ", obj);
+            var user = users.FirstOrDefault();
             if (user == null)
                 return false;
 
@@ -238,7 +238,7 @@ namespace HMS.Service
         public string ForgotPassword(string email, string url)
         {
             var link = $"{email}/{DateTime.UtcNow.AddHours(24)}";
-            link =$"{url}/resetPassword?param={_cryptoHelperService.encrypt(link)}";
+            link = $"{url}/resetPassword?param={_cryptoHelperService.encrypt(link)}";
             var updateObject = new User { Email = email, ResetPasswordLink = link };
             dbHelper.Update(forgatePasswordQuery, updateObject);
             return link;
@@ -277,5 +277,13 @@ namespace HMS.Service
             var userList = dbHelper.FetchDataByParam<User>(CheckUserEmailAndMobileQuery, obj);
             return !userList.Any() ? true : false;
         }
+
+        public int VerifyEmail(string email)
+        {
+            var updateObject = new User { Email = email };
+            dbHelper.Update(VerifyEmailQuery, updateObject);
+            return 1;
+        }
+
     }
 }

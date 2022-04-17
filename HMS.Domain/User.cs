@@ -20,5 +20,7 @@ namespace HMS.Domain
         public string PinCode { get; set; }
 
         public string ResetPasswordLink { get; set; }
+
+        public string IsEmailVerified { get; set; }
     }
 }

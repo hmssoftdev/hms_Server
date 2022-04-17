@@ -201,5 +201,14 @@ namespace HMS.Webapi.Controllers
             return Ok(new { Result = result });
         }
 
+        [HttpPut("VerifyEmail")]
+        public IActionResult VerifyEmail(string email)
+        {
+            string link = WebUtility.HtmlEncode(email);
+            _userService.VerifyEmail(email);
+            return Ok(new { Result = "Email verified"});
+
+        }
+        //
     }
 }
