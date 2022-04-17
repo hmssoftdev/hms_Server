@@ -163,6 +163,7 @@ namespace HMS.Service
         string forgatePasswordResetQuery = @"UPDATE [dbo].[Users]
                                     SET [Password] =  @Password                                  
                                     WHERE[Email] = @Email";
+        string CheckUserEmailAndMobileQuery = @"select * from users where Email= @Email OR Contact=@Contact ";
 
         public void Add(IModel model)
         {
@@ -268,5 +269,13 @@ namespace HMS.Service
         //    var users = dbHelper.FetchData<User>($"{ValidateUserQuery}  where (id='{id}'");
         //    return users.FirstOrDefault();
         //}
+
+        public bool CheckUserEmailAndMobile(IModel model)
+        {
+            var user = (User)model;
+            var obj = new { Email = user.Email, Contact = user.Contact };
+            var userList = dbHelper.FetchDataByParam<User>(CheckUserEmailAndMobileQuery, obj);
+            return !userList.Any() ? true : false;
+        }
     }
 }

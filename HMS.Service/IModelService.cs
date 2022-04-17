@@ -59,6 +59,7 @@ namespace HMS.Service
         string ForgotPassword(string email, string url);
         string ResetPassword(string email, string pwd);
         bool ForgetPasswordReset(string encryptedLink, string passwrod);
+        bool CheckUserEmailAndMobile(IModel model);
 
     }
     public interface IMasterService

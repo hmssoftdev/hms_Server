@@ -99,9 +99,11 @@ namespace HMS.Webapi.Controllers
         [HttpPost("PostAnonymousUser")]
         public IActionResult PostAnonymousUser(User user)
         {
+           if( !_userService.CheckUserEmailAndMobile(user))
+                return Ok(new { Result = "User email or Mobile number already in used." });
             user.Password = _cryptoHelperService.encrypt(user.Password);
-            _emailService.SendNewUser(user);
             _userService.Add(user);
+            _emailService.SendNewUser(user);
             return Ok(new { Result = "Data Added" });
         }
 
