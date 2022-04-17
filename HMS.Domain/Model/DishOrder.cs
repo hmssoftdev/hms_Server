@@ -18,6 +18,8 @@
         public float DiscountInRupees { get; set; }
         public float AdditionalAmount { get; set; }
         public float GstTotal { get; set; }
+        public string InvoiceNumber { get; set; }
+
 
     }
 }

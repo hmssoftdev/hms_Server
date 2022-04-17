@@ -25,7 +25,8 @@ namespace HMS.Service
                               ,[DiscountInPercent]
                               ,[DiscountInRupees]
                               ,[AdditionalAmount]
-                              ,[GstTotal])
+                              ,[GstTotal]
+                              ,[InvoiceNumber])
                          VALUES
                                (@DeliveryTotal
                                ,@GrossTotal
@@ -43,7 +44,8 @@ namespace HMS.Service
                                ,@DiscountInPercent
                                ,@DiscountInRupees
                                ,@AdditionalAmount
-                               ,@GstTotal)";
+                               ,@GstTotal
+                               ,@InvoiceNumber)";
         string orderItemAddQuery = @"INSERT INTO [dbo].[OrderItem]
                                    ([Quantity]
                                    ,[ProductId]
@@ -234,6 +236,7 @@ namespace HMS.Service
                                     cast(o.[CreatedOn] as Date) between @Min and @Max
                                     group by o.[DeliveryOptionId]";
 
+        string GetOrderCountById = @"select count(*) from DishOrder where UserId = @UserId  and cast(CreatedOn as Date) = @Date";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -242,6 +245,7 @@ namespace HMS.Service
         {
             var order = (DishOrder)model;
             order.IsActive = true;
+ 
            
            var dbId = _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
         }
@@ -249,6 +253,11 @@ namespace HMS.Service
         public int AddDataAndReturnId(IModel model)
         {
             var order = (DishOrder)model;
+
+            var obj = new { UserId = order.UserId, Date = DateTime.Now.ToString("yyyy-MM-dd") };
+            var number = _dbHelper.GetCount(GetOrderCountById, obj) + 1;
+            order.InvoiceNumber = $"{DateTime.Now.ToString("ddMMyyyy")}{order.UserId}{number}";
+
             order.IsActive = true;
             return _dbHelper.OrderTransaction(order, orderAddQuery, orderItemAddQuery, orderStatusAddQuery, orderTableAddQuery);
         }

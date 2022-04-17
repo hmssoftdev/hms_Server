@@ -22,5 +22,6 @@ namespace HMS.Domain
         public List<OrderStatus> OrderStatus{ get; set; }
         public List<int> TableIds { get; set; }
         public float GstTotal { get; set; }
+        public string InvoiceNumber { get; set; }
     }
 }

@@ -14,7 +14,8 @@ namespace HMS.Service
         public IList<T> FetchData<T>(string StateSelectQuery);
 
         public IList<T> FetchDataByParam<T>(string StateSelectQuery, object obj);
-       
+
+        public int GetCount(string query, object obj);
 
         public void Add<Model>(string query, Model model);
         public void Update<Model>(string query, Model model);
@@ -150,6 +151,16 @@ namespace HMS.Service
                 order.TableIds = tableIds;
             }
             return order;
+        }
+
+        public int GetCount(string query, object obj)
+        {
+            int result;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                result = connection.ExecuteScalar<int>(query,obj);
+            }
+            return result;
         }
     }
 }
