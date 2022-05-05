@@ -263,7 +263,7 @@ namespace HMS.Service
             if (result < 0)
                 return false;
 
-            var pwd = _cryptoHelperService.Decrypt(passwrod);
+            var pwd = _cryptoHelperService.encrypt(passwrod);
             var updateObject = new User { Email = email, Password = pwd };
             dbHelper.Update(forgatePasswordResetQuery, updateObject);
             return true;

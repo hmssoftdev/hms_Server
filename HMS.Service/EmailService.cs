@@ -28,6 +28,7 @@ namespace HMS.Service
             using WebClient client = new WebClient();
             string mailText = client.DownloadString($"{_mailTemplate.Url}ResetPassword.html");
             mailText = mailText.Replace("[PasswordLnk]", user.ResetPasswordLink);
+            mailText = mailText.Replace("[name]", user.Name);
             Send( user.Email, "Reset Your FY5 Password", mailText, _appSettings.EmailFrom);
         }
 
