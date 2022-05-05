@@ -20,6 +20,11 @@
         public float GstTotal { get; set; }
         public string InvoiceNumber { get; set; }
 
+    }
 
+    public class DishOrderSummary : DishOrder
+    {
+        public string CreatedOn { get; set; }
     }
 }
+

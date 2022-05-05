@@ -22,9 +22,9 @@ namespace HMS.Service
     public interface IAdminService: IModelService {
       void  UpdateSubscriptionId(IModel model);
        Admin GetByUserId(int userId);
-    } 
-    public interface IDishCategoryService: IModelService { }
-
+    }
+    public interface IDishCategoryService : IModelService { }
+    
     public interface IOrderService : IModelService {
         public void AddStatus(OrderStatus status);
         public void Add(OrderItem item);
@@ -37,6 +37,7 @@ namespace HMS.Service
         public void ReleaseTable(int OrderId);
         public DishOrder GetOrderByTableId(int tableid);
         IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id, string maxDate, string minDate);
+        public string GetInvoiceNumberByOrderId(int id);
 
         IList<OrderSummary> GetOrderSummaryByDateRange(int id, string maxDate, string minDate);
     }

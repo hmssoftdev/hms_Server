@@ -92,7 +92,7 @@ namespace HMS.Service
                                        ,@CreatedBy
                                        ,@UpdatedOn
                                        ,@UpdatedBy)";
-        string orderTableAddQuery =@"INSERT INTO [dbo].[OrderTable]
+        string orderTableAddQuery = @"INSERT INTO [dbo].[OrderTable]
                            ([OrderId]
                            ,[TableId]
                            ,[CreatedBy]
@@ -133,7 +133,7 @@ namespace HMS.Service
   FROM [hms_db].[dbo].[OrderStatus]where OrderId=o.Id order by Id desc) status
                                   FROM [dbo].[DishOrder] o
 								  inner join Users u on u.Id=o.userId
-                                    where o.[CreatedBy] =@CreatedBy and and o.IsActive = 1 
+                                    where o.[CreatedBy] =@CreatedBy and o.IsActive = 1 and
 									cast(o.[CreatedOn] as Date) = @CreatedOn
 								order by UpdatedOn desc";
 
@@ -178,7 +178,7 @@ namespace HMS.Service
                                                 orderItem o
                                                 inner join dish d on o.ProductId = d.Id
                                                 where orderid = @id";
-        string selectOrderItem ="";
+        string selectOrderItem = "";
         string orderUpdateQuery = @"UPDATE [dbo].[DishOrder]
                                SET [DeliveryTotal] =@DeliveryTotal
                                   ,[GrossTotal] = @GrossTotal
@@ -214,7 +214,7 @@ namespace HMS.Service
                                       ,[GstTotal] =@GstTotal
                                       ,[KotPrinted] =@KotPrinted
                                 WHERE Id=@Id";
-        string orderStatusUpdateQuery =@"UPDATE [dbo].[OrderStatus]
+        string orderStatusUpdateQuery = @"UPDATE [dbo].[OrderStatus]
                            SET[OrderId] =@OrderId
                               ,[Status] =@Status
                               ,[IsActive] =@IsActive
@@ -237,8 +237,9 @@ namespace HMS.Service
                                     where o.[CreatedBy] =@userId and o.IsActive = 1 and 
                                     cast(o.[CreatedOn] as Date) between @Min and @Max
                                     group by o.[DeliveryOptionId]";
+        string GetInvouceByOrderId = "SELECT o.[InvoiceNumber] from [dbo].[DishOrder] o where o.Id =@id ";
 
-        string GetOrderCountById = @"select count(*) from DishOrder where UserId = @UserId  and cast(CreatedOn as Date) = @Date";
+        string GetOrderCountById = @"select count(*) from DishOrder where CreatedBy = @CreatedBy  and cast(CreatedOn as Date) = @Date";
         public OrderService(IDbHelperOrder dbHelper)
         {
             _dbHelper = dbHelper;
@@ -247,18 +248,20 @@ namespace HMS.Service
         {
             var order = (DishOrder)model;
             order.IsActive = true;
- 
-           
-           var dbId = _dbHelper.OrderTransaction(order,orderAddQuery,orderItemAddQuery,orderStatusAddQuery, orderTableAddQuery);
+
+            var obj = new { CreatedBy = order.CreatedBy, Date = DateTime.Now.ToString("yyyy-MM-dd") };
+            var number = _dbHelper.GetCount(GetOrderCountById, obj) + 1;
+            order.InvoiceNumber = $"{DateTime.Now.ToString("ddMMyyyy")}{order.CreatedBy}{number}";
+            var dbId = _dbHelper.OrderTransaction(order, orderAddQuery, orderItemAddQuery, orderStatusAddQuery, orderTableAddQuery);
         }
 
         public int AddDataAndReturnId(IModel model)
         {
             var order = (DishOrder)model;
 
-            var obj = new { UserId = order.UserId, Date = DateTime.Now.ToString("yyyy-MM-dd") };
+            var obj = new { CreatedBy = order.CreatedBy, Date = DateTime.Now.ToString("yyyy-MM-dd") };
             var number = _dbHelper.GetCount(GetOrderCountById, obj) + 1;
-            order.InvoiceNumber = $"{DateTime.Now.ToString("ddMMyyyy")}{order.UserId}{number}";
+            order.InvoiceNumber = $"{DateTime.Now.ToString("ddMMyyyy")}{order.CreatedBy}{number}";
 
             order.IsActive = true;
             return _dbHelper.OrderTransaction(order, orderAddQuery, orderItemAddQuery, orderStatusAddQuery, orderTableAddQuery);
@@ -268,7 +271,7 @@ namespace HMS.Service
             status.IsActive = true;
             _dbHelper.Add(orderStatusAddQuery, status);
         }
-       
+
         public void Delete(int id)
         {
             var obj = new { id = id };
@@ -295,7 +298,7 @@ namespace HMS.Service
 
         public List<OrderStatus> GetStatusByOrderId(int OrderId)
         {
-            var obj = new { id = OrderId};
+            var obj = new { id = OrderId };
             var orderstatus = _dbHelper.FetchDataByParam<OrderStatus>(selectStatusByOrderIdQuery, obj);
             return (List<OrderStatus>)orderstatus;
         }
@@ -305,14 +308,14 @@ namespace HMS.Service
             var obj = new { id = OrderId };
             var orderItem = _dbHelper.FetchDataByParam<Domain.Model.OrderItem>(selectOrderItemByOrderIdQuery, obj);
             return orderItem.ToList();
-        } 
+        }
 
         public void Update(IModel model)
         {
             var order = (DishOrder)model;
-            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery,"");
+            _dbHelper.OrderTransaction(order, orderUpdateQuery, orderItemUpdateQuery, orderStatusUpdateQuery, "");
         }
-      
+
         public void Add(OrderItem item)
         {
             item.IsActive = true;
@@ -321,11 +324,11 @@ namespace HMS.Service
 
         public void Update(OrderItem item)
         {
-            
+
             _dbHelper.Update(orderItemUpdateQuery, item);
         }
 
-        public void ReleaseTable(int id )
+        public void ReleaseTable(int id)
         {
             var obj = new { OrderId = id };
             _dbHelper.Update(releaseHotelTableQuery, obj);
@@ -340,16 +343,16 @@ namespace HMS.Service
         public void UpdatePayementModeId(IModel model)
         {
             var order = (DishOrder)model;
-           // _dbHelper.Update(paymentModeUpdateQuery, order);
+            // _dbHelper.Update(paymentModeUpdateQuery, order);
             _dbHelper.Update($"UPDATE[dbo].[DishOrder] SET[PaymentMode] = { order.PaymentMode} WHERE ID = {order.Id}", order);
         }
 
-        public DishOrder GetOrderByTableId (int tableId)
+        public DishOrder GetOrderByTableId(int tableId)
         {
-           return _dbHelper.GetOrderDetailFromTableId(tableId);
+            return _dbHelper.GetOrderDetailFromTableId(tableId);
         }
 
-        public IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id , string maxDate, string minDate )
+        public IList<DishOrder> GetAllByHotelQueryAndDateRange<DishOrder>(int id, string maxDate, string minDate)
         {
             var obj = new { CreatedBy = id, Max = maxDate, Min = minDate }; // DateTime.UtcNow.AddHours(5).AddMinutes(30).ToString("yyyy-MM-dd") };
             var orderList = _dbHelper.FetchDataByParam<DishOrder>(selectByHotelQueryAndDateRange, obj);
@@ -358,7 +361,7 @@ namespace HMS.Service
 
         public IList<OrderSummary> GetOrderSummaryByDateRange(int id, string maxDate, string minDate)
         {
-            var obj = new { userId = id, Max = maxDate, Min = minDate }; 
+            var obj = new { userId = id, Max = maxDate, Min = minDate };
             var orderList = _dbHelper.FetchDataByParam<OrderSummary>(OrderSummryQuery, obj);
             if (orderList.Any())
             {
@@ -371,5 +374,13 @@ namespace HMS.Service
             }
             return orderList;
         }
+
+        public string GetInvoiceNumberByOrderId(int id)
+        {
+            var obj = new { id = id };
+            return _dbHelper.GetString(GetInvouceByOrderId, obj);
+            //
+        }
     }
 }
+

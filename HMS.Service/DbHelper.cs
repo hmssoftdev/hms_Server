@@ -11,15 +11,15 @@ namespace HMS.Service
 {
     public interface IDbHelper
     {
+
         public IList<T> FetchData<T>(string StateSelectQuery);
-
         public IList<T> FetchDataByParam<T>(string StateSelectQuery, object obj);
-
         public int GetCount(string query, object obj);
-
+        public string GetString(string query, object obj);
         public void Add<Model>(string query, Model model);
         public void Update<Model>(string query, Model model);
         public void Delete<Model>(string query, Model model);
+
     }
     public interface IDbHelperOrder : IDbHelper
     {
@@ -160,6 +160,14 @@ namespace HMS.Service
             {
                 result = connection.ExecuteScalar<int>(query,obj);
             }
+            return result;
+        }
+
+        public string GetString(string query, object obj)
+        {
+            string result;
+            using var connection = new SqlConnection(connectionString);
+            result = connection.ExecuteScalar<string>(query, obj);
             return result;
         }
     }

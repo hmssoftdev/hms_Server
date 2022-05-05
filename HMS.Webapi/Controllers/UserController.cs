@@ -30,7 +30,7 @@ namespace HMS.Webapi.Controllers
         public readonly IEmailService _emailService;
         private IWebHostEnvironment _hostEnvironment;
         IUserService _userService;
-        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService , IEmailService emailService,
+        public UserController(IMapper mapper, IUserService modelService, IUserAuthService userAuthService, IEmailService emailService,
             IWebHostEnvironment hostEnvironment, ICryptoHelperService cryptoHelper)
         {
             _userService = modelService;
@@ -59,7 +59,7 @@ namespace HMS.Webapi.Controllers
         public IActionResult Get(int UserId)
         {
             var UserList = _userService.GetAllByHotelId<User>(UserId);
-           var list =  _mapper.Map<List< HMS.Domain.Model.User>>(UserList);
+            var list = _mapper.Map<List<HMS.Domain.Model.User>>(UserList);
             return Ok(list);
         }
 
@@ -88,25 +88,22 @@ namespace HMS.Webapi.Controllers
         [Authorize]
         [ActionFilter]
         [HttpPost]
-       public IActionResult Post(User user)
+        public IActionResult Post(User user)
         {
-            var clientRequest = HttpContext.Request.Headers["Referer"];
-            user.Password = _cryptoHelperService.encrypt(user.Password);
-            _emailService.SendNewUser(user,"");
             _userService.Add(user);
             return Ok(new { Result = "Data Added" });
         }
 
         [HttpPost("PostAnonymousUser")]
-        public IActionResult PostAnonymousUser(User user , string url)
+        public IActionResult PostAnonymousUser(User user, string url)
         {
             //http://hmsangularbucket.s3-website.us-east-2.amazonaws.com
             string encodedUrl = WebUtility.HtmlEncode(url);
-            if ( !_userService.CheckUserEmailAndMobile(user))
+            if (!_userService.CheckUserEmailAndMobile(user))
                 return Ok(new { Result = "User email or Mobile number already in used." });
             user.Password = _cryptoHelperService.encrypt(user.Password);
             _userService.Add(user);
-            _emailService.SendNewUser(user,url);
+            _emailService.SendNewUser(user, url);
             return Ok(new { Result = "Data Added" });
         }
 
@@ -165,11 +162,11 @@ namespace HMS.Webapi.Controllers
         {
             string encodedEmail = WebUtility.HtmlEncode(email);
             string encodedUrl = WebUtility.HtmlEncode(url);
-            var result = _userService.ForgotPassword(encodedEmail,url);
-            if(result.Length > 0)
+            var result = _userService.ForgotPassword(encodedEmail, url);
+            if (result.Length > 0)
             {
                 _emailService.SendForgotPassword(new User { Email = email, ResetPasswordLink = result });
-            }            
+            }
             return Ok(new { Result = true });
         }
 
@@ -206,7 +203,7 @@ namespace HMS.Webapi.Controllers
         {
             string link = WebUtility.HtmlEncode(email);
             _userService.VerifyEmail(email);
-            return Ok(new { Result = "Email verified"});
+            return Ok(new { Result = "Email verified" });
 
         }
         //

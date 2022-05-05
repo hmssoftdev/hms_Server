@@ -2,7 +2,7 @@
 
 namespace HMS.Webapi
 {
-    public class AutoMapperProfile:Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
@@ -17,6 +17,8 @@ namespace HMS.Webapi
             CreateMap<HMS.Domain.User, HMS.Domain.Model.User>();
 
             CreateMap<HMS.Domain.DishOrder, HMS.Domain.Model.DishOrder>();
+            CreateMap<HMS.Domain.DishOrder, HMS.Domain.Model.DishOrderSummary>();
+
             CreateMap<Domain.OrderItem, HMS.Domain.Model.OrderItem>();
             CreateMap<Domain.OrderStatus, Domain.Model.OrderStatus>();
             CreateMap<HMS.Domain.HotelTable, HMS.Domain.Model.HotelTable>();

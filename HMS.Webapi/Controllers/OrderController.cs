@@ -40,14 +40,16 @@ namespace HMS.Webapi.Controllers
             return Ok(list);
         }
         [HttpPost]
+        [HttpPost]
         public IActionResult Post(DishOrder dishOrder)
         {
-            
-           var id =  _orderService.AddDataAndReturnId(dishOrder);
-            return Ok(new { OrderId = id });
+
+            var id = _orderService.AddDataAndReturnId(dishOrder);
+            var invoice = _orderService.GetInvoiceNumberByOrderId(id);
+            return Ok(new { OrderId = id, Invoice = invoice });
         }
         [HttpPost("Post/{AddStatus}")]
-        public IActionResult Post (OrderStatus status)
+        public IActionResult Post(OrderStatus status)
         {
             _orderService.AddStatus(status);
             if (status.Status == 4) // complete later on will change the logic
@@ -99,8 +101,8 @@ namespace HMS.Webapi.Controllers
         [HttpGet("GetOrderByDateRange")]
         public IActionResult GetOrderByDateRange(int userId, string maxDate, string minDate)
         {
-            var orderList = _orderService.GetAllByHotelQueryAndDateRange<DishOrder>(userId, maxDate,minDate);
-            var list = _mapper.Map<List<HMS.Domain.Model.DishOrder>>(orderList);
+            var orderList = _orderService.GetAllByHotelQueryAndDateRange<DishOrder>(userId, maxDate, minDate);
+            var list = _mapper.Map<List<HMS.Domain.Model.DishOrderSummary>>(orderList);
             return Ok(list);
         }
 
