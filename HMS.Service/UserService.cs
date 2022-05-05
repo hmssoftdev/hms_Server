@@ -165,6 +165,11 @@ namespace HMS.Service
                                     WHERE[Email] = @Email";
         string CheckUserEmailAndMobileQuery = @"select * from users where Email= @Email OR Contact=@Contact ";
         string VerifyEmailQuery = @"update users set IsEmailVerified = 1 where email = @Email";
+
+        string CheckUserEmailQuery = @"select count(1) from users where email = @value";
+        string CheckUsercontactQuery = @"select count(1) from users where Contact = @value";
+        string CheckUserUserNameQuery = @"select count(1) from users where UserName = @value";
+        
         public void Add(IModel model)
         {
             var user = (User)model;
@@ -283,6 +288,22 @@ namespace HMS.Service
             var updateObject = new User { Email = email };
             dbHelper.Update(VerifyEmailQuery, updateObject);
             return 1;
+        }
+
+        public bool CheckUserData(string key, string value)
+        {
+            var obj = new {  value = value};
+            switch (key)
+            {
+                case "email":
+                    return dbHelper.GetCount(CheckUserEmailQuery, obj) > 1 ? true : false;                   
+                case "contact":
+                    return dbHelper.GetCount(CheckUsercontactQuery, obj) > 1 ? true : false;
+                case "userName":
+                    return dbHelper.GetCount(CheckUserUserNameQuery, obj) > 1 ? true : false;
+                default:
+                    return true;
+            }
         }
 
     }

@@ -107,6 +107,13 @@ namespace HMS.Webapi.Controllers
             return Ok(new { Result = "Data Added" });
         }
 
+        [HttpGet("CheckUserData")]
+        public IActionResult CheckIfUserDataPresent(string key , string value)
+        {
+            if(_userService.CheckUserData(key, value))
+                return Ok(new { Result = "Data present" });
+            return Ok(new { Result = "Data not present" });
+        }
 
         [Authorize]
         [ActionFilter]
